@@ -1,1 +1,8 @@
-ls
+WordDuel/
+├── android/
+|-- assets
+├── ios/
+├── lib/
+│   └── main.dart
+├── pubspec.yaml  <── This is the required file
+└── ...
