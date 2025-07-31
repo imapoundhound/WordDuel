@@ -1,0 +1,5 @@
+flutter create WordDuel
+cd WordDuel
+npm install -g firebase-tools
+firebase login
+firebase init
