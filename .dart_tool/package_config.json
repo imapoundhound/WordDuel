@@ -3,81 +3,71 @@
   "packages": [
     {
       "name": "_flutterfire_internals",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.35",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.3.60",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
+      "name": "ansi_styles",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/ansi_styles-0.3.2+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "args",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/args-2.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "async",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.13.0",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/async-2.13.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
     {
       "name": "boolean_selector",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.2",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/boolean_selector-2.1.2",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
     {
       "name": "characters",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.4.0",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/characters-1.4.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "checked_yaml",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/checked_yaml-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
+    },
+    {
+      "name": "ci",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/ci-0.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "cli_util",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/cli_util-0.4.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
     {
       "name": "clock",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.2",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/clock-1.1.2",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
     {
       "name": "cloud_firestore",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore-4.17.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "cloud_firestore_platform_interface",
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore_platform_interface-6.2.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "cloud_firestore_web",
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore_web-3.12.5",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/cloud_firestore-6.0.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
-<<<<<<< HEAD
-      "name": "collection",
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.19.1",
-=======
       "name": "cloud_firestore_platform_interface",
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/cloud_firestore_platform_interface-7.0.0",
       "packageUri": "lib/",
@@ -92,45 +82,53 @@
     {
       "name": "collection",
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/collection-1.19.1",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
     {
+      "name": "dart_console",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/dart_console-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "deep_pick",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/deep_pick-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "fake_async",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.3",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/fake_async-1.3.3",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
     {
+      "name": "ffi",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/ffi-2.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "file",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/file-7.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "firebase_auth",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-4.20.0",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/firebase_auth-6.0.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
       "name": "firebase_auth_platform_interface",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.3.0",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/firebase_auth_platform_interface-8.0.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
       "name": "firebase_auth_web",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.12.0",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/firebase_auth_web-6.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
@@ -138,38 +136,17 @@
     {
       "name": "firebase_core",
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/firebase_core-4.0.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
-<<<<<<< HEAD
-      "name": "firebase_core",
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.32.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "firebase_core_platform_interface",
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_platform_interface-5.4.2",
-=======
       "name": "firebase_core_platform_interface",
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-6.0.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
       "name": "firebase_core_web",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.17.5",
-      "packageUri": "lib/",
-      "languageVersion": "3.2"
-    },
-    {
-      "name": "flutter",
-      "rootUri": "file:///r:/AppBuilds/WordDuel/clones%20of%20repo/clone%201/WordDuel/flutter/packages/flutter",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/firebase_core_web-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
@@ -177,35 +154,28 @@
     {
       "name": "flutter",
       "rootUri": "file:///home/codespace/flutter/packages/flutter",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
     {
       "name": "flutter_test",
-<<<<<<< HEAD
-      "rootUri": "file:///r:/AppBuilds/WordDuel/clones%20of%20repo/clone%201/WordDuel/flutter/packages/flutter_test",
-=======
       "rootUri": "file:///home/codespace/flutter/packages/flutter_test",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
     {
       "name": "flutter_web_plugins",
-<<<<<<< HEAD
-      "rootUri": "file:///r:/AppBuilds/WordDuel/clones%20of%20repo/clone%201/WordDuel/flutter/packages/flutter_web_plugins",
-=======
       "rootUri": "file:///home/codespace/flutter/packages/flutter_web_plugins",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
     {
-<<<<<<< HEAD
-      "name": "http_parser",
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.1.2",
-=======
+      "name": "flutterfire_cli",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/flutterfire_cli-1.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "http",
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/http-1.5.0",
       "packageUri": "lib/",
@@ -214,201 +184,200 @@
     {
       "name": "http_parser",
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/http_parser-4.1.2",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
     {
+      "name": "interact",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/interact-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/intl-0.18.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/json_annotation-4.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "leak_tracker",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.9",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/leak_tracker-10.0.9",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
       "name": "leak_tracker_flutter_testing",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.9",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.9",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
       "name": "leak_tracker_testing",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_testing-3.0.1",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/leak_tracker_testing-3.0.1",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
       "name": "matcher",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.17",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/matcher-0.12.17",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
     {
       "name": "material_color_utilities",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.11.1",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/material_color_utilities-0.11.1",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "meta",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.16.0",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/meta-1.16.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.1",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/path-1.9.1",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
     {
+      "name": "petitparser",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/petitparser-6.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "platform",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/platform-3.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "plugin_platform_interface",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
+      "name": "process",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/process-5.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "pub_semver",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/pub_semver-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "pub_updater",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/pub_updater-0.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "pubspec_parse",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/pubspec_parse-1.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
       "name": "sky_engine",
-<<<<<<< HEAD
-      "rootUri": "file:///r:/AppBuilds/WordDuel/clones%20of%20repo/clone%201/WordDuel/flutter/bin/cache/pkg/sky_engine",
-=======
       "rootUri": "file:///home/codespace/flutter/bin/cache/pkg/sky_engine",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
     {
       "name": "source_span",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.1",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/source_span-1.10.1",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
     {
       "name": "stack_trace",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.12.1",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/stack_trace-1.12.1",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
     {
       "name": "stream_channel",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.4",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/stream_channel-2.1.4",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
     {
       "name": "string_scanner",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.4.1",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/string_scanner-1.4.1",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
     {
       "name": "term_glyph",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.2",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/term_glyph-1.2.2",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
     {
       "name": "test_api",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.4",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/test_api-0.7.4",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
     {
+      "name": "tint",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/tint-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "typed_data",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.4.0",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/typed_data-1.4.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
     {
       "name": "vector_math",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/vector_math-2.1.4",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "vm_service",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-15.0.0",
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/vm_service-15.0.0",
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
     {
       "name": "web",
-<<<<<<< HEAD
-      "rootUri": "file:///C:/Users/richt/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.5.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.3"
-=======
       "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/web-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
+    },
+    {
+      "name": "win32",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/win32-5.14.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
+    },
+    {
+      "name": "xml",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/xml-6.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "yaml",
+      "rootUri": "file:///home/codespace/.pub-cache/hosted/pub.dev/yaml-3.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "word_duel",
@@ -419,13 +388,7 @@
   ],
   "generator": "pub",
   "generatorVersion": "3.8.1",
-<<<<<<< HEAD
-  "flutterRoot": "file:///r:/AppBuilds/WordDuel/clones%20of%20repo/clone%201/WordDuel/flutter",
-  "flutterVersion": "3.32.8",
-  "pubCache": "file:///C:/Users/richt/AppData/Local/Pub/Cache"
-=======
   "flutterRoot": "file:///home/codespace/flutter",
   "flutterVersion": "3.32.8",
   "pubCache": "file:///home/codespace/.pub-cache"
->>>>>>> 429da89 (added pacheckages and dependencies for flutter and Dart)
 }
