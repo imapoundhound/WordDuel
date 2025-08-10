@@ -273,6 +273,24 @@
       ]
     },
     {
+      "name": "yaml",
+      "version": "3.1.3",
+      "dependencies": [
+        "collection",
+        "source_span",
+        "string_scanner"
+      ]
+    },
+    {
+      "name": "xml",
+      "version": "6.5.0",
+      "dependencies": [
+        "collection",
+        "meta",
+        "petitparser"
+      ]
+    },
+    {
       "name": "pubspec_parse",
       "version": "1.5.0",
       "dependencies": [
@@ -294,6 +312,11 @@
       ]
     },
     {
+      "name": "platform",
+      "version": "3.1.6",
+      "dependencies": []
+    },
+    {
       "name": "interact",
       "version": "2.2.0",
       "dependencies": [
@@ -310,6 +333,27 @@
         "http_parser",
         "meta",
         "web"
+      ]
+    },
+    {
+      "name": "file",
+      "version": "7.0.1",
+      "dependencies": [
+        "meta",
+        "path"
+      ]
+    },
+    {
+      "name": "deep_pick",
+      "version": "1.1.0",
+      "dependencies": []
+    },
+    {
+      "name": "cli_util",
+      "version": "0.4.2",
+      "dependencies": [
+        "meta",
+        "path"
       ]
     },
     {
@@ -407,10 +451,58 @@
       "dependencies": []
     },
     {
+      "name": "petitparser",
+      "version": "6.1.0",
+      "dependencies": [
+        "collection",
+        "meta"
+      ]
+    },
+    {
+      "name": "pub_semver",
+      "version": "2.2.0",
+      "dependencies": [
+        "collection"
+      ]
+    },
+    {
       "name": "json_annotation",
       "version": "4.9.0",
       "dependencies": [
         "meta"
+      ]
+    },
+    {
+      "name": "checked_yaml",
+      "version": "2.0.4",
+      "dependencies": [
+        "json_annotation",
+        "source_span",
+        "yaml"
+      ]
+    },
+    {
+      "name": "process",
+      "version": "5.0.5",
+      "dependencies": [
+        "file",
+        "path",
+        "platform"
+      ]
+    },
+    {
+      "name": "tint",
+      "version": "2.0.1",
+      "dependencies": []
+    },
+    {
+      "name": "dart_console",
+      "version": "1.2.0",
+      "dependencies": [
+        "characters",
+        "ffi",
+        "intl",
+        "win32"
       ]
     },
     {
@@ -459,50 +551,6 @@
       ]
     },
     {
-      "name": "typed_data",
-      "version": "1.4.0",
-      "dependencies": [
-        "collection"
-      ]
-    },
-    {
-      "name": "yaml",
-      "version": "3.1.3",
-      "dependencies": [
-        "collection",
-        "source_span",
-        "string_scanner"
-      ]
-    },
-    {
-      "name": "file",
-      "version": "7.0.1",
-      "dependencies": [
-        "meta",
-        "path"
-      ]
-    },
-    {
-      "name": "deep_pick",
-      "version": "1.1.0",
-      "dependencies": []
-    },
-    {
-      "name": "tint",
-      "version": "2.0.1",
-      "dependencies": []
-    },
-    {
-      "name": "dart_console",
-      "version": "1.2.0",
-      "dependencies": [
-        "characters",
-        "ffi",
-        "intl",
-        "win32"
-      ]
-    },
-    {
       "name": "intl",
       "version": "0.18.1",
       "dependencies": [
@@ -512,42 +560,11 @@
       ]
     },
     {
-      "name": "cli_util",
-      "version": "0.4.2",
+      "name": "win32",
+      "version": "5.14.0",
       "dependencies": [
-        "meta",
-        "path"
+        "ffi"
       ]
-    },
-    {
-      "name": "pub_semver",
-      "version": "2.2.0",
-      "dependencies": [
-        "collection"
-      ]
-    },
-    {
-      "name": "checked_yaml",
-      "version": "2.0.4",
-      "dependencies": [
-        "json_annotation",
-        "source_span",
-        "yaml"
-      ]
-    },
-    {
-      "name": "process",
-      "version": "5.0.5",
-      "dependencies": [
-        "file",
-        "path",
-        "platform"
-      ]
-    },
-    {
-      "name": "platform",
-      "version": "3.1.6",
-      "dependencies": []
     },
     {
       "name": "ffi",
@@ -555,27 +572,10 @@
       "dependencies": []
     },
     {
-      "name": "xml",
-      "version": "6.5.0",
+      "name": "typed_data",
+      "version": "1.4.0",
       "dependencies": [
-        "collection",
-        "meta",
-        "petitparser"
-      ]
-    },
-    {
-      "name": "petitparser",
-      "version": "6.1.0",
-      "dependencies": [
-        "collection",
-        "meta"
-      ]
-    },
-    {
-      "name": "win32",
-      "version": "5.14.0",
-      "dependencies": [
-        "ffi"
+        "collection"
       ]
     }
   ],
