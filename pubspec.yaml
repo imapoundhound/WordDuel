@@ -9,14 +9,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: any
-  firebase_auth: any
-  cloud_firestore: any
-  flutterfire_cli: any
+    version: ^0.0.0
+  firebase_core: ^4.0.0
+  firebase_auth: ^6.0.0
+  cloud_firestore: ^6.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    version: ^0.0.0
 
 flutter:
   uses-material-design: true
