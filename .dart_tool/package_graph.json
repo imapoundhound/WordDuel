@@ -10,8 +10,7 @@
         "cloud_firestore",
         "firebase_auth",
         "firebase_core",
-        "flutter",
-        "flutterfire_cli"
+        "flutter"
       ],
       "devDependencies": [
         "flutter_test"

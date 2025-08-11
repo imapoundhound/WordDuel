@@ -1,0 +1,1 @@
+git fetch origin main && git merge -X ours origin/main && flutter pub get
