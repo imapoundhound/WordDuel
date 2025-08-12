@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:word_duel/main.dart';
+import 'package:wordduel/main.dart';
 
 void main() {
   testWidgets('App smoke test', (WidgetTester tester) async {
