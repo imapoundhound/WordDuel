@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WordDuel</string>
+    <string name="app_subtitle">Challenge your mind with words</string>
+    
+    <!-- Game Mode Titles -->
+    <string name="bot_mode_title">One Player vs Bot</string>
+    <string name="bot_mode_desc">Play against the computer</string>
+    <string name="two_player_title">Two Player</string>
+    <string name="two_player_desc">Challenge a friend</string>
+    
+    <!-- Buttons -->
+    <string name="view_statistics">View Statistics</string>
+    <string name="play_again">Play Again</string>
+    <string name="submit">Submit</string>
+    <string name="back">Back</string>
+    <string name="continue">Continue</string>
+    <string name="new_game">New Game</string>
+    
+    <!-- Game Messages -->
+    <string name="enter_5_letter_word">Enter a 5-letter word</string>
+    <string name="word_too_short">Word must be 5 letters long</string>
+    <string name="invalid_word">Not a valid word</string>
+    <string name="already_guessed">You already guessed that word!</string>
+    <string name="congratulations">Congratulations! You guessed the word!</string>
+    <string name="game_over">Game over! The word was: %1$s</string>
+    <string name="attempts_remaining">Try again! %1$d attempts remaining</string>
+    
+    <!-- Two Player Messages -->
+    <string name="player_1_enter_word">Player 1: Enter a 5-letter word for Player 2 to guess</string>
+    <string name="player_2_enter_word">Player 2: Enter a 5-letter word for Player 1 to guess</string>
+    <string name="waiting_player_2">Waiting for Player 2 to enter their word...</string>
+    <string name="both_words_entered">Both words entered! Player 1 starts guessing Player 2\'s word</string>
+    <string name="player_1_wins_round">Player 1 wins this round! (%1$d vs %2$d attempts)</string>
+    <string name="player_2_wins_round">Player 2 wins this round! (%1$d vs %2$d attempts)</string>
+    <string name="round_tie">It\'s a tie! (%1$d vs %2$d attempts)</string>
+    <string name="player_1_series_winner">🏆 Player 1 wins the series %1$d-%2$d! 🏆</string>
+    <string name="player_2_series_winner">🏆 Player 2 wins the series %1$d-%2$d! 🏆</string>
+    <string name="series_tie">🤝 Series ended in a tie %1$d-%2$d! 🤝</string>
+    
+    <!-- Statistics -->
+    <string name="statistics">Statistics</string>
+    <string name="total_games">Total Games</string>
+    <string name="games_won">Games Won</string>
+    <string name="win_percentage">Win Percentage</string>
+    <string name="average_attempts">Average Attempts</string>
+    <string name="best_score">Best Score</string>
+    <string name="current_streak">Current Streak</string>
+    <string name="longest_streak">Longest Streak</string>
+    
+    <!-- Friend System -->
+    <string name="choose_how_to_play">Choose How to Play</string>
+    <string name="play_local_friend">Play with Local Friend</string>
+    <string name="find_by_email">Find Friend by Email</string>
+    <string name="play_random">Play with Random Player</string>
+    <string name="enter_friend_email">Enter friend\'s email</string>
+    <string name="send_game_invite">Send Game Invite</string>
+    <string name="random_matchmaking">🎮 Random Matchmaking</string>
+    <string name="find_random_player">Find Random Player</string>
+    <string name="waiting_for_player">Waiting for Player...</string>
+    <string name="searching_opponent">Searching for an opponent...</string>
+    <string name="cancel">Cancel</string>
+    
+    <!-- Game Board -->
+    <string name="guess_counter">Guess Counter</string>
+    <string name="round_results">Round Results</string>
+    <string name="best_of_three">Best of Three Results</string>
+    
+    <!-- Placeholders -->
+    <string name="placeholder_email">Enter friend\'s email</string>
+    <string name="placeholder_word">Enter 5-letter word</string>
+    
+    <!-- Error Messages -->
+    <string name="error_invalid_email">Please enter a valid email address!</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    
+    <!-- Success Messages -->
+    <string name="invite_sent">Game invite sent! Share this code: %1$s</string>
+    <string name="friend_joined">Your friend joined the game! Starting local play...</string>
+    <string name="random_player_found">Random player found! Starting online game...</string>
+    
+    <!-- Navigation -->
+    <string name="back_to_menu">Back to Menu</string>
+    <string name="continue_series">Continue Series</string>
+    <string name="new_series">New Series</string>
+</resources>
+

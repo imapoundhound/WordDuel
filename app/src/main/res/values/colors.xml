@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary">#4CAF50</color>
+    <color name="primary_dark">#388E3C</color>
+    <color name="primary_light">#C8E6C9</color>
+    
+    <!-- Secondary Colors -->
+    <color name="secondary">#FFC107</color>
+    <color name="secondary_dark">#FFA000</color>
+    <color name="secondary_light">#FFECB3</color>
+    
+    <!-- Accent Colors -->
+    <color name="accent">#2196F3</color>
+    <color name="accent_dark">#1976D2</color>
+    
+    <!-- Game Colors -->
+    <color name="correct">#4CAF50</color>
+    <color name="present">#FFC107</color>
+    <color name="absent">#9E9E9E</color>
+    
+    <!-- Background Colors -->
+    <color name="background_primary">#667eea</color>
+    <color name="background_secondary">#764ba2</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_background_alpha">#80FFFFFF</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    
+    <!-- Button Colors -->
+    <color name="stats_button_background">#FF9800</color>
+    <color name="button_primary">#4CAF50</color>
+    <color name="button_secondary">#2196F3</color>
+    
+    <!-- Status Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+    <color name="info">#2196F3</color>
+    
+    <!-- Keyboard Colors -->
+    <color name="keyboard_key_background">#80FFFFFF</color>
+</resources>

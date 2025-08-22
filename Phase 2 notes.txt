@@ -1,0 +1,37 @@
+
+1a. currently when using Find Friend By Email mode then entering the email the first two characters go in the Submit box and the rest goes in the email lookup box, cant backspace or delete characters, cant cancel out of it. Also in two player Play with Random Player - 'Random matchmaking selected' then disappears, player dose not know if they are do perform an action or if the selected game will appear, hit Two Player again and a whole different graphic comes up Find a random player on line to challenge.  i think that if Random player is the selection the game finds an appropriate challenger with similar statistics automatically then kick off the game process flow.
+*new/additional workflow no matter what model is selected* ->for each choice there shoul;d be a cancel button that brings you back to the last page but if the user progresses the game  presents the boxes/buttons for the mystery word submittal and when Submit button is pressed those two boxes disappear and the word puzzle matrix with alphabet appears. 
+
+1b.make a copy of the current repo and local file structure, Open.....then edit/append to fresh copy ignoring the "backed up to this point" data container. 
+
+Game Notes Improvements:
+2.Add login/ register page. enforce mfa, validate email, validate phone number. possibility to sign in with Google or apple accounts
+
+3. Once logged in game will present "Select Game Mode"
+whichever option is chosen that screen will be displayed while the "Select Game Mode" screen disappears.
+I want the players to have a linear path through their options. One selection at a time, then the next choice
+
+
+Game Modes (2)
+4. "Player vs. bot" button label. In this mode player will only play against the bot
+Select Game Mode disappears, present Guess Counter screen with input devices as mouse = click on alaphabet cells screen and also keyboard input. The rest of the game logic wors as-is for now. 
+
+
+5. when two player is selected the game Mode screen should disappear and only the "Choose How to Play" screen should be displayed. 
+
+	a. Play with Local Friend -
+		search local network for 
+		a1. registered Username If username is selected the player can enter it and the game will traverse 		the LAN in search of it. not sure what the programming logic would be behind that but i 			trust you do and can accomplish 		this easily.
+		a2. IPAdress, IP is selected send invite to the IP
+		and if hardware exists a third selction for 
+		a3. Find By Bluetooth. Special icon in the game screen or menu that sends Bluetooth signal to get 		    IP and Username and connect with an invite.
+		    
+		    Rely on the Bluetooth discovery to find any registered player in range. 	you can add one 		    player or up to 3 (total of 4) using this method. Game set up for submitting mystery word and 		    guessing mystery word are the same as previously.  
+		
+		
+		 
+
+
+
+
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model unit="millimeter" xml:lang="en-US" xmlns="http://schemas.microsoft.com/3dmanufacturing/core/2015/02" xmlns:m="http://schemas.microsoft.com/3dmanufacturing/material/2015/02">
+  <metadata name="Application">CURSOR_ Multi-Material Processor</metadata>
+  <metadata name="Title">Mini Jellyfish Disc - Berg-Style Multi-Material</metadata>
+  
+  <resources>
+    <basematerials id="1">
+      <base name="TPU_CLEAR" displaycolor="0.8 0.8 1.0" />
+      <base name="FLASHFORGE_BLACK" displaycolor="0.1 0.1 0.1" />
+    </basematerials>
+  </resources>
+  
+  <build>
+    <item objectid="1" transform="1 0 0 0 1 0 0 0 1 0 0 0">
+      <metadatagroup>
+        <metadata name="Material">TPU_CLEAR (Bottom/Top), FLASHFORGE_BLACK (Middle)</metadata>
+        <metadata name="FilamentChanges">M600 commands at layer transitions</metadata>
+        <metadata name="Design">Berg-Style: 40% base, 20% design, 40% top rim</metadata>
+      </metadatagroup>
+    </item>
+  </build>
+</model>

@@ -1,0 +1,2565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordDuel - Word Guessing Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        /* Authentication System */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .auth-box {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .auth-box h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #FFC107;
+            text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 5px;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-tab.active {
+            background: rgba(255,255,255,0.2);
+            color: #FFC107;
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .auth-form input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 10px;
+            background: #4CAF50;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .social-login {
+            margin-top: 20px;
+        }
+        
+        .social-btn {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn.google {
+            background: #DB4437;
+            color: white;
+        }
+        
+        .social-btn.apple {
+            background: #000000;
+            color: white;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .mfa-notice {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 193, 7, 0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+        
+        .mfa-notice p {
+            margin: 0;
+            color: #FFC107;
+            font-size: 14px;
+        }
+        
+        /* Comment System */
+        .comment-section {
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .comment-section h3 {
+            margin: 0 0 20px 0;
+            color: #FFC107;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+            text-align: center;
+        }
+        
+        .comment-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        
+        .comment-form textarea::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .comment-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        #commentCharCount {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+        
+        .comment-submit-btn {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .comment-submit-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .recent-comments {
+            margin-top: 25px;
+        }
+        
+        .recent-comments h4 {
+            margin: 0 0 15px 0;
+            color: #FFC107;
+            text-align: center;
+        }
+        
+        .comments-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .comment-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #FFC107;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .comment-content {
+            color: white;
+            line-height: 1.4;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .game-mode-selector {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mode-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .mode-btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mode-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .mode-btn.active {
+            background: #4CAF50;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        .game-board {
+            margin: 30px auto;
+            display: grid;
+            grid-template-rows: repeat(6, 1fr);
+            gap: 5px;
+            max-width: 350px;
+        }
+        
+        /* Cool guess counter display */
+        .guess-counter {
+            margin: 20px auto;
+            text-align: center;
+            max-width: 350px;
+        }
+        
+        .guess-counter h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5em;
+            color: #FFC107;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+        
+        .guess-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .guess-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .guess-dot.active {
+            background: #FFC107;
+            border-color: #FFC107;
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
+            transform: scale(1.2);
+        }
+        
+        .guess-dot.completed {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+        }
+        
+        .guess-dot.failed {
+            background: #F44336;
+            border-color: #F44336;
+            box-shadow: 0 0 10px rgba(244, 67, 54, 0.4);
+        }
+        
+        /* Play again button styling */
+        .play-again-container {
+            margin: 20px auto;
+            text-align: center;
+            max-width: 350px;
+        }
+        
+        .play-again-btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            display: none;
+        }
+        
+        .play-again-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .play-again-btn:active {
+            transform: translateY(0);
+        }
+        
+        .game-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+        }
+        
+        .game-cell {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            text-transform: uppercase;
+        }
+        
+        .game-cell.filled {
+            background: rgba(255,255,255,0.2);
+            border-color: #4CAF50;
+        }
+        
+        /* Feedback colors for game cells */
+        .game-cell.correct {
+            background: #4CAF50 !important;
+            border-color: #4CAF50 !important;
+            color: white;
+            animation: correctPulse 0.5s ease-in-out;
+        }
+        
+        .game-cell.present {
+            background: #FFC107 !important;
+            border-color: #FFC107 !important;
+            color: white;
+            animation: presentPulse 0.5s ease-in-out;
+        }
+        
+        .game-cell.absent {
+            background: #9E9E9E !important;
+            border-color: #9E9E9E !important;
+            color: white;
+            animation: absentPulse 0.5s ease-in-out;
+        }
+        
+        /* Feedback animations */
+        .game-cell.feedback-animation {
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
+        }
+        
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes presentPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes absentPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .keyboard {
+            margin: 30px auto;
+            max-width: 600px;
+        }
+        
+        .keyboard-row {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 5px 0;
+        }
+        
+        .key {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .key:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        
+        .key.special {
+            width: 80px;
+        }
+        
+        /* Keyboard feedback colors */
+        .key.correct {
+            background: #4CAF50 !important;
+            color: white;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .key.present {
+            background: #FFC107 !important;
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+        
+        .key.absent {
+            background: #9E9E9E !important;
+            color: white;
+            box-shadow: 0 0 10px rgba(158, 158, 158, 0.5);
+        }
+        
+        .message {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .message.success {
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid #4CAF50;
+        }
+        
+        .message.error {
+            background: rgba(244, 67, 54, 0.3);
+            border: 2px solid #F44336;
+        }
+        
+        .message.info {
+            background: rgba(33, 150, 243, 0.3);
+            border: 2px solid #2196F3;
+        }
+        
+        .input-area {
+            margin: 20px auto;
+            text-align: center;
+            display: none;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            max-width: 400px;
+        }
+        
+        .input-area h4 {
+            margin: 0 0 15px 0;
+            color: #FFC107;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+        
+        .cancel-input-btn {
+            padding: 10px 20px;
+            background: #757575;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .cancel-input-btn:hover {
+            background: #616161;
+            transform: translateY(-2px);
+        }
+        
+        .input-area input {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            margin-right: 10px;
+            width: 200px;
+        }
+        
+        .input-area button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .stats {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            display: none;
+        }
+        
+        .test-buttons {
+            margin: 20px 0;
+        }
+        
+        .test-btn {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .test-js {
+            background: red;
+            color: white;
+        }
+        
+        .debug-dom {
+            background: blue;
+            color: white;
+        }
+        
+        /* Two player score display */
+        .two-player-scores {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            max-width: 500px;
+            display: none;
+        }
+        
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+        
+        .player-name {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .player-score {
+            font-size: 1.1em;
+            color: #FFC107;
+        }
+        
+        .round-result {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .round-result.win {
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid #4CAF50;
+        }
+        
+        .round-result.lose {
+            background: rgba(244, 67, 54, 0.3);
+            border: 2px solid #F44336;
+        }
+        
+        .best-of-three {
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(45deg, #FF9800, #FF5722);
+            border-radius: 15px;
+            max-width: 400px;
+            text-align: center;
+            display: none;
+        }
+        
+        .best-of-three h3 {
+            margin: 0 0 15px 0;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .best-of-three button {
+            margin: 5px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .continue-btn {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .continue-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .new-game-btn {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .new-game-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+        
+        /* Friend selection system */
+        .friend-selector {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            max-width: 600px;
+            display: none;
+        }
+        
+        .friend-selector h3 {
+            margin: 0 0 20px 0;
+            color: #FFC107;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+        
+        .friend-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .friend-option {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        
+        .friend-option:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .friend-option.selected {
+            background: #4CAF50;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        .contact-input {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .contact-input input {
+            padding: 12px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            margin: 5px;
+            width: 200px;
+        }
+        
+        .contact-input button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        
+        .contact-input button:hover {
+            background: #45a049;
+        }
+        
+        .random-match {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #9C27B0, #673AB7);
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .random-match h4 {
+            margin: 0 0 15px 0;
+            color: white;
+        }
+        
+        .random-match button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            background: #FF9800;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .random-match button:hover {
+            background: #F57C00;
+            transform: translateY(-2px);
+        }
+        
+        .waiting-message {
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(45deg, #2196F3, #03A9F4);
+            border-radius: 15px;
+            max-width: 500px;
+        }
+        
+        .waiting-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .cancel-btn {
+            padding: 10px 20px;
+            background: #F44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .back-btn {
+            padding: 10px 20px;
+            background: #FF9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .cancel-btn:hover {
+            background: #D32F2F;
+        }
+        
+        .back-btn:hover {
+            background: #F57C00;
+        }
+        
+        /* Local Network Options */
+        .local-options {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .local-options h4 {
+            margin: 0 0 15px 0;
+            color: #FFC107;
+        }
+        
+        .local-option {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .local-option:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .username-search,
+        .ip-connection,
+        .bluetooth-discovery {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .username-search h4,
+        .ip-connection h4,
+        .bluetooth-discovery h4 {
+            margin: 0 0 15px 0;
+            color: #FFC107;
+        }
+        
+        .username-search input,
+        .ip-connection input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .username-search input::placeholder,
+        .ip-connection input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .bluetooth-results {
+            margin: 20px 0;
+        }
+        
+        .bluetooth-player {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+        
+        .bluetooth-player button {
+            padding: 8px 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .bluetooth-player button:hover {
+            background: #45a049;
+        }
+        
+        .friend-selector {
+            text-align: center;
+            display: none;
+        }
+        
+        .friend-cancel {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .cancel-mode-btn {
+            padding: 12px 24px;
+            background: #757575;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .cancel-mode-btn:hover {
+            background: #616161;
+            transform: translateY(-2px);
+        }
+        
+        .waiting-message h3 {
+            margin: 0 0 15px 0;
+            color: white;
+        }
+        
+        .waiting-message .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login/Register System -->
+    <div class="auth-container" id="authContainer">
+        <div class="auth-box">
+            <h1>WordDuel</h1>
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="showAuthTab('login')">Login</button>
+                <button class="auth-tab" onclick="showAuthTab('register')">Register</button>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button onclick="loginUser()" class="auth-btn">Login</button>
+                <div class="social-login">
+                    <button onclick="socialLogin('google')" class="social-btn google">Sign in with Google</button>
+                    <button onclick="socialLogin('apple')" class="social-btn apple">Sign in with Apple</button>
+                </div>
+            </div>
+            
+            <!-- Register Form -->
+            <div class="auth-form" id="registerForm" style="display: none;">
+                <input type="text" id="registerUsername" placeholder="Username" required>
+                <input type="email" id="registerEmail" placeholder="Email" required>
+                <input type="password" id="registerPassword" placeholder="Password" required>
+                <input type="tel" id="registerPhone" placeholder="Phone Number" required>
+                <button onclick="registerUser()" class="auth-btn">Register</button>
+                <div class="mfa-notice">
+                    <p>📱 MFA will be required for security</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="gameContainer" style="display: none;">
+        <h1>WordDuel</h1>
+        
+        <div class="game-mode-selector" id="gameModeSelector">
+            <h3>Select Game Mode</h3>
+            <div class="mode-buttons">
+                <button class="mode-btn active" onclick="startNewGame('bot')">One Player vs Bot</button>
+                <button class="mode-btn" onclick="startNewGame('twoPlayer')">Two Player</button>
+            </div>
+            <div class="test-buttons">
+                <button class="test-btn test-js" onclick="testJavaScript()">Test JavaScript</button>
+                <button class="test-btn debug-dom" onclick="debugDOMElements()">Debug DOM</button>
+            </div>
+        </div>
+        
+        <!-- Friend selection system -->
+        <div class="friend-selector" id="friendSelector">
+            <h3>Choose How to Play</h3>
+            <div class="friend-options">
+                <button class="friend-option" onclick="selectFriendOption('local')">Play with Local Friend</button>
+                <button class="friend-option" onclick="selectFriendOption('contact')">Find Friend by Email</button>
+                <button class="friend-option" onclick="selectFriendOption('random')">Play with Random Player</button>
+            </div>
+            
+            <!-- Local friend options -->
+            <div class="local-options" id="localOptions" style="display: none;">
+                <h4>Local Network Options</h4>
+                <button class="local-option" onclick="selectLocalOption('username')">Search by Username</button>
+                <button class="local-option" onclick="selectLocalOption('ip')">Connect by IP Address</button>
+                <button class="local-option" onclick="selectLocalOption('bluetooth')">Find by Bluetooth</button>
+                <button onclick="backToFriendOptions()" class="back-btn">Back</button>
+            </div>
+            
+            <!-- Username search -->
+            <div class="username-search" id="usernameSearch" style="display: none;">
+                <h4>Search by Username</h4>
+                <input type="text" id="searchUsername" placeholder="Enter username to search for">
+                <button onclick="searchByUsername()">Search LAN</button>
+                <button onclick="backToLocalOptions()" class="back-btn">Back</button>
+            </div>
+            
+            <!-- IP connection -->
+            <div class="ip-connection" id="ipConnection" style="display: none;">
+                <h4>Connect by IP Address</h4>
+                <input type="text" id="ipAddress" placeholder="Enter IP address (e.g., 192.168.1.100)">
+                <button onclick="connectByIP()">Send Invite</button>
+                <button onclick="backToLocalOptions()" class="back-btn">Back</button>
+            </div>
+            
+            <!-- Bluetooth discovery -->
+            <div class="bluetooth-discovery" id="bluetoothDiscovery" style="display: none;">
+                <h4>Bluetooth Discovery</h4>
+                <p>🔍 Searching for nearby players...</p>
+                <div class="bluetooth-results" id="bluetoothResults">
+                    <div class="bluetooth-player">
+                        <span>Player1 (192.168.1.101)</span>
+                        <button onclick="connectToPlayer('Player1', '192.168.1.101')">Connect</button>
+                    </div>
+                    <div class="bluetooth-player">
+                        <span>Player2 (192.168.1.102)</span>
+                        <button onclick="connectToPlayer('Player2', '192.168.1.102')">Connect</button>
+                    </div>
+                    <div class="bluetooth-player">
+                        <span>Player3 (192.168.1.103)</span>
+                        <button onclick="connectToPlayer('Player3', '192.168.1.103')">Connect</button>
+                    </div>
+                </div>
+                <button onclick="backToLocalOptions()" class="back-btn">Back</button>
+            </div>
+            <div class="friend-cancel">
+                <button onclick="backToGameMode()" class="cancel-mode-btn">Back to Game Mode</button>
+            </div>
+            
+            <!-- Contact input for finding friends -->
+            <div class="contact-input" id="contactInput">
+                <h4>Find Friend by Email</h4>
+                <input type="email" id="friendEmail" placeholder="Enter friend's email" maxlength="50">
+                <button onclick="sendGameInvite()">Send Game Invite</button>
+                <button onclick="backToFriendOptions()">Back</button>
+            </div>
+            
+            <!-- Random match option -->
+            <div class="random-match" id="randomMatch">
+                <h4>🎮 Random Matchmaking</h4>
+                <p>Find a random player online to challenge!</p>
+                <button onclick="findRandomPlayer()">Find Random Player</button>
+                <button onclick="backToFriendOptions()">Back</button>
+            </div>
+        </div>
+        
+        <!-- Waiting message for online play -->
+        <div class="waiting-message" id="waitingMessage">
+            <div class="spinner"></div>
+            <h3>Waiting for Player...</h3>
+            <p id="waitingText">Searching for an opponent...</p>
+            <div class="waiting-buttons">
+                <button onclick="cancelWaiting()" class="cancel-btn">Cancel Search</button>
+                <button onclick="backToFriendOptions()" class="back-btn">Back to Options</button>
+            </div>
+        </div>
+        
+        <!-- Cool guess counter display -->
+        <div class="guess-counter" id="guessCounter">
+            <h3>Guess Counter</h3>
+            <div class="guess-indicator" id="guessIndicator">
+                <div class="guess-dot" data-guess="0"></div>
+                <div class="guess-dot" data-guess="1"></div>
+                <div class="guess-dot" data-guess="2"></div>
+                <div class="guess-dot" data-guess="3"></div>
+                <div class="guess-dot" data-guess="4"></div>
+                <div class="guess-dot" data-guess="5"></div>
+            </div>
+        </div>
+        
+        <div class="game-board" id="gameBoard"></div>
+        
+        <!-- Play again button right under the game matrix -->
+        <div class="play-again-container" id="playAgainContainer">
+            <button class="play-again-btn" id="playAgainBtn" onclick="startNewGame(gameMode)">Play Again</button>
+        </div>
+        
+        <div class="keyboard" id="keyboard"></div>
+        
+        <div class="input-area" id="inputArea">
+            <h4>Enter Mystery Word</h4>
+            <input type="text" id="wordInput" placeholder="Enter 5-letter word" maxlength="5">
+            <button id="submitBtn">Submit</button>
+            <button onclick="backToFriendOptions()" class="cancel-input-btn">Cancel</button>
+        </div>
+        
+        <!-- Two player score display -->
+        <div class="two-player-scores" id="twoPlayerScores">
+            <h3>Round Results</h3>
+            <div class="score-row">
+                <span class="player-name">Player 1</span>
+                <span class="player-score" id="player1Score">0</span>
+            </div>
+            <div class="score-row">
+                <span class="player-name">Player 2</span>
+                <span class="player-score" id="player2Score">0</span>
+            </div>
+            <div class="round-result" id="roundResult"></div>
+        </div>
+        
+        <!-- Best of Three display -->
+        <div class="best-of-three" id="bestOfThree">
+            <h3>Best of Three Results</h3>
+            <div id="bestOfThreeResult"></div>
+            <button class="continue-btn" onclick="continueBestOfThree()">Continue Series</button>
+            <button class="new-game-btn" onclick="startNewBestOfThree()">New Series</button>
+        </div>
+        
+        <div class="message" id="message"></div>
+        
+        <div class="stats" id="stats">
+            <h3>Game Statistics</h3>
+            <p>Attempts: <span id="attempts">0</span></p>
+            <p>Status: <span id="gameStatus">Ready</span></p>
+            <button onclick="toggleStats()" style="margin-top: 10px; padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer;">Hide Stats</button>
+        </div>
+        
+        <!-- Stats toggle button -->
+        <div style="text-align: center; margin: 20px 0;">
+            <button onclick="toggleStats()" id="showStatsBtn" style="padding: 10px 20px; background: #FF9800; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Show Statistics</button>
+        </div>
+        
+        <!-- Comment System -->
+        <div class="comment-section" id="commentSection">
+            <h3>💬 Share Your Experience</h3>
+            <div class="comment-form">
+                <textarea id="commentText" placeholder="Tell us about your WordDuel experience! What did you like? Any suggestions for improvement?" rows="4" maxlength="500"></textarea>
+                <div class="comment-info">
+                    <span id="commentCharCount">0/500</span>
+                    <button onclick="submitComment()" class="comment-submit-btn">Submit Comment</button>
+                </div>
+            </div>
+            <div class="recent-comments" id="recentComments">
+                <h4>Recent Comments</h4>
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game state variables
+        let gameMode = 'bot';
+        let currentWord = '';
+        let currentGuess = '';
+        let attempts = 0;
+        let gameWon = false;
+        let gameOver = false;
+        let usedWords = new Set();
+        
+        // Two player specific variables
+        let player1Word = '';
+        let player2Word = '';
+        let currentPlayer = 1;
+        let player1Attempts = 0;
+        let player2Attempts = 0;
+        let player1Wins = 0;
+        let player2Wins = 0;
+        let roundNumber = 1;
+        let isWordEntryPhase = true;
+        
+        // Friend system variables
+        let playMode = 'local'; // 'local', 'contact', 'random'
+        let selectedFriend = null;
+        let isWaitingForPlayer = false;
+        let gameInviteCode = null;
+        
+        // DOM elements
+        let gameBoard, keyboard, wordInput, submitBtn, message, stats, attemptsSpan, gameStatusSpan;
+        let guessCounter, guessIndicator, playAgainBtn;
+        let twoPlayerScores, player1Score, player2Score, roundResult, bestOfThree, bestOfThreeResult;
+        let friendSelector, contactInput, randomMatch, waitingMessage, waitingText;
+        
+        // Word list (simplified for now)
+        const words = ['hello', 'world', 'apple', 'beach', 'chair', 'dance', 'eagle', 'flame', 'grape', 'house'];
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, starting initialization...');
+            initializeDOMElements();
+            addEventListeners();
+            console.log('Page loaded successfully. Please select a game mode to start playing.');
+        });
+        
+        // Initialize DOM elements
+        function initializeDOMElements() {
+            gameBoard = document.getElementById('gameBoard');
+            keyboard = document.getElementById('keyboard');
+            wordInput = document.getElementById('wordInput');
+            submitBtn = document.getElementById('submitBtn');
+            message = document.getElementById('message');
+            stats = document.getElementById('stats');
+            attemptsSpan = document.getElementById('attempts');
+            gameStatusSpan = document.getElementById('gameStatus');
+            guessCounter = document.getElementById('guessCounter');
+            guessIndicator = document.getElementById('guessIndicator');
+            playAgainBtn = document.getElementById('playAgainBtn');
+            twoPlayerScores = document.getElementById('twoPlayerScores');
+            player1Score = document.getElementById('player1Score');
+            player2Score = document.getElementById('player2Score');
+            roundResult = document.getElementById('roundResult');
+            bestOfThree = document.getElementById('bestOfThree');
+            bestOfThreeResult = document.getElementById('bestOfThreeResult');
+            
+            friendSelector = document.getElementById('friendSelector');
+            contactInput = document.getElementById('contactInput');
+            randomMatch = document.getElementById('randomMatch');
+            waitingMessage = document.getElementById('waitingMessage');
+            waitingText = document.getElementById('waitingText');
+            
+            console.log('DOM elements initialized:', {
+                gameBoard: !!gameBoard,
+                keyboard: !!keyboard,
+                wordInput: !!wordInput,
+                submitBtn: !!submitBtn,
+                message: !!message,
+                stats: !!stats,
+                guessCounter: !!guessCounter,
+                guessIndicator: !!guessIndicator,
+                playAgainBtn: !!playAgainBtn,
+                twoPlayerScores: !!twoPlayerScores,
+                player1Score: !!player1Score,
+                player2Score: !!player2Score,
+                roundResult: !!roundResult,
+                bestOfThree: !!bestOfThree,
+                bestOfThreeResult: !!bestOfThreeResult,
+                friendSelector: !!friendSelector,
+                contactInput: !!contactInput,
+                randomMatch: !!randomMatch,
+                waitingMessage: !!waitingMessage,
+                waitingText: !!waitingText
+            });
+            
+            // Hide stats and guess counter initially
+            if (stats) stats.style.display = 'none';
+            if (guessCounter) guessCounter.style.display = 'none';
+            if (playAgainBtn) playAgainBtn.style.display = 'none';
+            if (twoPlayerScores) twoPlayerScores.style.display = 'none';
+            if (bestOfThree) bestOfThree.style.display = 'none';
+            if (friendSelector) friendSelector.style.display = 'none';
+            if (contactInput) contactInput.style.display = 'none';
+            if (randomMatch) randomMatch.style.display = 'none';
+            if (waitingMessage) waitingMessage.style.display = 'none';
+        }
+        
+        // Add event listeners
+        function addEventListeners() {
+            if (submitBtn) {
+                submitBtn.addEventListener('click', submitGuess);
+                console.log('Submit button event listener added');
+            }
+            
+            if (wordInput) {
+                wordInput.addEventListener('input', (e) => {
+                    currentGuess = e.target.value.toLowerCase().replace(/[^a-z]/gi, '');
+                    updateInput();
+                });
+                wordInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        submitGuess();
+                    }
+                });
+                console.log('Word input event listeners added');
+            }
+            
+            // Global keyboard event listener
+            document.addEventListener('keydown', (e) => {
+                if (gameOver) return;
+                
+                const key = e.key.toUpperCase();
+                
+                if (key === 'ENTER') {
+                    e.preventDefault();
+                    submitGuess();
+                } else if (key === 'BACKSPACE' || key === 'DELETE') {
+                    e.preventDefault();
+                    currentGuess = currentGuess.slice(0, -1);
+                    updateInput();
+                } else if (/^[A-Z]$/.test(key) && currentGuess.length < 5) {
+                    e.preventDefault();
+                    currentGuess += key.toLowerCase();
+                    updateInput();
+                }
+            });
+            
+            console.log('All event listeners added');
+        }
+        
+        // Start new game
+        function startNewGame(mode) {
+            console.log('startNewGame called with mode:', mode);
+            
+            // Check if DOM elements are available
+            if (!gameBoard || !keyboard) {
+                console.error('DOM elements not ready. Re-initializing...');
+                initializeDOMElements();
+                
+                if (!gameBoard || !keyboard) {
+                    console.error('DOM elements still not available!');
+                    alert('Error: Game elements not found. Please refresh the page.');
+                    return;
+                }
+            }
+            
+            gameMode = mode;
+            console.log('Game mode set to:', gameMode);
+            
+            // Update button states
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const clickedButton = document.querySelector(`[onclick*="'${mode}'"]`);
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+            
+            // Hide game mode selector when mode is selected
+            const gameModeSelector = document.getElementById('gameModeSelector');
+            if (gameModeSelector) gameModeSelector.style.display = 'none';
+            
+            // Manage input area visibility
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) {
+                if (mode === 'bot') {
+                    inputArea.style.display = 'none';
+                    showMessage('One Player vs Bot mode selected! Computer has chosen a word. Use the on-screen keyboard to play!', 'success');
+                } else {
+                    // For two player mode, show friend selector instead of input area
+                    showFriendSelector();
+                    return; // Don't continue with game initialization yet
+                }
+            }
+            
+            // Reset input placeholder
+            if (wordInput) {
+                wordInput.placeholder = mode === 'twoPlayer' ? 'Player 1: Enter 5-letter word' : 'Enter 5-letter word';
+            }
+            
+            // Initialize two player mode variables
+            if (mode === 'twoPlayer') {
+                player1Word = '';
+                player2Word = '';
+                currentPlayer = 1;
+                player1Attempts = 0;
+                player2Attempts = 0;
+                player1Wins = 0;
+                player2Wins = 0;
+                roundNumber = 1;
+                isWordEntryPhase = true;
+                showMessage('Player 1: Enter a 5-letter word for Player 2 to guess.', 'success');
+            }
+            
+            console.log('Starting game initialization...');
+            initGame();
+        }
+        
+        // Initialize game
+        function initGame() {
+            console.log('Initializing game with mode:', gameMode);
+            console.log('DOM elements available:', {
+                gameBoard: !!gameBoard,
+                keyboard: !!keyboard,
+                wordInput: !!wordInput,
+                submitBtn: !!submitBtn
+            });
+            
+            currentGuess = '';
+            attempts = 0;
+            gameWon = false;
+            gameOver = false;
+            usedWords.clear();
+            
+            // Hide elements initially
+            if (guessCounter) guessCounter.style.display = 'none';
+            if (playAgainBtn) playAgainBtn.style.display = 'none';
+            if (stats) stats.style.display = 'none';
+            if (twoPlayerScores) twoPlayerScores.style.display = 'none';
+            if (bestOfThree) bestOfThree.style.display = 'none';
+            if (friendSelector) friendSelector.style.display = 'none';
+            if (contactInput) contactInput.style.display = 'none';
+            if (randomMatch) randomMatch.style.display = 'none';
+            if (waitingMessage) waitingMessage.style.display = 'none';
+            
+            if (gameMode === 'bot') {
+                currentWord = words[Math.floor(Math.random() * words.length)];
+                console.log('Computer picked word:', currentWord);
+                showMessage('Computer has chosen a word. You vs Bot! Use the on-screen keyboard to play!', 'success');
+                
+                // Show game elements for bot mode
+                if (gameBoard) gameBoard.style.display = 'grid';
+                if (keyboard) keyboard.style.display = 'block';
+                if (guessCounter) guessCounter.style.display = 'block';
+            } else {
+                // Two player mode - hide game elements initially
+                if (gameBoard) gameBoard.style.display = 'none';
+                if (keyboard) keyboard.style.display = 'none';
+                if (guessCounter) guessCounter.style.display = 'none';
+                
+                showMessage('Player 1: Enter a 5-letter word for Player 2 to guess', 'success');
+            }
+            
+            console.log('Creating game board...');
+            createGameBoard();
+            console.log('Creating keyboard...');
+            createKeyboard();
+            console.log('Updating stats...');
+            updateStats();
+            
+            if (message) message.style.display = 'none';
+            
+            console.log('Game initialized successfully');
+        }
+        
+        // Create game board
+        function createGameBoard() {
+            console.log('Creating game board for mode:', gameMode);
+            console.log('Game board element:', gameBoard);
+            
+            if (!gameBoard) {
+                console.error('Game board element not found!');
+                return;
+            }
+            
+            gameBoard.innerHTML = '';
+            
+            for (let row = 0; row < 6; row++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'game-row';
+                rowDiv.setAttribute('data-row', row);
+                
+                for (let col = 0; col < 5; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'game-cell';
+                    cell.setAttribute('data-row', row);
+                    cell.setAttribute('data-col', col);
+                    cell.textContent = '';
+                    rowDiv.appendChild(cell);
+                }
+                
+                gameBoard.appendChild(rowDiv);
+            }
+            
+            console.log('Game board created successfully');
+        }
+        
+        // Create keyboard
+        function createKeyboard() {
+            console.log('Creating keyboard...');
+            console.log('Keyboard element:', keyboard);
+            
+            if (!keyboard) {
+                console.error('Keyboard element not found!');
+                return;
+            }
+            
+            keyboard.innerHTML = '';
+            const keyRows = [
+                ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+                ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+                ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BACKSPACE']
+            ];
+            
+            keyRows.forEach((row, rowIndex) => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'keyboard-row';
+                row.forEach(key => {
+                    const keyBtn = document.createElement('button');
+                    keyBtn.className = 'key';
+                    if (key === 'ENTER' || key === 'BACKSPACE') {
+                        keyBtn.className += ' special';
+                    }
+                    keyBtn.textContent = key === 'BACKSPACE' ? '⌫' : key === 'ENTER' ? '↵' : key;
+                    keyBtn.onclick = () => {
+                        console.log('Keyboard key clicked:', key);
+                        handleKeyPress(key);
+                    };
+                    rowDiv.appendChild(keyBtn);
+                });
+                keyboard.appendChild(rowDiv);
+            });
+            
+            console.log('Keyboard created successfully');
+        }
+        
+        // Handle key press
+        function handleKeyPress(key) {
+            console.log('Key pressed:', key);
+            if (gameOver) return;
+            
+            if (key === 'ENTER') {
+                console.log('Submitting guess...');
+                submitGuess();
+            } else if (key === 'BACKSPACE') {
+                currentGuess = currentGuess.slice(0, -1);
+                updateInput();
+                console.log('Current guess after backspace:', currentGuess);
+            } else if (currentGuess.length < 5) {
+                currentGuess += key.toLowerCase();
+                updateInput();
+                console.log('Current guess after adding letter:', currentGuess);
+            }
+        }
+        
+        // Update input
+        function updateInput() {
+            console.log('Updating input with:', currentGuess);
+            
+            if (gameMode === 'bot') {
+                updateGameBoardDisplay();
+                console.log('Game board display updated with:', currentGuess);
+            } else if (wordInput) {
+                wordInput.value = currentGuess.toUpperCase();
+                console.log('Input field updated to:', wordInput.value);
+            }
+        }
+        
+        // Update game board display for current guess
+        function updateGameBoardDisplay() {
+            if (!gameBoard) return;
+            
+            // Find the current row (attempts)
+            const currentRow = gameBoard.querySelector(`[data-row="${attempts}"]`);
+            if (!currentRow) return;
+            
+            // Update each cell in the current row
+            for (let i = 0; i < 5; i++) {
+                const cell = currentRow.querySelector(`[data-col="${i}"]`);
+                if (cell) {
+                    if (i < currentGuess.length) {
+                        cell.textContent = currentGuess[i].toUpperCase();
+                        cell.classList.add('filled');
+                    } else {
+                        cell.textContent = '';
+                        cell.classList.remove('filled');
+                    }
+                }
+            }
+        }
+        
+        // Update guess counter display
+        function updateGuessCounter() {
+            if (!guessCounter || !guessIndicator) return;
+            
+            // Show the counter when game starts
+            guessCounter.style.display = 'block';
+            
+            // Update all guess dots
+            const dots = guessIndicator.querySelectorAll('.guess-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active', 'completed', 'failed');
+                
+                if (index < attempts) {
+                    // Completed guesses
+                    dot.classList.add('completed');
+                } else if (index === attempts) {
+                    // Current active guess
+                    dot.classList.add('active');
+                }
+                // Future guesses remain default
+            });
+        }
+        
+        // Submit guess
+        function submitGuess() {
+            if (gameMode === 'twoPlayer') {
+                handleTwoPlayerSubmission();
+                return;
+            }
+            
+            // Bot mode guess submission
+            if (currentGuess.length !== 5) {
+                showMessage('Guess must be 5 letters long', 'error');
+                return;
+            }
+            
+            if (usedWords.has(currentGuess.toLowerCase())) {
+                showMessage('You already guessed that word!', 'error');
+                return;
+            }
+            
+            usedWords.add(currentGuess.toLowerCase());
+            
+            // Generate feedback for the current guess
+            const feedback = generateFeedback(currentGuess.toLowerCase(), currentWord);
+            console.log('Feedback generated:', feedback);
+            
+            // Apply feedback to the game board
+            applyFeedbackToBoard(attempts, currentGuess, feedback);
+            
+            // Update keyboard colors
+            updateKeyboardColors(currentGuess, feedback);
+            
+            if (currentGuess.toLowerCase() === currentWord) {
+                gameWon = true;
+                gameOver = true;
+                showMessage('Congratulations! You guessed the word!', 'success');
+                updateStats();
+                showPlayAgainButton();
+            } else {
+                attempts++;
+                if (attempts >= 6) {
+                    gameOver = true;
+                    showMessage(`Game over! The word was: ${currentWord.toUpperCase()}`, 'error');
+                    updateStats();
+                    showPlayAgainButton();
+                } else {
+                    currentGuess = '';
+                    updateInput();
+                    showMessage(`Try again! ${6 - attempts} attempts remaining.`, 'info');
+                }
+            }
+            
+            // Update guess counter after each guess
+            updateGuessCounter();
+        }
+        
+        // Handle two player submission (word entry or guessing)
+        function handleTwoPlayerSubmission() {
+            if (isWordEntryPhase) {
+                handleWordEntry();
+            } else {
+                handleWordGuess();
+            }
+        }
+        
+        // Handle word entry phase
+        function handleWordEntry() {
+            if (currentGuess.length !== 5) {
+                showMessage('Word must be 5 letters long', 'error');
+                return;
+            }
+            
+            if (!words.includes(currentGuess.toLowerCase())) {
+                showMessage('Not a valid word', 'error');
+                currentGuess = '';
+                updateInput();
+                return;
+            }
+            
+            if (currentPlayer === 1) {
+                player1Word = currentGuess.toLowerCase();
+                currentPlayer = 2;
+                currentGuess = '';
+                updateInput();
+                
+                // Clear input field and show waiting message
+                if (wordInput) {
+                    wordInput.value = '';
+                    wordInput.placeholder = 'Player 2: Enter word';
+                }
+                
+                showMessage('Waiting for Player 2 to enter their word...', 'info');
+            } else {
+                player2Word = currentGuess.toLowerCase();
+                currentGuess = '';
+                updateInput();
+                
+                // Both words entered, start guessing phase
+                isWordEntryPhase = false;
+                currentPlayer = 1; // Player 1 guesses first
+                
+                // Hide input area completely
+                const inputArea = document.getElementById('inputArea');
+                if (inputArea) {
+                    inputArea.style.display = 'none';
+                }
+                
+                // Show the game board and keyboard
+                if (gameBoard) gameBoard.style.display = 'grid';
+                if (keyboard) keyboard.style.display = 'block';
+                if (guessCounter) guessCounter.style.display = 'block';
+                
+                showMessage('Both words entered! Player 1 starts guessing Player 2\'s word.', 'success');
+                updateGuessCounter();
+            }
+        }
+        
+        // Handle word guessing phase
+        function handleWordGuess() {
+            if (currentGuess.length !== 5) {
+                showMessage('Guess must be 5 letters long', 'error');
+                return;
+            }
+            
+            if (usedWords.has(currentGuess.toLowerCase())) {
+                showMessage('You already guessed that word!', 'error');
+                return;
+            }
+            
+            usedWords.add(currentGuess.toLowerCase());
+            
+            // Determine which word to guess
+            const targetWord = currentPlayer === 1 ? player2Word : player1Word;
+            
+            // Generate feedback for the current guess
+            const feedback = generateFeedback(currentGuess.toLowerCase(), targetWord);
+            console.log('Feedback generated:', feedback);
+            
+            // Apply feedback to the game board
+            applyFeedbackToBoard(attempts, currentGuess, feedback);
+            
+            // Update keyboard colors
+            updateKeyboardColors(currentGuess, feedback);
+            
+            if (currentGuess.toLowerCase() === targetWord) {
+                // Player guessed the word
+                const attemptsUsed = attempts + 1;
+                
+                if (currentPlayer === 1) {
+                    player1Attempts = attemptsUsed;
+                    showMessage(`Player 1 guessed Player 2's word in ${attemptsUsed} attempts!`, 'success');
+                } else {
+                    player2Attempts = attemptsUsed;
+                    showMessage(`Player 2 guessed Player 1's word in ${attemptsUsed} attempts!`, 'success');
+                }
+                
+                // End the round
+                endTwoPlayerRound();
+            } else {
+                attempts++;
+                if (attempts >= 6) {
+                    // Player failed to guess
+                    if (currentPlayer === 1) {
+                        player1Attempts = 6;
+                        showMessage(`Player 1 failed to guess Player 2's word. The word was: ${targetWord.toUpperCase()}`, 'error');
+                    } else {
+                        player2Attempts = 6;
+                        showMessage(`Player 2 failed to guess Player 1's word. The word was: ${targetWord.toUpperCase()}`, 'error');
+                    }
+                    
+                    // End the round
+                    endTwoPlayerRound();
+                } else {
+                    currentGuess = '';
+                    updateInput();
+                    showMessage(`Try again! ${6 - attempts} attempts remaining.`, 'info');
+                }
+            }
+            
+            // Update guess counter after each guess
+            updateGuessCounter();
+        }
+        
+        // End a two player round
+        function endTwoPlayerRound() {
+            // Determine round winner
+            let roundWinner = '';
+            let roundResultText = '';
+            
+            if (player1Attempts < player2Attempts) {
+                roundWinner = 'Player 1';
+                player1Wins++;
+                roundResultText = `Player 1 wins this round! (${player1Attempts} vs ${player2Attempts} attempts)`;
+            } else if (player2Attempts < player1Attempts) {
+                roundWinner = 'Player 2';
+                player2Wins++;
+                roundResultText = `Player 2 wins this round! (${player2Attempts} vs ${player1Attempts} attempts)`;
+            } else {
+                roundWinner = 'Tie';
+                roundResultText = `It's a tie! (${player1Attempts} vs ${player2Attempts} attempts)`;
+            }
+            
+            // Show round results
+            showRoundResults(roundResultText, roundWinner);
+            
+            // Check if best of three is complete
+            if (roundNumber >= 3) {
+                showBestOfThreeResults();
+            } else {
+                // Prepare for next round
+                roundNumber++;
+                showMessage(`Round ${roundNumber} starting soon...`, 'info');
+                setTimeout(() => {
+                    startNextRound();
+                }, 3000);
+            }
+        }
+        
+        // Show round results
+        function showRoundResults(resultText, winner) {
+            if (roundResult) {
+                roundResult.textContent = resultText;
+                roundResult.className = `round-result ${winner === 'Tie' ? 'lose' : 'win'}`;
+            }
+            
+            // Update scores
+            if (player1Score) player1Score.textContent = player1Wins;
+            if (player2Score) player2Score.textContent = player2Wins;
+            
+            // Show scores
+            if (twoPlayerScores) twoPlayerScores.style.display = 'block';
+        }
+        
+        // Start next round
+        function startNextRound() {
+            // Reset for next round
+            currentGuess = '';
+            attempts = 0;
+            usedWords.clear();
+            isWordEntryPhase = true;
+            currentPlayer = 1;
+            
+            // Show input area again
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) inputArea.style.display = 'block';
+            
+            // Hide game elements
+            if (gameBoard) gameBoard.style.display = 'none';
+            if (keyboard) keyboard.style.display = 'none';
+            if (guessCounter) guessCounter.style.display = 'none';
+            if (twoPlayerScores) twoPlayerScores.style.display = 'none';
+            
+            // Reset input
+            if (wordInput) {
+                wordInput.value = '';
+                wordInput.placeholder = 'Player 1: Enter 5-letter word';
+            }
+            
+            showMessage(`Round ${roundNumber}: Player 1, enter a new word for Player 2 to guess.`, 'success');
+        }
+        
+        // Show best of three results
+        function showBestOfThreeResults() {
+            let finalResult = '';
+            let seriesWinner = '';
+            
+            if (player1Wins > player2Wins) {
+                seriesWinner = 'Player 1';
+                finalResult = `🏆 Player 1 wins the series ${player1Wins}-${player2Wins}! 🏆`;
+            } else if (player2Wins > player1Wins) {
+                seriesWinner = 'Player 2';
+                finalResult = `🏆 Player 2 wins the series ${player2Wins}-${player1Wins}! 🏆`;
+            } else {
+                seriesWinner = 'Tie';
+                finalResult = `🤝 Series ended in a tie ${player1Wins}-${player2Wins}! 🤝`;
+            }
+            
+            if (bestOfThreeResult) {
+                bestOfThreeResult.innerHTML = `
+                    <h4>${finalResult}</h4>
+                    <p>Final Score: Player 1 (${player1Wins}) - Player 2 (${player2Wins})</p>
+                `;
+            }
+            
+            if (bestOfThree) bestOfThree.style.display = 'block';
+        }
+        
+        // Continue best of three series
+        function continueBestOfThree() {
+            if (bestOfThree) bestOfThree.style.display = 'none';
+            startNextRound();
+        }
+        
+        // Start new best of three series
+        function startNewBestOfThree() {
+            if (bestOfThree) bestOfThree.style.display = 'none';
+            startNewGame('twoPlayer');
+        }
+        
+        // Generate feedback for a guess
+        function generateFeedback(guess, targetWord) {
+            const feedback = [];
+            const targetLetters = targetWord.split('');
+            const guessLetters = guess.split('');
+            
+            // First pass: mark correct letters in correct positions
+            for (let i = 0; i < 5; i++) {
+                if (guessLetters[i] === targetLetters[i]) {
+                    feedback[i] = 'correct';
+                    targetLetters[i] = null; // Mark as used
+                }
+            }
+            
+            // Second pass: mark letters that are in the word but wrong position
+            for (let i = 0; i < 5; i++) {
+                if (feedback[i] === 'correct') continue; // Skip already marked letters
+                
+                const letterIndex = targetLetters.indexOf(guessLetters[i]);
+                if (letterIndex !== -1) {
+                    feedback[i] = 'present';
+                    targetLetters[letterIndex] = null; // Mark as used
+                } else {
+                    feedback[i] = 'absent';
+                }
+            }
+            
+            return feedback;
+        }
+        
+        // Apply feedback to the game board
+        function applyFeedbackToBoard(rowIndex, guess, feedback) {
+            if (!gameBoard) return;
+            
+            const row = gameBoard.querySelector(`[data-row="${rowIndex}"]`);
+            if (!row) return;
+            
+            for (let i = 0; i < 5; i++) {
+                const cell = row.querySelector(`[data-col="${i}"]`);
+                if (cell) {
+                    // Set the letter
+                    cell.textContent = guess[i].toUpperCase();
+                    cell.classList.add('filled');
+                    
+                    // Remove any existing feedback classes
+                    cell.classList.remove('correct', 'present', 'absent');
+                    
+                    // Add the appropriate feedback class
+                    cell.classList.add(feedback[i]);
+                    
+                    // Add animation class for visual effect
+                    cell.classList.add('feedback-animation');
+                    
+                    // Remove animation class after animation completes
+                    setTimeout(() => {
+                        cell.classList.remove('feedback-animation');
+                    }, 500);
+                }
+            }
+        }
+        
+        // Update keyboard colors based on feedback
+        function updateKeyboardColors(guess, feedback) {
+            if (!keyboard) return;
+            
+            for (let i = 0; i < 5; i++) {
+                const letter = guess[i].toUpperCase();
+                const key = Array.from(keyboard.querySelectorAll('.key')).find(k => k.textContent === letter);
+                
+                if (key) {
+                    // Remove any existing feedback classes
+                    key.classList.remove('correct', 'present', 'absent');
+                    
+                    // Add the appropriate feedback class
+                    key.classList.add(feedback[i]);
+                }
+            }
+        }
+        
+        // Show message
+        function showMessage(text, type) {
+            console.log('showMessage called with:', text, type);
+            console.log('Message element:', message);
+            
+            if (!message) {
+                console.error('Message element not found!');
+                return;
+            }
+            
+            message.textContent = text;
+            message.className = `message ${type}`;
+            message.style.display = 'block';
+            console.log('Message displayed:', text);
+            
+            // Different timing for different message types
+            let displayTime = 4000; // Default 4 seconds
+            
+            if (type === 'success' && text.includes('Computer has chosen')) {
+                displayTime = 8000; // 8 seconds for important game start message
+            } else if (type === 'success' && (text.includes('Congratulations') || text.includes('Game over'))) {
+                displayTime = 6000; // 6 seconds for game end messages
+            } else if (type === 'info') {
+                displayTime = 5000; // 5 seconds for info messages
+            }
+            
+            setTimeout(() => {
+                message.style.display = 'none';
+                console.log('Message hidden');
+            }, displayTime);
+        }
+        
+        // Update stats
+        function updateStats() {
+            console.log('updateStats called');
+            console.log('Elements available:', {
+                attemptsSpan: !!attemptsSpan,
+                gameStatusSpan: !!gameStatusSpan
+            });
+            
+            if (attemptsSpan) attemptsSpan.textContent = attempts;
+            if (gameStatusSpan) gameStatusSpan.textContent = gameWon ? 'Won!' : (gameOver ? 'Lost' : 'Playing');
+            
+            console.log('Stats updated successfully');
+        }
+        
+        // Show play again button
+        function showPlayAgainButton() {
+            if (playAgainBtn) {
+                playAgainBtn.style.display = 'block';
+                console.log('Play again button shown');
+            }
+        }
+        
+        // Toggle stats visibility
+        function toggleStats() {
+            const statsElement = document.getElementById('stats');
+            const showStatsBtn = document.getElementById('showStatsBtn');
+            if (statsElement) {
+                statsElement.style.display = statsElement.style.display === 'none' ? 'block' : 'none';
+                if (showStatsBtn) {
+                    showStatsBtn.textContent = statsElement.style.display === 'none' ? 'Show Statistics' : 'Hide Statistics';
+                }
+                console.log('Stats toggled:', statsElement.style.display);
+            }
+        }
+        
+        // Test functions
+        function testJavaScript() {
+            alert('JavaScript function test successful!');
+            console.log('JavaScript test function called successfully');
+        }
+        
+        function debugDOMElements() {
+            console.log('=== DOM ELEMENT DEBUG ===');
+            console.log('gameBoard:', gameBoard);
+            console.log('keyboard:', keyboard);
+            console.log('wordInput:', wordInput);
+            console.log('submitBtn:', submitBtn);
+            console.log('message:', message);
+            console.log('stats:', stats);
+            
+            const status = {
+                gameBoard: !!gameBoard,
+                keyboard: !!keyboard,
+                wordInput: !!wordInput,
+                submitBtn: !!submitBtn
+            };
+            alert('DOM Elements Status:\n' + Object.entries(status).map(([key, value]) => `${key}: ${value ? '✅' : '❌'}`).join('\n'));
+        }
+        
+        // Authentication system functions
+        function showAuthTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide forms
+            if (tab === 'login') {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('registerForm').style.display = 'none';
+            } else {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('registerForm').style.display = 'block';
+            }
+        }
+        
+        function loginUser() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+            
+            // Simulate login validation
+            if (email === 'test@test.com' && password === 'test') {
+                // Hide auth container, show game container
+                document.getElementById('authContainer').style.display = 'none';
+                document.getElementById('gameContainer').style.display = 'block';
+                showMessage('Login successful! Welcome to WordDuel!', 'success');
+            } else {
+                showMessage('Invalid credentials. Try test@test.com / test', 'error');
+            }
+        }
+        
+        function registerUser() {
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const phone = document.getElementById('registerPhone').value;
+            
+            if (!username || !email || !password || !phone) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+            
+            // Validate email format
+            if (!isValidEmail(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Validate phone format (basic)
+            if (phone.length < 10) {
+                showMessage('Please enter a valid phone number', 'error');
+                return;
+            }
+            
+            // Simulate registration
+            showMessage('Registration successful! Please check your email for MFA setup.', 'success');
+            
+            // Auto-switch to login tab
+            showAuthTab('login');
+            document.getElementById('loginEmail').value = email;
+        }
+        
+        function socialLogin(provider) {
+            showMessage(`Signing in with ${provider}... (Demo mode)`, 'info');
+            // In real app, this would handle OAuth
+        }
+        
+        // Comment system functions
+        function initializeCommentSystem() {
+            const commentText = document.getElementById('commentText');
+            const commentCharCount = document.getElementById('commentCharCount');
+            
+            if (commentText && commentCharCount) {
+                commentText.addEventListener('input', function() {
+                    const length = this.value.length;
+                    commentCharCount.textContent = `${length}/500`;
+                    
+                    // Change color based on length
+                    if (length > 400) {
+                        commentCharCount.style.color = '#FF9800';
+                    } else if (length > 300) {
+                        commentCharCount.style.color = '#FFC107';
+                    } else {
+                        commentCharCount.style.color = 'rgba(255,255,255,0.7)';
+                    }
+                });
+            }
+            
+            // Load existing comments
+            loadComments();
+        }
+        
+        function submitComment() {
+            const commentText = document.getElementById('commentText');
+            const comment = commentText.value.trim();
+            
+            if (!comment) {
+                showMessage('Please enter a comment before submitting', 'error');
+                return;
+            }
+            
+            if (comment.length < 10) {
+                showMessage('Comment must be at least 10 characters long', 'error');
+                return;
+            }
+            
+            // Create comment object
+            const commentObj = {
+                id: Date.now(),
+                text: comment,
+                user: 'Anonymous Player', // In real app, get from login
+                timestamp: new Date().toISOString(),
+                gameMode: gameMode || 'Unknown',
+                attempts: attempts || 0
+            };
+            
+            // Save comment to localStorage
+            saveComment(commentObj);
+            
+            // Clear textarea
+            commentText.value = '';
+            document.getElementById('commentCharCount').textContent = '0/500';
+            
+            // Reload comments
+            loadComments();
+            
+            showMessage('Comment submitted successfully! Thank you for your feedback.', 'success');
+        }
+        
+        function saveComment(comment) {
+            let comments = JSON.parse(localStorage.getItem('wordduel_comments') || '[]');
+            comments.unshift(comment); // Add to beginning
+            
+            // Keep only last 50 comments
+            if (comments.length > 50) {
+                comments = comments.slice(0, 50);
+            }
+            
+            localStorage.setItem('wordduel_comments', JSON.stringify(comments));
+        }
+        
+        function loadComments() {
+            const commentsList = document.getElementById('commentsList');
+            if (!commentsList) return;
+            
+            const comments = JSON.parse(localStorage.getItem('wordduel_comments') || '[]');
+            
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7);">No comments yet. Be the first to share your experience!</p>';
+                return;
+            }
+            
+            commentsList.innerHTML = comments.map(comment => `
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span>${comment.user}</span>
+                        <span>${formatTimestamp(comment.timestamp)}</span>
+                    </div>
+                    <div class="comment-content">${escapeHtml(comment.text)}</div>
+                    <div class="comment-meta" style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">
+                        Game: ${comment.gameMode} | Attempts: ${comment.attempts}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function formatTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            
+            if (diffMins < 1) return 'Just now';
+            if (diffMins < 60) return `${diffMins}m ago`;
+            if (diffHours < 24) return `${diffHours}h ago`;
+            if (diffDays < 7) return `${diffDays}d ago`;
+            return date.toLocaleDateString();
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Friend system functions
+        function showFriendSelector() {
+            if (friendSelector) {
+                friendSelector.style.display = 'block';
+                showMessage('Choose how you want to play with a friend!', 'info');
+            }
+        }
+        
+        function selectFriendOption(option) {
+            playMode = option;
+            
+            // Hide all friend options
+            if (friendSelector) friendSelector.style.display = 'none';
+            if (contactInput) contactInput.style.display = 'none';
+            if (randomMatch) randomMatch.style.display = 'none';
+            
+            if (option === 'local') {
+                // Show local network options
+                const localOptions = document.getElementById('localOptions');
+                if (localOptions) localOptions.style.display = 'block';
+                showMessage('Choose how to connect with local friends!', 'info');
+            } else if (option === 'contact') {
+                // Show contact input
+                if (contactInput) contactInput.style.display = 'block';
+                showMessage('Enter your friend\'s email to send them a game invite!', 'info');
+            } else if (option === 'random') {
+                // Show random match option
+                if (randomMatch) randomMatch.style.display = 'block';
+                showMessage('Random matchmaking selected! Find a random player online.', 'info');
+            }
+        }
+        
+        function selectLocalOption(option) {
+            // Hide local options
+            const localOptions = document.getElementById('localOptions');
+            if (localOptions) localOptions.style.display = 'none';
+            
+            if (option === 'username') {
+                const usernameSearch = document.getElementById('usernameSearch');
+                if (usernameSearch) usernameSearch.style.display = 'block';
+                showMessage('Search for players by username on your local network', 'info');
+            } else if (option === 'ip') {
+                const ipConnection = document.getElementById('ipConnection');
+                if (ipConnection) ipConnection.style.display = 'block';
+                showMessage('Connect directly to a player using their IP address', 'info');
+            } else if (option === 'bluetooth') {
+                const bluetoothDiscovery = document.getElementById('bluetoothDiscovery');
+                if (bluetoothDiscovery) bluetoothDiscovery.style.display = 'block';
+                showMessage('Discovering nearby players via Bluetooth...', 'info');
+            }
+        }
+        
+        function backToLocalOptions() {
+            // Hide current option and show local options again
+            const usernameSearch = document.getElementById('usernameSearch');
+            const ipConnection = document.getElementById('ipConnection');
+            const bluetoothDiscovery = document.getElementById('bluetoothDiscovery');
+            
+            if (usernameSearch) usernameSearch.style.display = 'none';
+            if (ipConnection) ipConnection.style.display = 'none';
+            if (bluetoothDiscovery) bluetoothDiscovery.style.display = 'none';
+            
+            const localOptions = document.getElementById('localOptions');
+            if (localOptions) localOptions.style.display = 'block';
+        }
+        
+        function searchByUsername() {
+            const username = document.getElementById('searchUsername').value;
+            if (!username) {
+                showMessage('Please enter a username to search for', 'error');
+                return;
+            }
+            
+            showMessage(`Searching LAN for username: ${username}...`, 'info');
+            // Simulate LAN search
+            setTimeout(() => {
+                showMessage(`Player "${username}" found! Sending game invite...`, 'success');
+                // Proceed to game setup
+                startLocalGame();
+            }, 2000);
+        }
+        
+        function connectByIP() {
+            const ip = document.getElementById('ipAddress').value;
+            if (!ip) {
+                showMessage('Please enter an IP address', 'error');
+                return;
+            }
+            
+            // Basic IP validation
+            const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
+            if (!ipPattern.test(ip)) {
+                showMessage('Please enter a valid IP address', 'error');
+                return;
+            }
+            
+            showMessage(`Sending game invite to ${ip}...`, 'info');
+            // Simulate connection
+            setTimeout(() => {
+                showMessage(`Connected to player at ${ip}! Starting game...`, 'success');
+                startLocalGame();
+            }, 1500);
+        }
+        
+        function connectToPlayer(username, ip) {
+            showMessage(`Connecting to ${username} (${ip})...`, 'info');
+            // Simulate connection
+            setTimeout(() => {
+                showMessage(`Connected to ${username}! Starting game...`, 'success');
+                startLocalGame();
+            }, 1000);
+        }
+        
+        function startLocalGame() {
+            // Hide all local network options
+            const localOptions = document.getElementById('localOptions');
+            const usernameSearch = document.getElementById('usernameSearch');
+            const ipConnection = document.getElementById('ipConnection');
+            const bluetoothDiscovery = document.getElementById('bluetoothDiscovery');
+            
+            if (localOptions) localOptions.style.display = 'none';
+            if (usernameSearch) usernameSearch.style.display = 'none';
+            if (ipConnection) ipConnection.style.display = 'none';
+            if (bluetoothDiscovery) bluetoothDiscovery.style.display = 'none';
+            
+            // Show input area for word entry
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) inputArea.style.display = 'block';
+            
+            showMessage('Local game started! Player 1: Enter a 5-letter word for Player 2 to guess.', 'success');
+            initGame();
+        }
+        
+        function backToFriendOptions() {
+            // Hide current option and show friend selector again
+            if (contactInput) contactInput.style.display = 'none';
+            if (randomMatch) randomMatch.style.display = 'none';
+            if (friendSelector) friendSelector.style.display = 'block';
+            showMessage('Choose how you want to play with a friend!', 'info');
+        }
+        
+        function backToGameMode() {
+            // Hide friend selector and show game mode selector
+            if (friendSelector) friendSelector.style.display = 'none';
+            if (contactInput) contactInput.style.display = 'none';
+            if (randomMatch) randomMatch.style.display = 'none';
+            if (waitingMessage) waitingMessage.style.display = 'none';
+            
+            const gameModeSelector = document.getElementById('gameModeSelector');
+            if (gameModeSelector) gameModeSelector.style.display = 'block';
+            
+            showMessage('Select your game mode!', 'info');
+        }
+        
+        function sendGameInvite() {
+            const emailInput = document.getElementById('friendEmail');
+            if (!emailInput || !emailInput.value) {
+                showMessage('Please enter a valid email address!', 'error');
+                return;
+            }
+            
+            const friendEmail = emailInput.value.trim();
+            if (!isValidEmail(friendEmail)) {
+                showMessage('Please enter a valid email address!', 'error');
+                return;
+            }
+            
+            // Generate game invite code
+            gameInviteCode = generateInviteCode();
+            
+            // Show waiting message
+            if (contactInput) contactInput.style.display = 'none';
+            if (waitingMessage) {
+                waitingMessage.style.display = 'block';
+                if (waitingText) {
+                    waitingText.textContent = `Invite sent to ${friendEmail}! Waiting for them to join...`;
+                }
+            }
+            
+            isWaitingForPlayer = true;
+            
+            // Simulate sending invite (in real app, this would send email/notification)
+            showMessage(`Game invite sent to ${friendEmail}! Share this code: ${gameInviteCode}`, 'success');
+            
+            // For demo purposes, simulate friend joining after 5 seconds
+            setTimeout(() => {
+                if (isWaitingForPlayer) {
+                    simulateFriendJoining();
+                }
+            }, 5000);
+        }
+        
+        function findRandomPlayer() {
+            // Show waiting message for random match
+            if (randomMatch) randomMatch.style.display = 'none';
+            if (waitingMessage) {
+                waitingMessage.style.display = 'block';
+                if (waitingText) {
+                    waitingText.textContent = 'Searching for a random player...';
+                }
+            }
+            
+            isWaitingForPlayer = true;
+            
+            // Simulate finding random player after 3-8 seconds
+            const randomDelay = Math.random() * 5000 + 3000;
+            setTimeout(() => {
+                if (isWaitingForPlayer) {
+                    simulateRandomPlayerFound();
+                }
+            }, randomDelay);
+            
+            // Show clear message about what's happening
+            showMessage('Searching for random player... This may take a few seconds.', 'info');
+        }
+        
+        function simulateFriendJoining() {
+            isWaitingForPlayer = false;
+            if (waitingMessage) waitingMessage.style.display = 'none';
+            
+            showMessage('Your friend joined the game! Starting local play...', 'success');
+            
+            // Start local play
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) inputArea.style.display = 'block';
+            initGame();
+        }
+        
+        function simulateRandomPlayerFound() {
+            isWaitingForPlayer = false;
+            if (waitingMessage) waitingMessage.style.display = 'none';
+            
+            showMessage('Random player found! Starting online game...', 'success');
+            
+            // For demo, start local play (in real app, this would be online multiplayer)
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) inputArea.style.display = 'block';
+            initGame();
+        }
+        
+        function cancelWaiting() {
+            isWaitingForPlayer = false;
+            if (waitingMessage) waitingMessage.style.display = 'none';
+            
+            // Go back to friend selector
+            if (friendSelector) friendSelector.style.display = 'block';
+            showMessage('Search cancelled. Choose how you want to play!', 'info');
+        }
+        
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        function generateInviteCode() {
+            // Generate a random 6-character invite code
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < 6; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+    </script>
+</body>
+</html>
