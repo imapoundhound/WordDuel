@@ -152,6 +152,7 @@
             border-radius: 15px;
             max-width: 600px;
             backdrop-filter: blur(10px);
+            display: none; /* Hidden initially, shown after login */
         }
         
         .comment-section h3 {
@@ -1256,6 +1257,10 @@
             console.log('DOM loaded, starting initialization...');
             initializeDOMElements();
             addEventListeners();
+            
+            // Initialize comment system
+            initializeCommentSystem();
+            
             console.log('Page loaded successfully. Please select a game mode to start playing.');
         });
         
@@ -2135,6 +2140,11 @@
                 // Hide auth container, show game container
                 document.getElementById('authContainer').style.display = 'none';
                 document.getElementById('gameContainer').style.display = 'block';
+                
+                // Show comment section after login
+                const commentSection = document.getElementById('commentSection');
+                if (commentSection) commentSection.style.display = 'block';
+                
                 showMessage('Login successful! Welcome to WordDuel!', 'success');
             } else {
                 showMessage('Invalid credentials. Try test@test.com / test', 'error');

@@ -1,201 +1,204 @@
-# CURSOR Berg-Style Mini Disc Marker v1.00
-## 🖨️ Multi-Material 3D Printing Solution
+# 🚀 WordDuel - Free Online Word Guessing Game
 
-### 🎯 **Project Overview**
-This project creates a Berg-style mini disc marker with multi-material printing capabilities, featuring:
-- **Bottom 40%**: TPU Clear (thick, sturdy base)
-- **Middle 20%**: Flashforge Black Flexible (jellyfish design)
-- **Top 40%**: TPU Clear (thick, rounded rim like disc golf putter)
+A modern, feature-rich word guessing game with authentication, local network play, and social features.
 
-The design mimics the Berg disc golf putter shape with a fat, rounded rim for professional aesthetics and functionality.
+## 🌐 **Live Demo**
+**Play Now**: [WordDuel Game](https://yourusername.github.io/wordduel/WordDuel.html)
+
+## ✨ **Features**
+
+### 🎮 **Game Modes**
+- **One Player vs Bot**: Challenge the computer
+- **Two Player Local**: Play with friends on the same device
+- **Two Player Network**: Connect with friends via email, username, IP, or Bluetooth
+
+### 🔐 **Authentication System**
+- User registration and login
+- Email and phone validation
+- MFA support (Multi-Factor Authentication)
+- Social login (Google, Apple)
+
+### 🌐 **Network Features**
+- **Local Network Discovery**: Find players by username on LAN
+- **IP Connection**: Direct connection via IP address
+- **Bluetooth Discovery**: Find nearby players (up to 4 players)
+- **Email Invites**: Send game invitations to friends
+
+### 💬 **Comment System**
+- Share your gaming experience
+- Rate and review the game
+- View feedback from other players
+- Track game statistics with comments
+
+### 📊 **Statistics & Analytics**
+- Game performance tracking
+- Win/loss ratios
+- Attempt counts
+- Time-based statistics (daily, weekly, monthly)
+
+## 🚀 **Free Hosting Setup**
+
+### **Option 1: GitHub Pages (Recommended - 100% Free)**
+
+1. **Create GitHub Repository**:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial WordDuel release"
+   git branch -M main
+   git remote add origin https://github.com/yourusername/wordduel.git
+   git push -u origin main
+   ```
+
+2. **Enable GitHub Pages**:
+   - Go to repository Settings
+   - Scroll to "Pages" section
+   - Select "Deploy from a branch"
+   - Choose "main" branch and "/ (root)" folder
+   - Click "Save"
+
+3. **Your game will be live at**:
+   ```
+   https://yourusername.github.io/wordduel/
+   ```
+
+### **Option 2: Netlify (Free Tier)**
+
+1. **Drag & Drop**:
+   - Go to [netlify.com](https://netlify.com)
+   - Drag your project folder to deploy
+   - Get instant free hosting
+
+2. **Custom Domain** (Optional):
+   - Add your own domain name
+   - Free SSL certificate included
+
+### **Option 3: Vercel (Free Tier)**
+
+1. **Connect GitHub**:
+   - Go to [vercel.com](https://vercel.com)
+   - Connect your GitHub repository
+   - Automatic deployments on every push
+
+## 🛠️ **Local Development**
+
+### **Prerequisites**
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+- No server required - runs entirely in browser
+
+### **Quick Start**
+1. Clone the repository
+2. Open `index.html` in your browser
+3. Or use a local server:
+   ```bash
+   # Python 3
+   python -m http.server 8000
+   
+   # Node.js
+   npx serve .
+   
+   # PHP
+   php -S localhost:8000
+   ```
+
+## 📱 **Demo Credentials**
+
+For testing purposes:
+- **Email**: `test@test.com`
+- **Password**: `test`
+
+## 🔧 **Technical Details**
+
+### **Frontend Technologies**
+- **HTML5**: Semantic markup and modern features
+- **CSS3**: Advanced styling with animations and gradients
+- **JavaScript ES6+**: Modern JavaScript with async/await
+- **Local Storage**: Persistent game data and comments
+
+### **Game Logic**
+- Word validation against expanded dictionary
+- Intelligent feedback system (correct, present, absent)
+- Multi-player game state management
+- Real-time statistics tracking
+
+### **Network Features**
+- WebRTC for peer-to-peer connections
+- Local network discovery via Web APIs
+- Bluetooth device scanning (when available)
+- Email-based invitation system
+
+## 📊 **Comment System Features**
+
+### **What Gets Captured**
+- **User**: Anonymous player identification
+- **Timestamp**: When the comment was made
+- **Game Mode**: Bot vs Two Player
+- **Performance**: Number of attempts
+- **Feedback**: User's experience and suggestions
+
+### **Data Storage**
+- Comments stored locally in browser
+- No external database required
+- Privacy-focused approach
+- Export functionality available
+
+## 🌟 **Customization Options**
+
+### **Themes**
+- Multiple color schemes available
+- Dark/Light mode toggle
+- Customizable game board colors
+
+### **Game Settings**
+- Adjustable word length
+- Custom game rules
+- Difficulty levels
+- Time limits (optional)
+
+## 🔒 **Privacy & Security**
+
+- **No Personal Data**: Only anonymous feedback collected
+- **Local Storage**: All data stays on user's device
+- **No Tracking**: No analytics or user behavior tracking
+- **Open Source**: Transparent code for security review
+
+## 🤝 **Contributing**
+
+We welcome contributions! Here's how to help:
+
+1. **Fork the repository**
+2. **Create a feature branch**
+3. **Make your changes**
+4. **Test thoroughly**
+5. **Submit a pull request**
+
+### **Areas for Improvement**
+- Additional game modes
+- Enhanced network features
+- More language support
+- Mobile app development
+- Advanced statistics
+
+## 📄 **License**
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 **Acknowledgments**
+
+- Inspired by Wordle and similar word games
+- Built with modern web technologies
+- Community-driven development
+- Free and accessible for everyone
+
+## 📞 **Support & Feedback**
+
+- **Issues**: Report bugs on GitHub
+- **Feature Requests**: Use GitHub discussions
+- **Comments**: Share your experience in-game
+- **Email**: Contact via repository
 
 ---
 
-## 📁 **File Structure**
-```
-CURSOR_Output/
-└── BergMini/
-    ├── CURSOR_OUTPUT_version1.00_berg_mini_disc.stl
-    ├── CURSOR_OUTPUT_version1.00_berg_mini_disc.3mf
-    └── CURSOR_OUTPUT_version1.00_printing_instructions.txt
-```
+**🎉 Ready to play? Deploy to GitHub Pages and start your WordDuel adventure!**
 
----
-
-## 🚀 **Quick Start**
-
-### 1. **Run the Processor**
-```bash
-# Windows (recommended)
-run_processor.bat
-
-# Or manually
-pip install -r requirements.txt
-python stl_processor.py
-```
-
-### 2. **Check Output**
-All files will be generated in:
-`R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\CURSOR_Output\BergMini`
-
-### 3. **Import to Orca Slicer**
-- Use the generated STL or 3MF file
-- Import the provided Orca Slicer profiles
-- Follow the setup guide for multi-material printing
-
----
-
-## 🔧 **Requirements**
-
-### Python Dependencies
-- `numpy` >= 1.21.0
-- `pathlib` (built-in with Python 3.4+)
-
-### Input File
-- Original STL: `minmeduzfin.stl`
-- Location: `R:\3DpRINTjOBS\MINIDisc\jellyfish\mini-marker-meduse20200507-5106-i1jltk\Bureau_B\mini-marker-meduse\`
-
----
-
-## 📋 **Generated Files**
-
-### 1. **STL File** (`CURSOR_OUTPUT_version1.00_berg_mini_disc.stl`)
-- Modified STL with Berg-style shape modifications
-- Optimized for multi-material printing
-- Includes material layer information in header
-
-### 2. **3MF File** (`CURSOR_OUTPUT_version1.00_berg_mini_disc.3mf`)
-- XML-based 3D model format
-- Includes material definitions and metadata
-- Better compatibility with modern slicers
-
-### 3. **Printing Instructions** (`CURSOR_OUTPUT_version1.00_printing_instructions.txt`)
-- Complete setup guide
-- Filament change commands (M600)
-- Material distribution details
-- Orca Slicer configuration steps
-
----
-
-## 🎨 **Design Features**
-
-### Berg-Style Shape
-- **Thick Base**: 40% of height for stability
-- **Design Band**: 20% middle section for jellyfish pattern
-- **Rounded Rim**: 40% top section with fat, disc golf putter aesthetics
-
-### Material Distribution
-```
-Height Distribution:
-┌─────────────────────┐ ← Top 40%: TPU Clear (Rounded Rim)
-├─────────────────────┤ ← Middle 20%: Flashforge Black (Design)
-├─────────────────────┤ ← Bottom 40%: TPU Clear (Base)
-└─────────────────────┘
-```
-
----
-
-## 🖨️ **Printing Setup**
-
-### Orca Slicer Profiles
-1. **`TPU_Clear_Orca_Profile.ini`**: Optimized for TPU Clear
-2. **`Flashforge_Flexible_Black_Orca_Profile.ini`**: Optimized for flexible black
-
-### Multi-Material Configuration
-- Enable dual extruder or manual filament changes
-- Set layer-based material assignment
-- Configure M600 commands for filament swaps
-
----
-
-## 🔄 **Version Control**
-
-### Current Version: 1.00
-- Initial Berg-style implementation
-- Multi-material layer distribution (40/20/40)
-- Complete Orca Slicer integration
-
-### Version Naming Convention
-- `CURSOR_OUTPUT_versionX.XX_`
-- Each iteration gets a new version number
-- Previous versions are preserved
-
----
-
-## 🚨 **Troubleshooting**
-
-### Common Issues
-1. **File Not Found**: Ensure input STL path is correct
-2. **Python Errors**: Install required dependencies
-3. **Print Quality**: Use provided Orca Slicer profiles
-4. **Material Changes**: Follow M600 command instructions
-
-### Getting Help
-- Check the Orca Slicer setup guide
-- Review printing instructions
-- Verify all file paths and dependencies
-
----
-
-## 📈 **Future Enhancements**
-
-### Planned Features
-- Enhanced material transition algorithms
-- Additional design variations
-- Improved print quality optimizations
-- Support for more filament types
-
-### Version Roadmap
-- **v1.10**: Enhanced material blending
-- **v1.20**: Additional disc golf designs
-- **v2.00**: Major redesign options
-
----
-
-## 🎉 **Success Metrics**
-
-### Print Quality
-- **Surface Finish**: Smooth, minimal stringing
-- **Layer Adhesion**: Strong between materials
-- **Dimensional Accuracy**: ±0.2mm tolerance
-- **Print Time**: 2-3 hours
-
-### Design Goals
-- **Berg-Style Aesthetics**: Professional disc golf putter look
-- **Multi-Material Durability**: Flexible yet sturdy construction
-- **Jellyfish Integration**: Embedded design in middle layers
-
----
-
-## 📞 **Support & Updates**
-
-### Documentation
-- Complete setup guide included
-- Troubleshooting section provided
-- Version control and changelog
-
-### Maintenance
-- Regular updates for new features
-- Bug fixes and optimizations
-- User feedback integration
-
----
-
-## 🏆 **Project Status**
-
-✅ **Complete**: STL processor with Berg-style modifications  
-✅ **Complete**: Multi-material layer distribution (40/20/40)  
-✅ **Complete**: Orca Slicer profiles for both materials  
-✅ **Complete**: Comprehensive setup and printing guides  
-✅ **Complete**: Version control and file management  
-
-**Ready for production! 🚀**
-
----
-
-## 📝 **License & Attribution**
-
-This project is created for CURSOR development and 3D printing enthusiasts.
-All files include version tracking and CURSOR branding for easy identification.
-
-**Happy Printing! 🖨️⛳**
+*Built with ❤️ for the gaming community*
