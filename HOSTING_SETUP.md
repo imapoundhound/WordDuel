@@ -20,7 +20,7 @@
 
 2. **Create New Repository**
    - Click "New repository"
-   - Name: `wordduel`
+   - Name: `WordDuel_Too_Project`
    - Make it Public
    - Don't initialize with README
 
@@ -206,3 +206,42 @@
 **🎮 Your WordDuel game is ready for the world! Deploy it today and start collecting player feedback!**
 
 *Need help? Check the README.md file for detailed instructions.*
+
+## 🎯 **GitHub Pages Configuration Example for Your Project**
+
+### **Current Repository Details:**
+- **GitHub Username**: `imapoundhound`
+- **Repository Name**: `WordDuel_Too_Project`
+- **Main Branch**: `main`
+- **Root Folder**: `/` (contains your `index.html` and `WordDuel.html`)
+
+### **GitHub Pages Settings (What You'll See):**
+
+```
+Source: Deploy from a branch
+Branch: main
+Folder: / (root)
+```
+
+### **What This Means:**
+- **Source**: GitHub will deploy from your code repository (not from GitHub Actions)
+- **Branch**: It will use the `main` branch (which you're already on)
+- **Folder**: It will serve files from the root directory of your repository
+
+### **Your Live URL Will Be:**
+```
+https://imapoundhound.github.io/WordDuel_Too_Project/
+```
+
+### **Files That Will Be Served:**
+- `index.html` → Main entry point (redirects to game)
+- `WordDuel.html` → The actual game
+- All other assets in the root folder
+
+### **Why This Configuration Works:**
+1. **`index.html`** is the standard entry point for web servers
+2. **Root folder** (`/`) contains all your web files
+3. **Main branch** is your production code
+4. **No build process needed** - GitHub Pages serves static files directly
+
+This is the perfect setup for your WordDuel project since you have all the web files ready to go in the root directory!
