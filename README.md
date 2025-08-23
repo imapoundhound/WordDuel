@@ -106,6 +106,9 @@ A modern, feature-rich word guessing game with authentication, local network pla
 For testing purposes:
 - **Email**: `test@test.com`
 - **Password**: `test`
+- **Email**: `test@testermsp.com`
+- **Password**: `test`
+
 
 ## 🔧 **Technical Details**
 
