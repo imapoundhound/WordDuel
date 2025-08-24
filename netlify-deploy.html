@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordDuel - Deploy to Netlify</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #FFC107;
+            text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+            text-align: center;
+        }
+        
+        .step {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #FFC107;
+        }
+        
+        .step-number {
+            background: #FFC107;
+            color: #333;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .netlify-link {
+            display: inline-block;
+            background: #00AD9C;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .netlify-link:hover {
+            background: #008F7A;
+            transform: translateY(-2px);
+        }
+        
+        .highlight {
+            background: rgba(255, 193, 7, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #FFC107;
+        }
+        
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            border-left-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>�� WordDuel - Instant Free Hosting</h1>
+        
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>Go to Netlify Drop</strong>
+            <p>Click the button below to open Netlify Drop in a new tab:</p>
+            <a href="https://app.netlify.com/drop" target="_blank" class="netlify-link">
+                �� Open Netlify Drop
+            </a>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>Drag & Drop Your Files</strong>
+            <p>Simply drag your entire <code>WordDuel_Too_Project</code> folder onto the Netlify Drop page.</p>
+            <div class="highlight">
+                <strong>Important:</strong> Make sure to include these files:
+                <ul>
+                    <li>index.html</li>
+                    <li>WordDuel.html</li>
+                    <li>All other project files</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>Get Your Live URL</strong>
+            <p>Netlify will instantly give you a live URL like:</p>
+            <div class="highlight">
+                <code>https://random-name-123.netlify.app</code>
+            </div>
+            <p>Your game will be live immediately!</p>
+        </div>
+        
+        <div class="step success">
+            <span class="step-number">✅</span>
+            <strong>That's It!</strong>
+            <p>No account needed, no setup required, completely free forever!</p>
+        </div>
+        
+        <div class="step">
+            <h3>🎮 Test Your Live Game</h3>
+            <p>Once deployed, test with these credentials:</p>
+            <div class="highlight">
+                <strong>Email:</strong> test@test.com<br>
+                <strong>Password:</strong> test
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>📱 Next: Android Version</h3>
+            <p>After getting your web version live, we'll work on the Android app deployment.</p>
+        </div>
+    </div>
+</body>
+</html>
