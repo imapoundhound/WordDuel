@@ -30,18 +30,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WordDuel" />
             
-        <activity
-            android:name=".TwoPlayerActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.WordDuel" />
-            
-        <activity
-            android:name=".StatsActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.WordDuel" />
-            
     </application>
 
 </manifest>

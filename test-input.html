@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Test - WordDuel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .test-input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1001;
+            pointer-events: auto !important;
+            user-select: text !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            caret-color: #FFC107 !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+        }
+        
+        .test-input:focus {
+            outline: 2px solid #FFC107 !important;
+            background: rgba(255,255,255,0.2) !important;
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.3) !important;
+            border: 1px solid #FFC107 !important;
+        }
+        
+        .test-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .log-output {
+            background: rgba(0,0,0,0.8);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .test-button {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        .test-button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Input Field Test</h1>
+        <p>This page tests input field behavior without any other JavaScript interference.</p>
+        
+        <h3>Test Input Fields:</h3>
+        
+        <div>
+            <label for="testUsername">Username:</label>
+            <input type="text" id="testUsername" class="test-input" placeholder="Type here to test...">
+        </div>
+        
+        <div>
+            <label for="testEmail">Email:</label>
+            <input type="email" id="testEmail" class="test-input" placeholder="test@example.com">
+        </div>
+        
+        <div>
+            <label for="testPassword">Password:</label>
+            <input type="password" id="testPassword" class="test-input" placeholder="Enter password">
+        </div>
+        
+        <div>
+            <label for="testPhone">Phone:</label>
+            <input type="tel" id="testPhone" class="test-input" placeholder="123-456-7890">
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <button class="test-button" onclick="clearInputs()">Clear All Inputs</button>
+            <button class="test-button" onclick="focusFirstInput()">Focus First Input</button>
+            <button class="test-button" onclick="testTyping()">Test Typing Simulation</button>
+        </div>
+        
+        <h3>Event Log:</h3>
+        <div id="logOutput" class="log-output">Waiting for input events...</div>
+        
+        <h3>Current Values:</h3>
+        <div id="currentValues" class="log-output">No values yet...</div>
+    </div>
+
+    <script>
+        // Simple logging function
+        function log(message) {
+            const logOutput = document.getElementById('logOutput');
+            const timestamp = new Date().toLocaleTimeString();
+            logOutput.textContent += `[${timestamp}] ${message}\n`;
+            logOutput.scrollTop = logOutput.scrollHeight;
+            console.log(message);
+        }
+        
+        // Update current values display
+        function updateValues() {
+            const currentValues = document.getElementById('currentValues');
+            const username = document.getElementById('testUsername').value;
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+            const phone = document.getElementById('testPhone').value;
+            
+            currentValues.textContent = `Username: "${username}" (${username.length} chars)
+Email: "${email}" (${email.length} chars)
+Password: "${password}" (${password.length} chars)
+Phone: "${phone}" (${phone.length} chars)`;
+        }
+        
+        // Initialize input event listeners
+        function initializeTestInputs() {
+            const inputs = document.querySelectorAll('.test-input');
+            
+            inputs.forEach((input, index) => {
+                const inputName = input.id.replace('test', '');
+                
+                // Input event
+                input.addEventListener('input', function(e) {
+                    log(`INPUT EVENT [${inputName}]: "${e.target.value}" (Length: ${e.target.value.length})`);
+                    updateValues();
+                });
+                
+                // Keydown event
+                input.addEventListener('keydown', function(e) {
+                    log(`KEYDOWN EVENT [${inputName}]: Key="${e.key}" Code=${e.keyCode} Type=${e.type}`);
+                    if (e.key === 'Backspace' || e.key === 'Delete') {
+                        log(`  → Backspace/Delete detected in ${inputName}`);
+                    }
+                });
+                
+                // Keyup event
+                input.addEventListener('keyup', function(e) {
+                    log(`KEYUP EVENT [${inputName}]: Key="${e.key}" Code=${e.keyCode}`);
+                });
+                
+                // Focus events
+                input.addEventListener('focus', function(e) {
+                    log(`FOCUS EVENT [${inputName}]: Field focused`);
+                });
+                
+                input.addEventListener('blur', function(e) {
+                    log(`BLUR EVENT [${inputName}]: Field lost focus, final value: "${e.target.value}"`);
+                });
+                
+                // Click event
+                input.addEventListener('click', function(e) {
+                    log(`CLICK EVENT [${inputName}]: Field clicked`);
+                });
+                
+                log(`Event listeners added for ${inputName}`);
+            });
+        }
+        
+        // Test functions
+        function clearInputs() {
+            document.querySelectorAll('.test-input').forEach(input => input.value = '');
+            updateValues();
+            log('All inputs cleared');
+        }
+        
+        function focusFirstInput() {
+            const firstInput = document.getElementById('testUsername');
+            firstInput.focus();
+            log('First input focused');
+        }
+        
+        function testTyping() {
+            const usernameInput = document.getElementById('testUsername');
+            usernameInput.focus();
+            
+            // Simulate typing "test"
+            setTimeout(() => {
+                usernameInput.value = 't';
+                usernameInput.dispatchEvent(new Event('input', { bubbles: true }));
+                log('Simulated typing: "t"');
+            }, 100);
+            
+            setTimeout(() => {
+                usernameInput.value = 'te';
+                usernameInput.dispatchEvent(new Event('input', { bubbles: true }));
+                log('Simulated typing: "te"');
+            }, 200);
+            
+            setTimeout(() => {
+                usernameInput.value = 'tes';
+                usernameInput.dispatchEvent(new Event('input', { bubbles: true }));
+                log('Simulated typing: "tes"');
+            }, 300);
+            
+            setTimeout(() => {
+                usernameInput.value = 'test';
+                usernameInput.dispatchEvent(new Event('input', { bubbles: true }));
+                log('Simulated typing: "test"');
+            }, 400);
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Page loaded, initializing test inputs...');
+            initializeTestInputs();
+            log('Test inputs initialized. Try typing in any field above.');
+        });
+    </script>
+</body>
+</html>
