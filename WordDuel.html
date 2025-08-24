@@ -91,6 +91,23 @@
             box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
         }
         
+        /* Ensure input fields are always accessible */
+        input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+            position: relative;
+            z-index: 1000;
+            pointer-events: auto;
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+        }
+        
+        /* Prevent any overlays from blocking input */
+        .auth-container, .auth-box, .auth-form {
+            position: relative;
+            z-index: 1000;
+        }
+        
         .auth-btn {
             width: 100%;
             padding: 15px;
@@ -1460,6 +1477,15 @@
             // Initialize comment system
             initializeCommentSystem();
             
+            // Ensure input fields are properly accessible and focused
+            setTimeout(() => {
+                const loginEmail = document.getElementById('loginEmail');
+                if (loginEmail) {
+                    loginEmail.focus();
+                    console.log('Login email input focused on page load');
+                }
+            }, 500);
+            
             console.log('Page loaded successfully. Please select a game mode to start playing.');
         });
         
@@ -1532,35 +1558,49 @@
             }
             
             if (wordInput) {
+                // Handle all input changes including typing, backspace, delete, paste
                 wordInput.addEventListener('input', (e) => {
-                    currentGuess = e.target.value.toLowerCase().replace(/[^a-z]/gi, '');
+                    const value = e.target.value;
+                    // Only allow letters, max 5 characters
+                    const cleanValue = value.replace(/[^a-z]/gi, '').slice(0, 5);
+                    currentGuess = cleanValue.toLowerCase();
+                    
+                    // Update the input field with cleaned value
+                    if (value !== cleanValue) {
+                        e.target.value = cleanValue;
+                    }
+                    
                     updateInput();
                 });
-                wordInput.addEventListener('keypress', (e) => {
+                
+                // Handle Enter key in the input field
+                wordInput.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') {
+                        e.preventDefault();
                         submitGuess();
                     }
                 });
+                
+                // Ensure input field gets focus and maintains it
+                wordInput.addEventListener('focus', () => {
+                    console.log('Input field focused');
+                });
+                
+                wordInput.addEventListener('blur', () => {
+                    console.log('Input field lost focus');
+                });
+                
                 console.log('Word input event listeners added');
             }
             
-            // Global keyboard event listener
+            // Only add global keyboard listener for Enter key when input is not focused
             document.addEventListener('keydown', (e) => {
                 if (gameOver) return;
                 
-                const key = e.key.toUpperCase();
-                
-                if (key === 'ENTER') {
+                // Only handle Enter key globally, let input field handle everything else
+                if (e.key === 'Enter' && document.activeElement !== wordInput) {
                     e.preventDefault();
                     submitGuess();
-                } else if (key === 'BACKSPACE' || key === 'DELETE') {
-                    e.preventDefault();
-                    currentGuess = currentGuess.slice(0, -1);
-                    updateInput();
-                } else if (/^[A-Z]$/.test(key) && currentGuess.length < 5) {
-                    e.preventDefault();
-                    currentGuess += key.toLowerCase();
-                    updateInput();
                 }
             });
             
@@ -2379,9 +2419,19 @@
             if (tab === 'login') {
                 document.getElementById('loginForm').style.display = 'block';
                 document.getElementById('registerForm').style.display = 'none';
+                // Focus on email input when switching to login
+                setTimeout(() => {
+                    const emailInput = document.getElementById('loginEmail');
+                    if (emailInput) emailInput.focus();
+                }, 100);
             } else {
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('registerForm').style.display = 'block';
+                // Focus on username input when switching to register
+                setTimeout(() => {
+                    const usernameInput = document.getElementById('registerUsername');
+                    if (usernameInput) usernameInput.focus();
+                }, 100);
             }
         }
         
