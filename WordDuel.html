@@ -108,6 +108,31 @@
             z-index: 1000;
         }
         
+        /* Completely isolate authentication inputs from any interference */
+        .auth-form input[type="text"], 
+        .auth-form input[type="email"], 
+        .auth-form input[type="password"], 
+        .auth-form input[type="tel"] {
+            position: relative;
+            z-index: 1001;
+            pointer-events: auto !important;
+            user-select: text !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            caret-color: #FFC107 !important;
+            background: rgba(255,255,255,0.1) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+        }
+        
+        /* Ensure no other elements can interfere with input */
+        .auth-form input:focus {
+            outline: 2px solid #FFC107 !important;
+            background: rgba(255,255,255,0.2) !important;
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.3) !important;
+            border: 1px solid #FFC107 !important;
+        }
+        
         .auth-btn {
             width: 100%;
             padding: 15px;
@@ -1473,6 +1498,7 @@
             console.log('DOM loaded, starting initialization...');
             initializeDOMElements();
             addEventListeners();
+            initializeAuthInputs(); // NEW: Initialize authentication input handling
             
             // Initialize comment system
             initializeCommentSystem();
@@ -1550,6 +1576,100 @@
             if (waitingMessage) waitingMessage.style.display = 'none';
         }
         
+        // Initialize authentication input fields with proper event handling
+        function initializeAuthInputs() {
+            console.log('Initializing authentication input fields...');
+            
+            // Login form inputs
+            const loginEmail = document.getElementById('loginEmail');
+            const loginPassword = document.getElementById('loginPassword');
+            
+            if (loginEmail) {
+                loginEmail.addEventListener('input', function(e) {
+                    console.log('Login email input:', e.target.value);
+                });
+                loginEmail.addEventListener('keydown', function(e) {
+                    console.log('Login email keydown:', e.key);
+                    // Allow all keys including backspace, delete, arrows
+                });
+                console.log('Login email input listener added');
+            }
+            
+            if (loginPassword) {
+                loginPassword.addEventListener('input', function(e) {
+                    console.log('Login password input:', e.target.value);
+                });
+                loginPassword.addEventListener('keydown', function(e) {
+                    console.log('Login password keydown:', e.key);
+                    // Allow all keys including backspace, delete, arrows
+                });
+                console.log('Login password input listener added');
+            }
+            
+            // Register form inputs
+            const registerUsername = document.getElementById('registerUsername');
+            const registerEmail = document.getElementById('registerEmail');
+            const registerPassword = document.getElementById('registerPassword');
+            const registerPhone = document.getElementById('registerPhone');
+            
+            if (registerUsername) {
+                registerUsername.addEventListener('input', function(e) {
+                    console.log('Register username input event:', e.target.value, 'Length:', e.target.value.length);
+                    // Ensure the value is properly set
+                    e.target.setAttribute('data-last-value', e.target.value);
+                });
+                registerUsername.addEventListener('keydown', function(e) {
+                    console.log('Register username keydown event:', e.key, 'Code:', e.keyCode);
+                    // Allow all keys including backspace, delete, arrows
+                    if (e.key === 'Backspace' || e.key === 'Delete') {
+                        console.log('Backspace/Delete detected in username field');
+                    }
+                });
+                registerUsername.addEventListener('focus', function(e) {
+                    console.log('Register username field focused');
+                });
+                registerUsername.addEventListener('blur', function(e) {
+                    console.log('Register username field lost focus, final value:', e.target.value);
+                });
+                console.log('Register username input listener added');
+            }
+            
+            if (registerEmail) {
+                registerEmail.addEventListener('input', function(e) {
+                    console.log('Register email input:', e.target.value);
+                });
+                registerEmail.addEventListener('keydown', function(e) {
+                    console.log('Register email keydown:', e.key);
+                    // Allow all keys including backspace, delete, arrows
+                });
+                console.log('Register email input listener added');
+            }
+            
+            if (registerPassword) {
+                registerPassword.addEventListener('input', function(e) {
+                    console.log('Register password input:', e.target.value);
+                });
+                registerPassword.addEventListener('keydown', function(e) {
+                    console.log('Register password keydown:', e.key);
+                    // Allow all keys including backspace, delete, arrows
+                });
+                console.log('Register password input listener added');
+            }
+            
+            if (registerPhone) {
+                registerPhone.addEventListener('input', function(e) {
+                    console.log('Register phone input:', e.target.value);
+                });
+                registerPhone.addEventListener('keydown', function(e) {
+                    console.log('Register phone keydown:', e.key);
+                    // Allow all keys including backspace, delete, arrows
+                });
+                console.log('Register phone input listener added');
+            }
+            
+            console.log('All authentication input fields initialized');
+        }
+        
         // Add event listeners
         function addEventListeners() {
             if (submitBtn) {
@@ -1593,12 +1713,20 @@
                 console.log('Word input event listeners added');
             }
             
-            // Only add global keyboard listener for Enter key when input is not focused
+            // Only add global keyboard listener for Enter key when game input is not focused
             document.addEventListener('keydown', (e) => {
                 if (gameOver) return;
                 
-                // Only handle Enter key globally, let input field handle everything else
-                if (e.key === 'Enter' && document.activeElement !== wordInput) {
+                // Get the currently focused element
+                const activeElement = document.activeElement;
+                
+                // Don't interfere with any input fields (auth or game)
+                if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+                    return;
+                }
+                
+                // Only handle Enter key globally for game controls
+                if (e.key === 'Enter' && activeElement !== wordInput) {
                     e.preventDefault();
                     submitGuess();
                 }
