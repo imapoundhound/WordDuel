@@ -1496,19 +1496,26 @@
         // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, starting initialization...');
+            console.log('Step 1: Initializing DOM elements...');
             initializeDOMElements();
+            console.log('Step 2: Adding event listeners...');
             addEventListeners();
+            console.log('Step 3: Initializing authentication inputs...');
             initializeAuthInputs(); // NEW: Initialize authentication input handling
             
             // Initialize comment system
+            console.log('Step 4: Initializing comment system...');
             initializeCommentSystem();
             
             // Ensure input fields are properly accessible and focused
+            console.log('Step 5: Setting up input focus...');
             setTimeout(() => {
                 const loginEmail = document.getElementById('loginEmail');
                 if (loginEmail) {
                     loginEmail.focus();
                     console.log('Login email input focused on page load');
+                } else {
+                    console.error('Login email not found during focus setup!');
                 }
             }, 500);
             
@@ -1584,15 +1591,26 @@
             const loginEmail = document.getElementById('loginEmail');
             const loginPassword = document.getElementById('loginPassword');
             
+            console.log('Found login elements:', { loginEmail: !!loginEmail, loginPassword: !!loginPassword });
+            
             if (loginEmail) {
+                console.log('Login email element found, adding listeners...');
                 loginEmail.addEventListener('input', function(e) {
-                    console.log('Login email input:', e.target.value);
+                    console.log('Login email input event fired:', e.target.value, 'Length:', e.target.value.length);
                 });
                 loginEmail.addEventListener('keydown', function(e) {
-                    console.log('Login email keydown:', e.key);
+                    console.log('Login email keydown event fired:', e.key, 'Code:', e.keyCode);
                     // Allow all keys including backspace, delete, arrows
                 });
+                loginEmail.addEventListener('focus', function(e) {
+                    console.log('Login email focused');
+                });
+                loginEmail.addEventListener('blur', function(e) {
+                    console.log('Login email lost focus, final value:', e.target.value);
+                });
                 console.log('Login email input listener added');
+            } else {
+                console.error('Login email element NOT found!');
             }
             
             if (loginPassword) {
