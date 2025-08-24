@@ -21,6 +21,8 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            z-index: 100;
         }
         
         .auth-box {
@@ -74,10 +76,19 @@
             color: white;
             font-size: 16px;
             box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
         }
         
         .auth-form input::placeholder {
             color: rgba(255,255,255,0.7);
+        }
+        
+        .auth-form input:focus {
+            outline: 2px solid #FFC107;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
         }
         
         .auth-btn {
@@ -1190,8 +1201,8 @@
         <div class="auth-box">
             <h1>WordDuel</h1>
             <div class="auth-tabs">
-                <button class="auth-tab active" onclick="showAuthTab('login')">Login</button>
-                <button class="auth-tab" onclick="showAuthTab('register')">Register</button>
+                <button class="auth-tab active" onclick="showAuthTab('login', event)">Login</button>
+                <button class="auth-tab" onclick="showAuthTab('register', event)">Register</button>
             </div>
             
             <!-- Login Form -->
@@ -2357,10 +2368,12 @@
         }
         
         // Authentication system functions
-        function showAuthTab(tab) {
+        function showAuthTab(tab, event) {
             // Update tab buttons
             document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
             
             // Show/hide forms
             if (tab === 'login') {
