@@ -133,6 +133,211 @@
             border: 1px solid #FFC107 !important;
         }
         
+        /* Celebration Animations */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: none;
+            pointer-events: none;
+        }
+        
+        .celebration-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10000;
+            pointer-events: none;
+        }
+        
+        .celebration-title {
+            font-size: 4em;
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            margin-bottom: 20px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        
+        .beer-clink {
+            font-size: 6em;
+            animation: clink 2s ease-in-out infinite;
+            margin: 20px;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00, #ff00ff);
+            animation: confetti-fall 3s linear infinite;
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: balloon-rise 4s ease-out infinite;
+        }
+        
+        .parade {
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 200px;
+            height: 100px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            border-radius: 20px;
+            animation: parade-march 5s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+        
+        @keyframes clink {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); }
+            75% { transform: rotate(15deg); }
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes balloon-rise {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+        
+        @keyframes parade-march {
+            0% { left: -100%; }
+            50% { left: 50%; transform: translateX(-50%); }
+            100% { left: 100%; }
+        }
+        
+
+        
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 15000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .admin-panel-content {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid #FFC107;
+        }
+        
+        .admin-panel h3 {
+            color: #FFC107;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .admin-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .admin-data {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .admin-data pre {
+            color: #00ff00;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .admin-close-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            background: #666;
+            color: white;
+            width: 100%;
+        }
+        
+        .admin-close-btn:hover {
+            background: #777;
+        }
+        
+        .admin-access {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .admin-access-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            background: #FFC107;
+            color: #333;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-access-btn:hover {
+            background: #FFD54F;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+        }
+        
         .auth-btn {
             width: 100%;
             padding: 15px;
@@ -196,106 +401,7 @@
             color: #FFC107;
             font-size: 14px;
         }
-        
-        /* Comment System */
-        .comment-section {
-            margin: 30px auto;
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            max-width: 600px;
-            backdrop-filter: blur(10px);
-            display: none; /* Hidden initially, shown after login */
-        }
-        
-        .comment-section h3 {
-            margin: 0 0 20px 0;
-            color: #FFC107;
-            text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
-            text-align: center;
-        }
-        
-        .comment-form textarea {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            font-size: 16px;
-            resize: vertical;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-        
-        .comment-form textarea::placeholder {
-            color: rgba(255,255,255,0.7);
-        }
-        
-        .comment-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-        
-        #commentCharCount {
-            color: rgba(255,255,255,0.7);
-            font-size: 14px;
-        }
-        
-        .comment-submit-btn {
-            padding: 10px 20px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .comment-submit-btn:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-        }
-        
-        .recent-comments {
-            margin-top: 25px;
-        }
-        
-        .recent-comments h4 {
-            margin: 0 0 15px 0;
-            color: #FFC107;
-            text-align: center;
-        }
-        
-        .comments-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .comment-item {
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #FFC107;
-        }
-        
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: rgba(255,255,255,0.8);
-        }
-        
-        .comment-content {
-            color: white;
-            line-height: 1.4;
-        }
-        
+
         /* Guess Counter Screen Styles */
         .guess-counter-screen {
             position: fixed;
@@ -637,12 +743,76 @@
             text-transform: uppercase;
         }
         
+        .game-cell-input {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            text-transform: uppercase;
+            text-align: center;
+            color: white;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        
+        .game-cell-input:focus {
+            border-color: #4CAF50;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .game-cell-input:read-only {
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .game-cell-input.filled {
+            background: rgba(255,255,255,0.2);
+            border-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            animation: fillPulse 0.3s ease-in-out;
+        }
+        
+        @keyframes fillPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
         .game-cell.filled {
             background: rgba(255,255,255,0.2);
             border-color: #4CAF50;
         }
         
         /* Feedback colors for game cells */
+        .game-cell-input.correct {
+            background: #4CAF50 !important;
+            border-color: #4CAF50 !important;
+            color: white;
+            animation: correctPulse 0.5s ease-in-out;
+        }
+        
+        .game-cell-input.present {
+            background: #FFC107 !important;
+            border-color: #FFC107 !important;
+            color: white;
+            animation: presentPulse 0.5s ease-in-out;
+        }
+        
+        .game-cell-input.absent {
+            background: #9E9E9E !important;
+            border-color: #9E9E9E !important;
+            color: white;
+            animation: absentPulse 0.5s ease-in-out;
+        }
+        
         .game-cell.correct {
             background: #4CAF50 !important;
             border-color: #4CAF50 !important;
@@ -824,28 +994,7 @@
             display: none;
         }
         
-        .test-buttons {
-            margin: 20px 0;
-        }
-        
-        .test-btn {
-            margin: 5px;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .test-js {
-            background: red;
-            color: white;
-        }
-        
-        .debug-dom {
-            background: blue;
-            color: white;
-        }
+
         
         /* Two player score display */
         .two-player-scores {
@@ -1238,6 +1387,30 @@
     </style>
 </head>
 <body>
+    <!-- Celebration Overlay -->
+    <div class="celebration-overlay" id="celebrationOverlay">
+        <div class="celebration-content">
+            <div class="celebration-title" id="celebrationTitle">🎉 CONGRATULATIONS! 🎉</div>
+            <div class="beer-clink">🍺 🍻</div>
+        </div>
+    </div>
+    
+
+    
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-panel-content">
+            <h3>🔐 Admin Panel</h3>
+            <div class="admin-controls">
+                <button class="admin-btn" onclick="testInputField()">Test Input Field</button>
+            </div>
+            <div class="admin-data" id="adminData">
+                <p>Click a button above to view data</p>
+            </div>
+            <button class="admin-close-btn" onclick="closeAdminPanel()">Close</button>
+        </div>
+    </div>
+    
     <!-- Login/Register System -->
     <div class="auth-container" id="authContainer">
         <div class="auth-box">
@@ -1278,12 +1451,12 @@
         <div class="game-mode-selector" id="gameModeSelector">
             <h3>Select Game Mode</h3>
             <div class="mode-buttons">
-                <button class="mode-btn active" onclick="startNewGame('bot')">One Player vs Bot</button>
-                <button class="mode-btn" onclick="startNewGame('twoPlayer')">Two Player</button>
+                <button class="mode-btn active" onclick="startNewGame('bot')">One Player</button>
+                <button class="mode-btn" onclick="startNewGame('twoPlayer')">Multi-Player</button>
+                <button class="mode-btn admin-btn" onclick="openAdminPanel()">Admin Panel</button>
             </div>
-            <div class="test-buttons">
-                <button class="test-btn test-js" onclick="testJavaScript()">Test JavaScript</button>
-                <button class="test-btn debug-dom" onclick="debugDOMElements()">Debug DOM</button>
+            <div style="text-align: center; margin: 20px 0;">
+                <button onclick="toggleStats()" id="showStatsBtn" style="padding: 10px 20px; background: #FF9800; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Show Statistics</button>
             </div>
         </div>
         
@@ -1395,12 +1568,7 @@
         
         <div class="keyboard" id="keyboard"></div>
         
-        <div class="input-area" id="inputArea">
-            <h4>Enter Mystery Word</h4>
-            <input type="text" id="wordInput" placeholder="Enter 5-letter word" maxlength="5">
-            <button id="submitBtn">Submit</button>
-            <button onclick="backToFriendOptions()" class="cancel-input-btn">Cancel</button>
-        </div>
+
         
         <!-- Two player score display -->
         <div class="two-player-scores" id="twoPlayerScores">
@@ -1433,28 +1601,9 @@
             <button onclick="toggleStats()" style="margin-top: 10px; padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer;">Hide Stats</button>
         </div>
         
-        <!-- Stats toggle button -->
-        <div style="text-align: center; margin: 20px 0;">
-            <button onclick="toggleStats()" id="showStatsBtn" style="padding: 10px 20px; background: #FF9800; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Show Statistics</button>
-        </div>
+
         
-        <!-- Comment System -->
-        <div class="comment-section" id="commentSection">
-            <h3>💬 Share Your Experience</h3>
-            <div class="comment-form">
-                <textarea id="commentText" placeholder="Tell us about your WordDuel experience! What did you like? Any suggestions for improvement?" rows="4" maxlength="500"></textarea>
-                <div class="comment-info">
-                    <span id="commentCharCount">0/500</span>
-                    <button onclick="submitComment()" class="comment-submit-btn">Submit Comment</button>
-                </div>
-            </div>
-            <div class="recent-comments" id="recentComments">
-                <h4>Recent Comments</h4>
-                <div class="comments-list" id="commentsList">
-                    <!-- Comments will be loaded here -->
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <script>
@@ -1463,6 +1612,8 @@
         let currentWord = '';
         let currentGuess = '';
         let attempts = 0;
+        let currentRow = 0;
+        let currentCol = 0;
         let gameWon = false;
         let gameOver = false;
         let usedWords = new Set();
@@ -1490,8 +1641,223 @@
         let twoPlayerScores, player1Score, player2Score, roundResult, bestOfThree, bestOfThreeResult;
         let friendSelector, contactInput, randomMatch, waitingMessage, waitingText;
         
-        // Word list (simplified for now)
-        const words = ['hello', 'world', 'apple', 'beach', 'chair', 'dance', 'eagle', 'flame', 'grape', 'house'];
+        // Word list - valid 5-letter words
+        const words = [
+            'about', 'above', 'abuse', 'actor', 'acute', 'admit', 'adopt', 'adult', 'after', 'again',
+            'agent', 'agree', 'ahead', 'alarm', 'album', 'alert', 'alike', 'alive', 'allow', 'alone',
+            'along', 'alter', 'among', 'anger', 'angle', 'angry', 'apart', 'apple', 'apply', 'arena',
+            'argue', 'arise', 'array', 'aside', 'asset', 'audio', 'audit', 'avoid', 'award', 'aware',
+            'badly', 'baker', 'bases', 'basic', 'beach', 'began', 'begin', 'begun', 'being', 'below',
+            'bench', 'billy', 'birth', 'black', 'blame', 'blind', 'block', 'blood', 'board', 'boost',
+            'booth', 'bound', 'brain', 'brand', 'bread', 'break', 'breed', 'brief', 'bring', 'broad',
+            'broke', 'brown', 'build', 'built', 'buyer', 'cable', 'calif', 'carry', 'catch', 'cause',
+            'chain', 'chair', 'chart', 'chase', 'cheap', 'check', 'chest', 'chief', 'child', 'china',
+            'chose', 'civil', 'claim', 'class', 'clean', 'clear', 'click', 'climb', 'clock', 'close',
+            'coach', 'coast', 'could', 'count', 'court', 'cover', 'craft', 'crash', 'cream', 'crime',
+            'cross', 'crowd', 'crown', 'curve', 'cycle', 'daily', 'dance', 'dated', 'dealt', 'death',
+            'debut', 'delay', 'depth', 'doing', 'doubt', 'dozen', 'draft', 'drama', 'drawn', 'dream',
+            'dress', 'drill', 'drink', 'drive', 'drove', 'dying', 'eager', 'early', 'earth', 'eight',
+            'elite', 'empty', 'enemy', 'enjoy', 'enter', 'entry', 'equal', 'error', 'event', 'every',
+            'exact', 'exist', 'extra', 'faith', 'false', 'fault', 'fiber', 'field', 'fifth', 'fifty',
+            'fight', 'final', 'first', 'fixed', 'flash', 'fleet', 'floor', 'fluid', 'focus', 'force',
+            'forth', 'forty', 'forum', 'found', 'frame', 'frank', 'fraud', 'fresh', 'front', 'fruit',
+            'fully', 'funny', 'giant', 'given', 'glass', 'globe', 'going', 'grace', 'grade', 'grand',
+            'grant', 'grass', 'great', 'green', 'gross', 'group', 'grown', 'guard', 'guess', 'guest',
+            'guide', 'happy', 'harry', 'heart', 'heavy', 'hence', 'henry', 'horse', 'hotel', 'house',
+            'human', 'ideal', 'image', 'index', 'inner', 'input', 'issue', 'japan', 'jimmy', 'joint',
+            'jones', 'judge', 'known', 'label', 'large', 'laser', 'later', 'laugh', 'layer', 'learn',
+            'lease', 'least', 'leave', 'legal', 'level', 'lewis', 'light', 'limit', 'links', 'lives',
+            'local', 'loose', 'lower', 'lucky', 'lunch', 'lying', 'magic', 'major', 'maker', 'march',
+            'maria', 'match', 'maybe', 'mayor', 'meant', 'media', 'metal', 'might', 'minor', 'minus',
+            'mixed', 'model', 'money', 'month', 'moral', 'motor', 'mount', 'mouse', 'mouth', 'moved',
+            'movie', 'music', 'needs', 'never', 'newly', 'night', 'noise', 'north', 'noted', 'novel',
+            'nurse', 'occur', 'ocean', 'offer', 'often', 'order', 'other', 'ought', 'paint', 'panel',
+            'paper', 'party', 'peace', 'peter', 'phase', 'phone', 'photo', 'piece', 'pilot', 'pitch',
+            'place', 'plain', 'plane', 'plant', 'plate', 'point', 'pound', 'power', 'press', 'price',
+            'pride', 'prime', 'print', 'prior', 'prize', 'proof', 'proud', 'prove', 'queen', 'quick',
+            'quiet', 'quite', 'radio', 'raise', 'range', 'rapid', 'ratio', 'reach', 'ready', 'realm',
+            'rebel', 'refer', 'relax', 'relay', 'renal', 'renew', 'repay', 'reply', 'rerun', 'reset',
+            'retry', 'revel', 'rhine', 'rhyme', 'rider', 'ridge', 'rifle', 'right', 'rigid', 'rigor',
+            'rival', 'river', 'robin', 'roger', 'roman', 'rough', 'round', 'route', 'rover', 'royal',
+            'rural', 'safer', 'saint', 'salem', 'sally', 'salon', 'satin', 'sauce', 'saver', 'scale',
+            'scare', 'scarf', 'scary', 'scene', 'scent', 'scoff', 'scold', 'scoop', 'scope', 'score',
+            'scorn', 'scout', 'scrap', 'screw', 'scrub', 'scrum', 'scuba', 'seamy', 'seedy', 'seemly',
+            'segue', 'seize', 'sense', 'sepia', 'serif', 'serum', 'serve', 'seven', 'shade', 'shaft',
+            'shake', 'shaky', 'shall', 'shalt', 'shame', 'shank', 'shape', 'shard', 'share', 'shark',
+            'sharp', 'shave', 'shawl', 'shear', 'sheen', 'sheep', 'sheer', 'sheet', 'sheik', 'shelf',
+            'shell', 'shied', 'shift', 'shill', 'shine', 'shiny', 'shire', 'shirk', 'shirt', 'shoal',
+            'shock', 'shoed', 'shoes', 'shone', 'shook', 'shoot', 'shore', 'shorn', 'short', 'shout',
+            'shove', 'shown', 'showy', 'shred', 'shrew', 'shrub', 'shrug', 'shuck', 'shun', 'shush',
+            'shut', 'shyly', 'sieve', 'sift', 'sigh', 'sight', 'sigma', 'sign', 'silk', 'silky',
+            'silly', 'silo', 'silt', 'sinew', 'singe', 'singer', 'single', 'sinker', 'sinus', 'sip',
+            'sire', 'siren', 'sissy', 'sister', 'sitcom', 'sixer', 'sixth', 'sixty', 'size', 'sizer',
+            'skate', 'skew', 'skid', 'skier', 'skies', 'skiff', 'skill', 'skim', 'skimp', 'skin',
+            'skint', 'skirt', 'skit', 'skulk', 'skull', 'skunk', 'slab', 'slack', 'slain', 'slake',
+            'slang', 'slant', 'slap', 'slash', 'slate', 'slaw', 'slay', 'sled', 'sleek', 'sleep',
+            'sleet', 'slept', 'slew', 'slice', 'slick', 'slide', 'slime', 'slimy', 'sling', 'slink',
+            'sly', 'slip', 'slit', 'sliver', 'slob', 'slog', 'slop', 'slope', 'slosh', 'sloth',
+            'slouch', 'slough', 'sloven', 'slow', 'slue', 'slug', 'sluice', 'slum', 'slump', 'slung',
+            'slunk', 'slur', 'slurp', 'slush', 'sly', 'slyly', 'smack', 'small', 'smart', 'smash',
+            'smear', 'smell', 'smelt', 'smile', 'smirk', 'smite', 'smith', 'smithy', 'smock', 'smog',
+            'smoke', 'smoky', 'smug', 'smut', 'snack', 'snag', 'snail', 'snake', 'snaky', 'snap',
+            'snare', 'snarl', 'snatch', 'sneak', 'sneer', 'snide', 'sniff', 'snipe', 'sniper', 'snit',
+            'snoop', 'snoot', 'snore', 'snort', 'snout', 'snow', 'snub', 'snuck', 'snuff', 'snug',
+            'snugly', 'speak', 'speed', 'spell', 'spend', 'spent', 'spew', 'spice', 'spicy', 'spied',
+            'spiel', 'spike', 'spiky', 'spill', 'spilt', 'spin', 'spine', 'spiny', 'spire', 'spite',
+            'spit', 'splat', 'splay', 'splint', 'split', 'splotch', 'splurge', 'splurt', 'spoil',
+            'spoke', 'spoof', 'spook', 'spool', 'spoon', 'spore', 'sport', 'spot', 'spout', 'sprain',
+            'spray', 'spree', 'sprig', 'spring', 'sprout', 'spruce', 'sprung', 'spry', 'spud', 'spun',
+            'spunk', 'spurn', 'spurt', 'sputter', 'squall', 'square', 'squash', 'squat', 'squawk',
+            'squeak', 'squeal', 'squeeze', 'squib', 'squid', 'squiggle', 'squint', 'squire', 'squirt',
+            'squish', 'stab', 'stack', 'staff', 'stag', 'stage', 'stain', 'stair', 'stake', 'stale',
+            'stalk', 'stall', 'stamp', 'stand', 'stank', 'stare', 'stark', 'stash', 'state', 'stave',
+            'stays', 'stead', 'steak', 'steal', 'steam', 'steed', 'steel', 'steep', 'steer', 'stem',
+            'step', 'stew', 'stick', 'stiff', 'still', 'stilt', 'sting', 'stink', 'stint', 'stir',
+            'stock', 'stoic', 'stoke', 'stole', 'stomp', 'stone', 'stony', 'stood', 'stool', 'stoop',
+            'stop', 'stops', 'store', 'stork', 'storm', 'story', 'stout', 'stove', 'stow', 'stows',
+            'strap', 'straw', 'stray', 'strep', 'strew', 'stria', 'strip', 'strop', 'strum', 'strut',
+            'stub', 'stuck', 'stud', 'study', 'stuff', 'stump', 'stung', 'stunk', 'stuns', 'stunt',
+            'style', 'styli', 'suave', 'suede', 'sugar', 'suit', 'suite', 'sulfa', 'sulk', 'sulky',
+            'sully', 'sultry', 'sumac', 'sums', 'sunny', 'super', 'surer', 'surf', 'surge', 'surl',
+            'surly', 'sushi', 'sutra', 'swab', 'swad', 'swag', 'swage', 'swain', 'swale', 'swam',
+            'swami', 'swamp', 'swampy', 'swan', 'swank', 'swans', 'swap', 'swarm', 'swash', 'swat',
+            'swath', 'sway', 'swear', 'sweat', 'sweep', 'swept', 'swig', 'swill', 'swim', 'swipe',
+            'swirl', 'swish', 'swiss', 'swoon', 'swoop', 'swop', 'sword', 'swore', 'sworn', 'swum',
+            'swung', 'syrup', 'tabby', 'tabla', 'table', 'taboo', 'tacit', 'tack', 'tacky', 'taco',
+            'tact', 'taffy', 'tag', 'tail', 'taint', 'take', 'taken', 'taker', 'takes', 'tally',
+            'talon', 'tamer', 'tango', 'tangy', 'taper', 'tapir', 'tardy', 'tarot', 'tarry', 'task',
+            'taste', 'tasty', 'tatty', 'taunt', 'tawny', 'taxi', 'teach', 'tear', 'tease', 'teens',
+            'teeth', 'tempo', 'tenet', 'tenor', 'tense', 'tenth', 'tepee', 'tepid', 'term', 'tern',
+            'terse', 'test', 'testy', 'tether', 'thank', 'theft', 'their', 'theme', 'then', 'there',
+            'these', 'theta', 'thick', 'thief', 'thigh', 'thing', 'think', 'third', 'thong', 'thorn',
+            'those', 'thou', 'thread', 'three', 'threw', 'throb', 'throw', 'thrum', 'thud', 'thug',
+            'thumb', 'thump', 'thunk', 'thus', 'thyme', 'tiara', 'tibia', 'tidal', 'tidy', 'tie',
+            'tied', 'tier', 'ties', 'tiger', 'tight', 'tilde', 'timer', 'timid', 'timmy', 'timon',
+            'tint', 'tiny', 'tip', 'tiptoe', 'tiptop', 'tire', 'tired', 'toad', 'toast', 'today',
+            'toddy', 'toe', 'tofu', 'toga', 'toil', 'toilet', 'token', 'told', 'tommy', 'tonal',
+            'tone', 'tonga', 'tonic', 'tonne', 'tool', 'toon', 'tooth', 'topaz', 'topic', 'torah',
+            'torch', 'torso', 'torus', 'total', 'totem', 'touch', 'tough', 'towel', 'tower', 'town',
+            'toxic', 'toxin', 'toy', 'trace', 'track', 'tract', 'trade', 'trail', 'train', 'trait',
+            'tram', 'trance', 'trap', 'trash', 'trawl', 'tray', 'tread', 'treat', 'treble', 'tree',
+            'trek', 'trend', 'triad', 'trial', 'tribe', 'trice', 'trick', 'tried', 'trifle', 'trill',
+            'trim', 'trinity', 'trio', 'trip', 'tripe', 'trite', 'troll', 'troop', 'trot', 'trout',
+            'truce', 'truck', 'trudge', 'trump', 'trunk', 'truss', 'trust', 'truth', 'try', 'tryst',
+            'tubal', 'tubby', 'tube', 'tubing', 'tubular', 'tuck', 'tuesday', 'tug', 'tuition',
+            'tulip', 'tulle', 'tumor', 'tumult', 'tuna', 'tundra', 'tune', 'tunic', 'tunnel', 'tupelo',
+            'turban', 'turbid', 'turbine', 'turf', 'turgid', 'turkey', 'turmoil', 'turn', 'turnip',
+            'turret', 'turtle', 'tusk', 'tussle', 'tutor', 'tutu', 'tux', 'twang', 'tweak', 'tweed',
+            'tweet', 'tweezers', 'twelve', 'twenty', 'twice', 'twiddle', 'twig', 'twilight', 'twill',
+            'twin', 'twine', 'twirl', 'twist', 'twisty', 'twitch', 'twitter', 'two', 'tycoon', 'tying',
+            'tyke', 'udder', 'ulcer', 'ulna', 'ultra', 'umber', 'umbra', 'umbrella', 'umpire', 'uncle',
+            'uncut', 'under', 'undid', 'undo', 'undone', 'undue', 'unfed', 'unfit', 'unify', 'union',
+            'unite', 'unity', 'unlit', 'unmet', 'unmoved', 'unpack', 'unpaid', 'unquote', 'unrest',
+            'unsaid', 'unseen', 'unsent', 'untidy', 'untie', 'until', 'untrue', 'unused', 'unusual',
+            'unveil', 'unwind', 'unwon', 'unzip', 'upbeat', 'upchuck', 'upcoming', 'update', 'upend',
+            'upgrade', 'uphold', 'upholstery', 'upkeep', 'upland', 'uplift', 'upload', 'upon', 'upper',
+            'upright', 'upriver', 'uproar', 'uproot', 'upset', 'upshot', 'upside', 'upstage', 'upstairs',
+            'upstart', 'upstate', 'upstream', 'upstroke', 'upswing', 'uptake', 'uptick', 'uptight',
+            'uptown', 'upturn', 'upward', 'upwind', 'urban', 'urchin', 'urine', 'usable', 'usage',
+            'use', 'used', 'useful', 'useless', 'user', 'usher', 'usual', 'usurp', 'utensil', 'utility',
+            'utilize', 'utmost', 'utopia', 'utter', 'uvula', 'vacancy', 'vacant', 'vacate', 'vacation',
+            'vaccine', 'vacuum', 'vagabond', 'vagrant', 'vague', 'valet', 'valid', 'valley', 'valor',
+            'value', 'valve', 'vamp', 'vampire', 'vane', 'vapor', 'vary', 'vase', 'vast', 'vault',
+            'vaunt', 'veal', 'vegan', 'veggie', 'vehicular', 'veil', 'vein', 'velar', 'veldt', 'vella',
+            'velvet', 'venal', 'vend', 'vendor', 'veneer', 'veneer', 'venial', 'venom', 'venous',
+            'vent', 'ventral', 'venue', 'venus', 'veranda', 'verb', 'verbal', 'verbatim', 'verbose',
+            'verdict', 'verge', 'vermin', 'vernal', 'verse', 'version', 'verso', 'versus', 'vertex',
+            'vertical', 'vertigo', 'verve', 'very', 'vesper', 'vessel', 'vest', 'vestal', 'vestibule',
+            'vestige', 'vestment', 'vestry', 'vet', 'vetch', 'veto', 'vex', 'vexed', 'vexing', 'viable',
+            'viaduct', 'vial', 'viand', 'vibrant', 'vibrate', 'vicar', 'vicarious', 'vice', 'viceroy',
+            'vicinity', 'vicious', 'victim', 'victor', 'victory', 'victual', 'video', 'vie', 'view',
+            'viewer', 'viewpoint', 'vigil', 'vigilant', 'vigor', 'vigorous', 'vile', 'vilify', 'villa',
+            'village', 'villain', 'vindicate', 'vine', 'vinegar', 'vineyard', 'vintage', 'viola',
+            'violate', 'violent', 'violet', 'violin', 'viper', 'viral', 'virgin', 'virile', 'virtual',
+            'virtue', 'virtuous', 'virus', 'visa', 'viscount', 'visible', 'vision', 'visit', 'visitor',
+            'visor', 'vista', 'visual', 'vital', 'vitamin', 'vivacious', 'vivid', 'vixen', 'vizier',
+            'vocab', 'vocal', 'vocalist', 'vocation', 'vocative', 'vodka', 'vogue', 'voice', 'voiced',
+            'void', 'voile', 'vol', 'volatile', 'volcanic', 'volley', 'volt', 'voltage', 'voltaic',
+            'volume', 'voluntary', 'volunteer', 'voluptuous', 'vomit', 'voodoo', 'voracious', 'vortex',
+            'votary', 'vote', 'voter', 'votive', 'vouch', 'vow', 'vowel', 'vulgar', 'vulva', 'vying',
+            'wacky', 'wafer', 'wager', 'wages', 'wagon', 'waif', 'waist', 'wait', 'waive', 'waiver',
+            'wake', 'waken', 'walk', 'walker', 'walking', 'walkout', 'walkup', 'wall', 'wallet', 'wallop',
+            'wallow', 'wallpaper', 'walnut', 'walrus', 'waltz', 'wand', 'wander', 'wane', 'want',
+            'wanton', 'war', 'ward', 'warden', 'wardrobe', 'ware', 'warehouse', 'warfare', 'warlike',
+            'warlock', 'warlord', 'warm', 'warmth', 'warn', 'warp', 'warrant', 'warren', 'warrior',
+            'wart', 'wary', 'was', 'wash', 'washer', 'washout', 'wasp', 'wastage', 'waste', 'waster',
+            'watch', 'watcher', 'water', 'watery', 'watt', 'watts', 'wave', 'waver', 'wavy', 'wax',
+            'waxen', 'waxing', 'way', 'waylay', 'ways', 'wayward', 'weak', 'weaken', 'weakling',
+            'weakness', 'weal', 'wealth', 'wealthy', 'wean', 'weapon', 'weaponry', 'wear', 'weary',
+            'weasel', 'weather', 'weave', 'weaver', 'web', 'webbed', 'webbing', 'wed', 'wedding',
+            'wedge', 'wedlock', 'wee', 'weed', 'weedy', 'week', 'weekday', 'weekend', 'weekly', 'weep',
+            'weeping', 'weepy', 'weigh', 'weight', 'weighty', 'weird', 'weirdo', 'welcome', 'weld',
+            'welder', 'welfare', 'well', 'welsh', 'welt', 'welter', 'wench', 'wend', 'went', 'wept',
+            'were', 'wert', 'west', 'western', 'wet', 'wetland', 'whack', 'whale', 'whaler', 'wham',
+            'wharf', 'what', 'whatever', 'whatnot', 'wheat', 'whee', 'wheel', 'wheeze', 'wheezy',
+            'whelk', 'whelm', 'whelp', 'when', 'whence', 'whenever', 'where', 'whereas', 'whereby',
+            'wherein', 'whereof', 'whereon', 'wherever', 'wherewith', 'whet', 'whether', 'whew',
+            'whey', 'which', 'whichever', 'whiff', 'while', 'whilst', 'whim', 'whimper', 'whimsy',
+            'whine', 'whinny', 'whip', 'whiplash', 'whippet', 'whir', 'whirl', 'whirlpool', 'whirlwind',
+            'whisk', 'whisker', 'whiskey', 'whisper', 'whistle', 'whit', 'white', 'whiten', 'whither',
+            'whiting', 'whitish', 'whittle', 'whiz', 'whizz', 'who', 'whoa', 'whoever', 'whole',
+            'wholesale', 'wholesome', 'whom', 'whomever', 'whoop', 'whoosh', 'whop', 'whopper',
+            'whopping', 'whore', 'whose', 'whosoever', 'why', 'wick', 'wicked', 'wicker', 'wicket',
+            'wide', 'widen', 'wider', 'widespread', 'widow', 'width', 'wield', 'wiener', 'wife',
+            'wig', 'wiggle', 'wiggly', 'wight', 'wild', 'wildcat', 'wilderness', 'wildfire', 'wildfowl',
+            'wildlife', 'wildly', 'wile', 'will', 'willing', 'willow', 'wilt', 'wily', 'wimp',
+            'wimpy', 'win', 'wince', 'winch', 'wind', 'windage', 'windblown', 'windbreaker', 'windburn',
+            'winder', 'windfall', 'windlass', 'windmill', 'window', 'windpipe', 'windproof', 'windrow',
+            'windshield', 'windsock', 'windstorm', 'windsurf', 'windswept', 'windup', 'windward',
+            'windy', 'wine', 'winery', 'wing', 'wingding', 'winged', 'winging', 'wingless', 'winglet',
+            'wingman', 'wingover', 'wingspan', 'wingtip', 'wink', 'winker', 'winkle', 'winner',
+            'winning', 'winnow', 'wino', 'winsome', 'winter', 'winterize', 'wintertime', 'wintry',
+            'wipe', 'wire', 'wired', 'wireless', 'wiretap', 'wiring', 'wiry', 'wisdom', 'wise',
+            'wish', 'wishbone', 'wishful', 'wishy', 'wisp', 'wispy', 'wistful', 'wit', 'witch',
+            'with', 'withdraw', 'withdrawal', 'withdrawn', 'withdrew', 'wither', 'withheld', 'withhold',
+            'within', 'without', 'withstand', 'withstood', 'witness', 'witnessed', 'witnessing',
+            'wits', 'witty', 'wive', 'wives', 'wizard', 'wizened', 'wobble', 'wobbly', 'woe',
+            'woebegone', 'woeful', 'wok', 'woke', 'woken', 'wolf', 'wolfhound', 'wolfish', 'wolfram',
+            'wolverine', 'woman', 'womanhood', 'womanish', 'womanlike', 'womanly', 'womb', 'wombat',
+            'women', 'won', 'wonder', 'wonderful', 'wondrous', 'wont', 'woo', 'wood', 'woodbine',
+            'woodchuck', 'woodcock', 'woodcut', 'wooded', 'wooden', 'woodland', 'woodlot', 'woodman',
+            'woodpecker', 'woodpile', 'woodruff', 'woods', 'woodshed', 'woodsy', 'woodwind', 'woodwork',
+            'woody', 'wooer', 'woof', 'wool', 'woolen', 'woolgathering', 'woolly', 'woozy', 'word',
+            'wordage', 'wordbook', 'wordless', 'wordplay', 'words', 'wordy', 'work', 'workable',
+            'workaday', 'workbag', 'workbook', 'workday', 'worker', 'workhorse', 'workhouse', 'working',
+            'workload', 'workman', 'workmanlike', 'workout', 'workplace', 'workroom', 'works', 'worksheet',
+            'workshop', 'worktable', 'workup', 'world', 'worldly', 'worldwide', 'worm', 'wormy',
+            'worn', 'worried', 'worry', 'worrying', 'worse', 'worsen', 'worship', 'worst', 'worth',
+            'worthless', 'worthwhile', 'worthy', 'would', 'wound', 'wove', 'woven', 'wow', 'wrack',
+            'wraith', 'wrangle', 'wrap', 'wrapper', 'wrapping', 'wrath', 'wreak', 'wreath', 'wreathe',
+            'wreck', 'wreckage', 'wrecker', 'wrecking', 'wren', 'wrench', 'wrest', 'wrestle', 'wrestler',
+            'wretch', 'wretched', 'wriggle', 'wriggly', 'wright', 'wring', 'wringer', 'wringing',
+            'wrinkle', 'wrinkly', 'wrist', 'wristband', 'writ', 'write', 'writer', 'writhe', 'writing',
+            'written', 'wrong', 'wrongdoer', 'wrongdoing', 'wrongful', 'wrongheaded', 'wrongly',
+            'wrongness', 'wrote', 'wrought', 'wrung', 'wry', 'wryly', 'wryness', 'wuss', 'xerox',
+            'yacht', 'yack', 'yadda', 'yank', 'yap', 'yard', 'yardage', 'yardarm', 'yardstick',
+            'yarn', 'yaw', 'yawl', 'yawn', 'yawning', 'yawp', 'yaws', 'ye', 'yea', 'yeah', 'year',
+            'yearbook', 'yearling', 'yearly', 'yearn', 'yearning', 'yeast', 'yeasty', 'yell', 'yellow',
+            'yelp', 'yen', 'yeoman', 'yes', 'yesterday', 'yesteryear', 'yet', 'yew', 'yield',
+            'yielding', 'yikes', 'yip', 'yodel', 'yoga', 'yogi', 'yoke', 'yokel', 'yolk', 'yonder',
+            'yore', 'you', 'young', 'younger', 'youngest', 'youngish', 'youngster', 'your', 'yours',
+            'yourself', 'yourselves', 'youth', 'youthful', 'yowl', 'yoyo', 'yuck', 'yucky', 'yuk',
+            'yule', 'yummy', 'yuppie', 'yurt', 'zany', 'zap', 'zapper', 'zappy', 'zeal', 'zealot',
+            'zealous', 'zebra', 'zebrafish', 'zen', 'zenith', 'zephyr', 'zeppelin', 'zero', 'zest',
+            'zesty', 'zeta', 'zigzag', 'zilch', 'zillion', 'zinc', 'zincic', 'zing', 'zingy',
+            'zinnia', 'zip', 'zipper', 'zippy', 'zippy', 'zircon', 'zit', 'zither', 'zloty',
+            'zodiac', 'zombie', 'zonal', 'zone', 'zoned', 'zoning', 'zonk', 'zoo', 'zoological',
+            'zoologist', 'zoology', 'zoom', 'zoophyte', 'zooplankton', 'zoospore', 'zoot', 'zowie',
+            'zucchini', 'zurich', 'zwieback', 'zydeco', 'zygote', 'zygotic', 'zymurgy',
+            'plead', 'dream', 'sleep', 'wake', 'walk', 'talk', 'sing', 'dance', 'smile', 'laugh',
+            'think', 'learn', 'teach', 'study', 'write', 'read', 'draw', 'paint', 'cook', 'bake',
+            'clean', 'wash', 'drive', 'fly', 'swim', 'climb', 'jump', 'run', 'stop', 'start',
+            'begin', 'finish', 'create', 'build', 'break', 'fix', 'help', 'save', 'find', 'lose',
+            'catch', 'throw', 'catch', 'throw', 'catch', 'throw', 'catch', 'throw', 'catch', 'throw'
+        ];
+        
+        // Validate if a word is in the word list
+        function isValidWord(word) {
+            return words.includes(word.toLowerCase());
+        }
         
         // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
@@ -1503,9 +1869,7 @@
             console.log('Step 3: Initializing authentication inputs...');
             initializeAuthInputs(); // NEW: Initialize authentication input handling
             
-            // Initialize comment system
-            console.log('Step 4: Initializing comment system...');
-            initializeCommentSystem();
+
             
             // Ensure input fields are properly accessible and focused
             console.log('Step 5: Setting up input focus...');
@@ -1570,6 +1934,35 @@
                 waitingMessage: !!waitingMessage,
                 waitingText: !!waitingText
             });
+            
+            // Special debugging for input field
+            if (wordInput) {
+                console.log('✅ Word input element found:', wordInput);
+                console.log('Word input properties:', {
+                    id: wordInput.id,
+                    type: wordInput.type,
+                    placeholder: wordInput.placeholder,
+                    value: wordInput.value,
+                    display: getComputedStyle(wordInput).display,
+                    visibility: getComputedStyle(wordInput).visibility
+                });
+            } else {
+                console.error('❌ Word input element NOT found!');
+                console.log('Available input elements:', document.querySelectorAll('input[type="text"]'));
+            }
+            
+            // Check input area
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) {
+                console.log('✅ Input area element found:', inputArea);
+                console.log('Input area properties:', {
+                    id: inputArea.id,
+                    display: getComputedStyle(inputArea).display,
+                    visibility: getComputedStyle(inputArea).visibility
+                });
+            } else {
+                console.error('❌ Input area element NOT found!');
+            }
             
             // Hide stats and guess counter initially
             if (stats) stats.style.display = 'none';
@@ -1748,6 +2141,12 @@
                     e.preventDefault();
                     submitGuess();
                 }
+                
+                // Admin panel shortcut: Ctrl+Shift+A
+                if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                    e.preventDefault();
+                    openAdminPanel();
+                }
             });
             
             console.log('All event listeners added');
@@ -1860,8 +2259,12 @@
                 if (gameBoard) gameBoard.style.display = 'grid';
                 if (keyboard) keyboard.style.display = 'block';
                 if (guessCounter) guessCounter.style.display = 'block';
+                
+
             } else {
-                // Two player mode - hide game elements initially
+
+                
+                // Hide game elements initially
                 if (gameBoard) gameBoard.style.display = 'none';
                 if (keyboard) keyboard.style.display = 'none';
                 if (guessCounter) guessCounter.style.display = 'none';
@@ -1877,6 +2280,18 @@
             updateStats();
             
             if (message) message.style.display = 'none';
+            
+            // Focus on first cell for bot mode
+            if (gameMode === 'bot') {
+                setTimeout(() => {
+                    const firstCell = document.querySelector('[data-row="0"][data-col="0"]');
+                    if (firstCell) {
+                        firstCell.removeAttribute('readonly');
+                        firstCell.focus();
+                        console.log('First cell focused');
+                    }
+                }, 100);
+            }
             
             console.log('Game initialized successfully');
         }
@@ -1899,11 +2314,19 @@
                 rowDiv.setAttribute('data-row', row);
                 
                 for (let col = 0; col < 5; col++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'game-cell';
+                    const cell = document.createElement('input');
+                    cell.type = 'text';
+                    cell.className = 'game-cell-input';
                     cell.setAttribute('data-row', row);
                     cell.setAttribute('data-col', col);
-                    cell.textContent = '';
+                    cell.maxLength = 1;
+                    cell.setAttribute('readonly', 'readonly');
+                    
+                    // Add event listeners for direct input
+                    cell.addEventListener('focus', () => handleCellFocus(row, col));
+                    cell.addEventListener('keydown', (e) => handleCellKeyDown(e, row, col));
+                    cell.addEventListener('input', (e) => handleCellInput(e, row, col));
+                    
                     rowDiv.appendChild(cell);
                 }
                 
@@ -1952,7 +2375,7 @@
             console.log('Keyboard created successfully');
         }
         
-        // Handle key press
+        // Handle key press from on-screen keyboard
         function handleKeyPress(key) {
             console.log('Key pressed:', key);
             if (gameOver) return;
@@ -1961,13 +2384,112 @@
                 console.log('Submitting guess...');
                 submitGuess();
             } else if (key === 'BACKSPACE') {
-                currentGuess = currentGuess.slice(0, -1);
-                updateInput();
-                console.log('Current guess after backspace:', currentGuess);
+                handleBackspace();
             } else if (currentGuess.length < 5) {
-                currentGuess += key.toLowerCase();
-                updateInput();
+                addLetterToCurrentGuess(key);
+            }
+        }
+        
+        // Handle cell focus
+        function handleCellFocus(row, col) {
+            console.log('Cell focused:', row, col);
+            if (row !== attempts) {
+                // Only allow focus on current row
+                return;
+            }
+            
+            // Update current position
+            currentRow = row;
+            currentCol = col;
+            
+            // Enable the cell for input
+            const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            if (cell) {
+                cell.removeAttribute('readonly');
+                cell.focus();
+            }
+        }
+        
+        // Handle cell keydown
+        function handleCellKeyDown(e, row, col) {
+            if (row !== attempts) return;
+            
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                submitGuess();
+            } else if (e.key === 'Backspace') {
+                e.preventDefault();
+                handleBackspace();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (col > 0) {
+                    const prevCell = document.querySelector(`[data-row="${row}"][data-col="${col - 1}"]`);
+                    if (prevCell) prevCell.focus();
+                }
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (col < 4) {
+                    const nextCell = document.querySelector(`[data-row="${row}"][data-col="${col + 1}"]`);
+                    if (nextCell) nextCell.focus();
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (row > 0) {
+                    const prevRowCell = document.querySelector(`[data-row="${row - 1}"][data-col="${col}"]`);
+                    if (prevRowCell) prevRowCell.focus();
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (row < 5) {
+                    const nextRowCell = document.querySelector(`[data-row="${row + 1}"][data-col="${col}"]`);
+                    if (nextRowCell) nextRowCell.focus();
+                }
+            }
+        }
+        
+        // Handle cell input
+        function handleCellInput(e, row, col) {
+            if (row !== attempts) return;
+            
+            const value = e.target.value.toUpperCase();
+            if (value.length > 0 && /^[A-Z]$/.test(value)) {
+                // Valid letter entered
+                currentGuess = currentGuess.padEnd(5, '').split('');
+                currentGuess[col] = value.toLowerCase();
+                currentGuess = currentGuess.join('');
+                
+                // Make current cell readonly after input
+                e.target.setAttribute('readonly', 'readonly');
+                
+                // Move to next cell if available
+                if (col < 4) {
+                    const nextCell = document.querySelector(`[data-row="${row}"][data-col="${col + 1}"]`);
+                    if (nextCell) {
+                        nextCell.focus();
+                        nextCell.removeAttribute('readonly');
+                    }
+                }
+                
+                updateGameBoardDisplay();
+                console.log('Current guess updated:', currentGuess);
+            }
+        }
+        
+        // Add letter to current guess
+        function addLetterToCurrentGuess(letter) {
+            if (currentGuess.length < 5) {
+                currentGuess += letter.toLowerCase();
+                updateGameBoardDisplay();
                 console.log('Current guess after adding letter:', currentGuess);
+            }
+        }
+        
+        // Handle backspace
+        function handleBackspace() {
+            if (currentGuess.length > 0) {
+                currentGuess = currentGuess.slice(0, -1);
+                updateGameBoardDisplay();
+                console.log('Current guess after backspace:', currentGuess);
             }
         }
         
@@ -1988,19 +2510,23 @@
         function updateGameBoardDisplay() {
             if (!gameBoard) return;
             
-            // Find the current row (attempts)
-            const currentRow = gameBoard.querySelector(`[data-row="${attempts}"]`);
-            if (!currentRow) return;
-            
-            // Update each cell in the current row
+            // Update each cell in the current row directly
             for (let i = 0; i < 5; i++) {
-                const cell = currentRow.querySelector(`[data-col="${i}"]`);
+                const cell = gameBoard.querySelector(`[data-row="${attempts}"][data-col="${i}"]`);
                 if (cell) {
                     if (i < currentGuess.length) {
-                        cell.textContent = currentGuess[i].toUpperCase();
+                        if (cell.tagName === 'INPUT') {
+                            cell.value = currentGuess[i].toUpperCase();
+                        } else {
+                            cell.textContent = currentGuess[i].toUpperCase();
+                        }
                         cell.classList.add('filled');
                     } else {
-                        cell.textContent = '';
+                        if (cell.tagName === 'INPUT') {
+                            cell.value = '';
+                        } else {
+                            cell.textContent = '';
+                        }
                         cell.classList.remove('filled');
                     }
                 }
@@ -2043,6 +2569,12 @@
                 return;
             }
             
+            // Validate that the guess is a real word
+            if (!isValidWord(currentGuess)) {
+                showMessage('Not a valid word! Please enter a real 5-letter word.', 'error');
+                return;
+            }
+            
             if (usedWords.has(currentGuess.toLowerCase())) {
                 showMessage('You already guessed that word!', 'error');
                 return;
@@ -2066,6 +2598,8 @@
                 showMessage('Congratulations! You guessed the word!', 'success');
                 updateStats();
                 showPlayAgainButton();
+                // Show celebration for win
+                setTimeout(() => showCelebration(true), 1000);
             } else {
                 attempts++;
                 if (attempts >= 6) {
@@ -2073,9 +2607,22 @@
                     showMessage(`Game over! The word was: ${currentWord.toUpperCase()}`, 'error');
                     updateStats();
                     showPlayAgainButton();
+                    // Show celebration for loss
+                    setTimeout(() => showCelebration(false), 1000);
                 } else {
                     currentGuess = '';
                     updateInput();
+                    
+                    // Focus on first cell of next row
+                    setTimeout(() => {
+                        const nextRowCell = document.querySelector(`[data-row="${attempts}"][data-col="0"]`);
+                        if (nextRowCell) {
+                            nextRowCell.removeAttribute('readonly');
+                            nextRowCell.focus();
+                            console.log('Focused on next row first cell');
+                        }
+                    }, 500);
+                    
                     showMessage(`Try again! ${6 - attempts} attempts remaining.`, 'info');
                 }
             }
@@ -2184,6 +2731,9 @@
                     showMessage(`Player 2 guessed Player 1's word in ${attemptsUsed} attempts!`, 'success');
                 }
                 
+                // Show celebration for win
+                setTimeout(() => showCelebration(true), 1000);
+                
                 // End the round
                 endTwoPlayerRound();
             } else {
@@ -2198,11 +2748,25 @@
                         showMessage(`Player 2 failed to guess Player 1's word. The word was: ${targetWord.toUpperCase()}`, 'error');
                     }
                     
+                    // Show celebration for loss
+                    setTimeout(() => showCelebration(false), 1000);
+                    
                     // End the round
                     endTwoPlayerRound();
                 } else {
                     currentGuess = '';
                     updateInput();
+                    
+                    // Focus on first cell of next row
+                    setTimeout(() => {
+                        const nextRowCell = document.querySelector(`[data-row="${attempts}"][data-col="0"]`);
+                        if (nextRowCell) {
+                            nextRowCell.removeAttribute('readonly');
+                            nextRowCell.focus();
+                            console.log('Focused on next row first cell');
+                        }
+                    }, 500);
+                    
                     showMessage(`Try again! ${6 - attempts} attempts remaining.`, 'info');
                 }
             }
@@ -2361,14 +2925,15 @@
         function applyFeedbackToBoard(rowIndex, guess, feedback) {
             if (!gameBoard) return;
             
-            const row = gameBoard.querySelector(`[data-row="${rowIndex}"]`);
-            if (!row) return;
-            
             for (let i = 0; i < 5; i++) {
-                const cell = row.querySelector(`[data-col="${i}"]`);
+                const cell = gameBoard.querySelector(`[data-row="${rowIndex}"][data-col="${i}"]`);
                 if (cell) {
                     // Set the letter
-                    cell.textContent = guess[i].toUpperCase();
+                    if (cell.tagName === 'INPUT') {
+                        cell.value = guess[i].toUpperCase();
+                    } else {
+                        cell.textContent = guess[i].toUpperCase();
+                    }
                     cell.classList.add('filled');
                     
                     // Remove any existing feedback classes
@@ -2504,14 +3069,7 @@
                 
                 // For bot mode, also show option to view Guess Counter
                 if (gameMode === 'bot') {
-                    const viewStatsBtn = document.createElement('button');
-                    viewStatsBtn.className = 'view-stats-btn';
-                    viewStatsBtn.textContent = 'View Guess Counter';
-                    viewStatsBtn.onclick = showGuessCounterScreen;
-                    viewStatsBtn.style.cssText = 'margin-left: 10px; padding: 10px 15px; background: #FF9800; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;';
-                    
-                    // Insert after play again button
-                    playAgainBtn.parentNode.insertBefore(viewStatsBtn, playAgainBtn.nextSibling);
+
                 }
             }
         }
@@ -2523,7 +3081,7 @@
             if (statsElement) {
                 statsElement.style.display = statsElement.style.display === 'none' ? 'block' : 'none';
                 if (showStatsBtn) {
-                    showStatsBtn.textContent = statsElement.style.display === 'none' ? 'Show Statistics' : 'Hide Statistics';
+        
                 }
                 console.log('Stats toggled:', statsElement.style.display);
             }
@@ -2596,9 +3154,7 @@
                 document.getElementById('authContainer').style.display = 'none';
                 document.getElementById('gameContainer').style.display = 'block';
                 
-                // Show comment section after login
-                const commentSection = document.getElementById('commentSection');
-                if (commentSection) commentSection.style.display = 'block';
+
                 
                 showMessage('Login successful! Welcome to WordDuel!', 'success');
             } else {
@@ -2642,104 +3198,199 @@
             // In real app, this would handle OAuth
         }
         
-        // Comment system functions
-        function initializeCommentSystem() {
-            const commentText = document.getElementById('commentText');
-            const commentCharCount = document.getElementById('commentCharCount');
+        // Celebration and Comment Modal Functions
+        function showCelebration(isWin = true) {
+            const overlay = document.getElementById('celebrationOverlay');
+            const title = document.getElementById('celebrationTitle');
             
-            if (commentText && commentCharCount) {
-                commentText.addEventListener('input', function() {
-                    const length = this.value.length;
-                    commentCharCount.textContent = `${length}/500`;
-                    
-                    // Change color based on length
-                    if (length > 400) {
-                        commentCharCount.style.color = '#FF9800';
-                    } else if (length > 300) {
-                        commentCharCount.style.color = '#FFC107';
-                    } else {
-                        commentCharCount.style.color = 'rgba(255,255,255,0.7)';
+            if (isWin) {
+                title.textContent = '🎉 CONGRATULATIONS! 🎉';
+                title.style.color = '#FFD700';
+            } else {
+                title.textContent = '🎯 Good Try! 🎯';
+                title.style.color = '#FF6B6B';
+            }
+            
+            overlay.style.display = 'block';
+            
+            // Create confetti
+            createConfetti();
+            
+            // Create balloons
+            createBalloons();
+            
+            // Create parade
+            createParade();
+            
+            // Hide celebration after 5 seconds
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 5000);
+        }
+        
+        function createConfetti() {
+            const overlay = document.getElementById('celebrationOverlay');
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                overlay.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
                     }
-                });
+                }, 5000);
             }
-            
-            // Load existing comments
-            loadComments();
         }
         
-        function submitComment() {
-            const commentText = document.getElementById('commentText');
-            const comment = commentText.value.trim();
-            
-            if (!comment) {
-                showMessage('Please enter a comment before submitting', 'error');
-                return;
+        function createBalloons() {
+            const overlay = document.getElementById('celebrationOverlay');
+            for (let i = 0; i < 10; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.animationDelay = Math.random() * 2 + 's';
+                balloon.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                overlay.appendChild(balloon);
+                
+                // Remove balloon after animation
+                setTimeout(() => {
+                    if (balloon.parentNode) {
+                        balloon.parentNode.removeChild(balloon);
+                    }
+                }, 6000);
             }
-            
-            if (comment.length < 10) {
-                showMessage('Comment must be at least 10 characters long', 'error');
-                return;
-            }
-            
-            // Create comment object
-            const commentObj = {
-                id: Date.now(),
-                text: comment,
-                user: 'Anonymous Player', // In real app, get from login
-                timestamp: new Date().toISOString(),
-                gameMode: gameMode || 'Unknown',
-                attempts: attempts || 0
-            };
-            
-            // Save comment to localStorage
-            saveComment(commentObj);
-            
-            // Clear textarea
-            commentText.value = '';
-            document.getElementById('commentCharCount').textContent = '0/500';
-            
-            // Reload comments
-            loadComments();
-            
-            showMessage('Comment submitted successfully! Thank you for your feedback.', 'success');
         }
         
-        function saveComment(comment) {
-            let comments = JSON.parse(localStorage.getItem('wordduel_comments') || '[]');
-            comments.unshift(comment); // Add to beginning
+        function createParade() {
+            const overlay = document.getElementById('celebrationOverlay');
+            const parade = document.createElement('div');
+            parade.className = 'parade';
+            overlay.appendChild(parade);
             
-            // Keep only last 50 comments
-            if (comments.length > 50) {
-                comments = comments.slice(0, 50);
-            }
-            
-            localStorage.setItem('wordduel_comments', JSON.stringify(comments));
+            // Remove parade after animation
+            setTimeout(() => {
+                if (parade.parentNode) {
+                    parade.parentNode.removeChild(parade);
+                }
+            }, 5000);
         }
         
-        function loadComments() {
-            const commentsList = document.getElementById('commentsList');
-            if (!commentsList) return;
+
+        
+        // Admin Panel Functions
+        function openAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = 'flex';
+        }
+        
+        function closeAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = 'none';
+        }
+
+        
+        function testInputField() {
+            const adminData = document.getElementById('adminData');
+            let html = '<h4>🔍 Input Field Test Results</h4>';
             
-            const comments = JSON.parse(localStorage.getItem('wordduel_comments') || '[]');
-            
-            if (comments.length === 0) {
-                commentsList.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7);">No comments yet. Be the first to share your experience!</p>';
-                return;
+            // Test wordInput element
+            if (wordInput) {
+                html += '<div style="background: rgba(76, 175, 80, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                html += '<strong>✅ Word Input Element Found</strong><br>';
+                html += `- ID: ${wordInput.id}<br>`;
+                html += `- Type: ${wordInput.type}<br>`;
+                html += `- Value: "${wordInput.value}"<br>`;
+                html += `- Placeholder: "${wordInput.placeholder}"<br>`;
+                html += `- Display: ${getComputedStyle(wordInput).display}<br>`;
+                html += `- Visibility: ${getComputedStyle(wordInput).visibility}<br>`;
+                html += `- Opacity: ${getComputedStyle(wordInput).opacity}<br>`;
+                html += `- Z-Index: ${getComputedStyle(wordInput).zIndex}<br>`;
+                html += `- Pointer Events: ${getComputedStyle(wordInput).pointerEvents}<br>`;
+                html += `- Focused: ${document.activeElement === wordInput ? 'Yes' : 'No'}<br>`;
+                html += '</div>';
+            } else {
+                html += '<div style="background: rgba(244, 67, 54, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                html += '<strong>❌ Word Input Element NOT Found</strong><br>';
+                html += 'The wordInput variable is null or undefined.<br>';
+                html += '</div>';
             }
             
-            commentsList.innerHTML = comments.map(comment => `
-                <div class="comment-item">
-                    <div class="comment-header">
-                        <span>${comment.user}</span>
-                        <span>${formatTimestamp(comment.timestamp)}</span>
-                    </div>
-                    <div class="comment-content">${escapeHtml(comment.text)}</div>
-                    <div class="comment-meta" style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">
-                        Game: ${comment.gameMode} | Attempts: ${comment.attempts}
-                    </div>
-                </div>
-            `).join('');
+            // Test inputArea element
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) {
+                html += '<div style="background: rgba(76, 175, 80, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                html += '<strong>✅ Input Area Element Found</strong><br>';
+                html += `- ID: ${inputArea.id}<br>`;
+                html += `- Display: ${getComputedStyle(inputArea).display}<br>`;
+                html += `- Visibility: ${getComputedStyle(inputArea).visibility}<br>`;
+                html += '</div>';
+            } else {
+                html += '<div style="background: rgba(244, 67, 54, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                html += '<strong>❌ Input Area Element NOT Found</strong><br>';
+                html += 'The inputArea element is missing from the DOM.<br>';
+                html += '</div>';
+            }
+            
+            // Test current game state
+            html += '<div style="background: rgba(33, 150, 243, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+            html += '<strong>🎮 Current Game State</strong><br>';
+            html += `- Game Mode: ${gameMode}<br>`;
+            html += `- Game Over: ${gameOver}<br>`;
+            html += `- Game Won: ${gameWon}<br>`;
+            html += `- Current Guess: "${currentGuess}"<br>`;
+            html += `- Attempts: ${attempts}<br>`;
+            html += '</div>';
+            
+            // Test event listeners
+            html += '<div style="background: rgba(255, 193, 7, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+            html += '<strong>🎧 Event Listener Test</strong><br>';
+            if (wordInput) {
+                html += '<button onclick="testInputEventListeners()" style="padding: 8px 16px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Test Input Events</button>';
+                html += '<button onclick="focusInputField()" style="padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Focus Input</button>';
+                html += '<button onclick="showInputArea(\'Test Placeholder\')" style="padding: 8px 16px; background: #FF9800; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Show Input Area</button>';
+            }
+            html += '</div>';
+            
+            adminData.innerHTML = html;
         }
+        
+        function testInputEventListeners() {
+            if (!wordInput) return;
+            
+            // Test input event
+            wordInput.dispatchEvent(new Event('input', { bubbles: true }));
+            console.log('Input event dispatched');
+            
+            // Test keydown event
+            wordInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'A', bubbles: true }));
+            console.log('Keydown event dispatched');
+            
+            // Test focus event
+            wordInput.dispatchEvent(new Event('focus', { bubbles: true }));
+            console.log('Focus event dispatched');
+            
+            showMessage('Input event listeners tested! Check console for results.', 'success');
+        }
+        
+        function focusInputField() {
+            if (wordInput) {
+                wordInput.focus();
+                showMessage('Input field focused!', 'success');
+            } else {
+                showMessage('Input field not found!', 'error');
+            }
+        }
+        
+
+
+        
+        // Comment system functions
+
         
         function formatTimestamp(timestamp) {
             const date = new Date(timestamp);
@@ -2796,7 +3447,7 @@
                         </div>
                     </div>
                     <div class="guess-actions">
-                        <button onclick="startBotGame()" class="start-game-btn">Start New Game vs Bot</button>
+                        <button onclick="startBotGame()" class="start-game-btn">Start Game</button>
                         <button onclick="showGameModeSelector()" class="back-btn">Back to Game Mode</button>
                     </div>
                 </div>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordDuel Input Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .debug-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .test-input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+        
+        .test-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .test-input:focus {
+            outline: 2px solid #FFC107;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+        }
+        
+        .debug-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .debug-btn.primary { background: #4CAF50; color: white; }
+        .debug-btn.secondary { background: #2196F3; color: white; }
+        .debug-btn.warning { background: #FF9800; color: white; }
+        .debug-btn.danger { background: #F44336; color: white; }
+        
+        .debug-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .log-output {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .log-info { background: rgba(33, 150, 243, 0.2); }
+        .log-success { background: rgba(76, 175, 80, 0.2); }
+        .log-warning { background: rgba(255, 193, 7, 0.2); }
+        .log-error { background: rgba(244, 67, 54, 0.2); }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-ok { background: #4CAF50; }
+        .status-error { background: #F44336; }
+        .status-warning { background: #FF9800; }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>🔍 WordDuel Input Field Debug</h1>
+        <p>This page helps debug input field issues in the WordDuel game.</p>
+        
+        <div class="test-section">
+            <h3>🎯 Test Input Field</h3>
+            <input type="text" id="testInput" class="test-input" placeholder="Type here to test input functionality..." maxlength="10">
+            <div style="margin: 10px 0;">
+                <button class="debug-btn primary" onclick="focusTestInput()">Focus Input</button>
+                <button class="debug-btn secondary" onclick="testInputEvents()">Test Events</button>
+                <button class="debug-btn warning" onclick="clearTestInput()">Clear Input</button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔧 Debug Actions</h3>
+            <div style="margin: 10px 0;">
+                <button class="debug-btn primary" onclick="testWordDuelElements()">Test WordDuel Elements</button>
+                <button class="debug-btn secondary" onclick="simulateGameStart()">Simulate Game Start</button>
+                <button class="debug-btn warning" onclick="testInputArea()">Test Input Area</button>
+                <button class="debug-btn danger" onclick="clearLog()">Clear Log</button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📊 Element Status</h3>
+            <div id="elementStatus">
+                <p>Click "Test WordDuel Elements" to check element status</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📝 Debug Log</h3>
+            <div class="log-output" id="debugLog">
+                <div class="log-entry log-info">Debug page loaded. Ready to test input functionality.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const testInput = document.getElementById('testInput');
+        const debugLog = document.getElementById('debugLog');
+        const elementStatus = document.getElementById('elementStatus');
+        
+        function log(message, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            debugLog.appendChild(entry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+        }
+        
+        function focusTestInput() {
+            testInput.focus();
+            log('Test input focused', 'success');
+        }
+        
+        function testInputEvents() {
+            log('Testing input events...', 'info');
+            
+            // Test input event
+            testInput.dispatchEvent(new Event('input', { bubbles: true }));
+            log('Input event dispatched', 'success');
+            
+            // Test keydown event
+            testInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'A', bubbles: true }));
+            log('Keydown event dispatched', 'success');
+            
+            // Test focus event
+            testInput.dispatchEvent(new Event('focus', { bubbles: true }));
+            log('Focus event dispatched', 'success');
+        }
+        
+        function clearTestInput() {
+            testInput.value = '';
+            log('Test input cleared', 'warning');
+        }
+        
+        function clearLog() {
+            debugLog.innerHTML = '<div class="log-entry log-info">Log cleared...</div>';
+        }
+        
+        function testWordDuelElements() {
+            log('Testing WordDuel elements...', 'info');
+            
+            let statusHtml = '<h4>Element Status:</h4>';
+            
+            // Test wordInput element
+            const wordInput = document.getElementById('wordInput');
+            if (wordInput) {
+                statusHtml += `<div><span class="status-indicator status-ok"></span>wordInput: Found</div>`;
+                statusHtml += `<div style="margin-left: 20px; font-size: 0.9em;">`;
+                statusHtml += `- ID: ${wordInput.id}<br>`;
+                statusHtml += `- Type: ${wordInput.type}<br>`;
+                statusHtml += `- Value: "${wordInput.value}"<br>`;
+                statusHtml += `- Display: ${getComputedStyle(wordInput).display}<br>`;
+                statusHtml += `- Visibility: ${getComputedStyle(wordInput).visibility}<br>`;
+                statusHtml += `- Z-Index: ${getComputedStyle(wordInput).zIndex}<br>`;
+                statusHtml += `- Pointer Events: ${getComputedStyle(wordInput).pointerEvents}`;
+                statusHtml += `</div>`;
+                log('wordInput element found', 'success');
+            } else {
+                statusHtml += `<div><span class="status-indicator status-error"></span>wordInput: NOT FOUND</div>`;
+                log('wordInput element NOT found', 'error');
+            }
+            
+            // Test inputArea element
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) {
+                statusHtml += `<div><span class="status-indicator status-ok"></span>inputArea: Found</div>`;
+                statusHtml += `<div style="margin-left: 20px; font-size: 0.9em;">`;
+                statusHtml += `- ID: ${inputArea.id}<br>`;
+                statusHtml += `- Display: ${getComputedStyle(inputArea).display}<br>`;
+                statusHtml += `- Visibility: ${getComputedStyle(inputArea).visibility}`;
+                statusHtml += `</div>`;
+                log('inputArea element found', 'success');
+            } else {
+                statusHtml += `<div><span class="status-indicator status-error"></span>inputArea: NOT FOUND</div>`;
+                log('inputArea element NOT found', 'error');
+            }
+            
+            // Test other game elements
+            const gameBoard = document.getElementById('gameBoard');
+            const keyboard = document.getElementById('keyboard');
+            const gameContainer = document.getElementById('gameContainer');
+            
+            statusHtml += `<div><span class="status-indicator ${gameBoard ? 'status-ok' : 'status-error'}"></span>gameBoard: ${gameBoard ? 'Found' : 'NOT FOUND'}</div>`;
+            statusHtml += `<div><span class="status-indicator ${keyboard ? 'status-ok' : 'status-error'}"></span>keyboard: ${keyboard ? 'Found' : 'NOT FOUND'}</div>`;
+            statusHtml += `<div><span class="status-indicator ${gameContainer ? 'status-ok' : 'status-error'}"></span>gameContainer: ${gameContainer ? 'Found' : 'NOT FOUND'}</div>`;
+            
+            elementStatus.innerHTML = statusHtml;
+        }
+        
+        function simulateGameStart() {
+            log('Simulating game start...', 'info');
+            
+            // Try to find and show input area
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) {
+                inputArea.style.display = 'block';
+                log('Input area shown', 'success');
+                
+                // Try to focus wordInput
+                const wordInput = document.getElementById('wordInput');
+                if (wordInput) {
+                    wordInput.style.display = 'block';
+                    wordInput.style.visibility = 'visible';
+                    wordInput.style.opacity = '1';
+                    wordInput.style.zIndex = '1000';
+                    wordInput.style.pointerEvents = 'auto';
+                    
+                    setTimeout(() => {
+                        wordInput.focus();
+                        log('Word input focused after simulation', 'success');
+                    }, 100);
+                } else {
+                    log('Word input not found during simulation', 'error');
+                }
+            } else {
+                log('Input area not found during simulation', 'error');
+            }
+        }
+        
+        function testInputArea() {
+            log('Testing input area functionality...', 'info');
+            
+            const inputArea = document.getElementById('inputArea');
+            if (inputArea) {
+                // Toggle visibility
+                const currentDisplay = getComputedStyle(inputArea).display;
+                if (currentDisplay === 'none') {
+                    inputArea.style.display = 'block';
+                    log('Input area shown', 'success');
+                } else {
+                    inputArea.style.display = 'none';
+                    log('Input area hidden', 'warning');
+                }
+            } else {
+                log('Input area element not found', 'error');
+            }
+        }
+        
+        // Test input event listeners
+        testInput.addEventListener('input', function(e) {
+            log(`Input event: "${e.target.value}" (Length: ${e.target.value.length})`, 'success');
+        });
+        
+        testInput.addEventListener('keydown', function(e) {
+            log(`Keydown: "${e.key}" (Code: ${e.keyCode})`, 'info');
+        });
+        
+        testInput.addEventListener('focus', function(e) {
+            log('Input focused', 'success');
+        });
+        
+        testInput.addEventListener('blur', function(e) {
+            log('Input lost focus', 'warning');
+        });
+        
+        // Auto-focus test input
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                testInput.focus();
+                log('Test input auto-focused on page load', 'success');
+            }, 500);
+        });
+        
+        log('Debug page initialized successfully', 'success');
+    </script>
+</body>
+</html>

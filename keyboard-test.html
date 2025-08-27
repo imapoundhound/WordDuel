@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Input Test - WordDuel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .test-input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+        
+        .test-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .test-input:focus {
+            outline: 2px solid #FFC107;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+        }
+        
+        .log-output {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .log-input { background: rgba(76, 175, 80, 0.2); }
+        .log-keydown { background: rgba(33, 150, 243, 0.2); }
+        .log-focus { background: rgba(255, 193, 7, 0.2); }
+        .log-blur { background: rgba(244, 67, 54, 0.2); }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .test-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .test-btn.primary {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .test-btn.secondary {
+            background: #666;
+            color: white;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔤 Keyboard Input Test</h1>
+        <p>This page tests keyboard input functionality to help debug WordDuel game issues.</p>
+        
+        <h3>Test Input Field</h3>
+        <input type="text" id="testInput" class="test-input" placeholder="Type here to test keyboard input..." maxlength="10">
+        
+        <div class="test-buttons">
+            <button class="test-btn primary" onclick="focusInput()">Focus Input</button>
+            <button class="test-btn secondary" onclick="clearLog()">Clear Log</button>
+            <button class="test-btn secondary" onclick="testInputValue()">Test Input Value</button>
+        </div>
+        
+        <h3>Event Log</h3>
+        <div class="log-output" id="logOutput">
+            <div class="log-entry">Waiting for input events...</div>
+        </div>
+        
+        <h3>Current Input Value</h3>
+        <div id="currentValue">No input yet</div>
+    </div>
+
+    <script>
+        const testInput = document.getElementById('testInput');
+        const logOutput = document.getElementById('logOutput');
+        const currentValueDiv = document.getElementById('currentValue');
+        
+        function log(message, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logOutput.appendChild(entry);
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+        
+        function updateCurrentValue() {
+            currentValueDiv.textContent = `"${testInput.value}" (Length: ${testInput.value.length})`;
+        }
+        
+        // Input event
+        testInput.addEventListener('input', function(e) {
+            log(`INPUT EVENT: "${e.target.value}" (Length: ${e.target.value.length})`, 'input');
+            updateCurrentValue();
+        });
+        
+        // Keydown event
+        testInput.addEventListener('keydown', function(e) {
+            log(`KEYDOWN: "${e.key}" (Code: ${e.keyCode}, KeyCode: ${e.which})`, 'keydown');
+            
+            // Test specific keys
+            if (e.key === 'Backspace') {
+                log('BACKSPACE detected', 'keydown');
+            } else if (e.key === 'Delete') {
+                log('DELETE detected', 'keydown');
+            } else if (e.key === 'Enter') {
+                log('ENTER detected', 'keydown');
+                e.preventDefault(); // Prevent form submission
+            }
+        });
+        
+        // Keyup event
+        testInput.addEventListener('keyup', function(e) {
+            log(`KEYUP: "${e.key}" (Code: ${e.keyCode})`, 'keyup');
+        });
+        
+        // Focus event
+        testInput.addEventListener('focus', function(e) {
+            log('INPUT FOCUSED', 'focus');
+        });
+        
+        // Blur event
+        testInput.addEventListener('blur', function(e) {
+            log(`INPUT LOST FOCUS, final value: "${e.target.value}"`, 'blur');
+        });
+        
+        // Click event
+        testInput.addEventListener('click', function(e) {
+            log('INPUT CLICKED', 'click');
+        });
+        
+        // Global keyboard listener
+        document.addEventListener('keydown', function(e) {
+            // Only log if not in input field
+            if (document.activeElement !== testInput) {
+                log(`GLOBAL KEYDOWN: "${e.key}" (Code: ${e.keyCode})`, 'keydown');
+            }
+        });
+        
+        function focusInput() {
+            testInput.focus();
+            log('Input focused programmatically', 'focus');
+        }
+        
+        function clearLog() {
+            logOutput.innerHTML = '<div class="log-entry">Log cleared...</div>';
+        }
+        
+        function testInputValue() {
+            log(`Current input value: "${testInput.value}"`, 'info');
+            log(`Input element properties:`, 'info');
+            log(`- display: ${getComputedStyle(testInput).display}`, 'info');
+            log(`- visibility: ${getComputedStyle(testInput).visibility}`, 'info');
+            log(`- opacity: ${getComputedStyle(testInput).opacity}`, 'info');
+            log(`- z-index: ${getComputedStyle(testInput).zIndex}`, 'info');
+            log(`- pointer-events: ${getComputedStyle(testInput).pointerEvents}`, 'info');
+        }
+        
+        // Auto-focus on page load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                testInput.focus();
+                log('Page loaded, input auto-focused', 'focus');
+            }, 500);
+        });
+        
+        // Initial log
+        log('Keyboard test page loaded', 'info');
+        log('Try typing in the input field above', 'info');
+        log('Use the buttons to test different functions', 'info');
+    </script>
+</body>
+</html>
