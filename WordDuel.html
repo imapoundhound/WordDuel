@@ -2508,25 +2508,26 @@
         
         // Update game board display for current guess
         function updateGameBoardDisplay() {
-            if (!gameBoard) return;
-            
-            // If currentGuess is empty, clear ALL rows to prevent ghost characters
-            if (currentGuess === '') {
-                for (let row = 0; row < 6; row++) {
-                    for (let col = 0; col < 5; col++) {
-                        const cell = gameBoard.querySelector(`[data-row="${row}"][data-col="${col}"]`);
-                        if (cell) {
-                            if (cell.tagName === 'INPUT') {
-                                cell.value = '';
-                            } else {
-                                cell.textContent = '';
-                            }
-                            cell.classList.remove('filled', 'correct', 'present', 'absent');
-                        }
-                    }
+    if (!gameBoard) return;
+    
+    // If currentGuess is empty, only clear the current row - keep previous guesses visible
+    if (currentGuess === '') {
+        for (let i = 0; i < 5; i++) {
+            const cell = gameBoard.querySelector(`[data-row="${attempts}"][data-col="${i}"]`);
+            if (cell) {
+                if (cell.tagName === 'INPUT') {
+                    cell.value = '';
+                } else {
+                    cell.textContent = '';
                 }
-                return;
+                cell.classList.remove('filled');
             }
+        }
+        return;
+    }
+    
+    // Rest of the function remains the same...
+}
             
             // Update each cell in the current row directly
             for (let i = 0; i < 5; i++) {
