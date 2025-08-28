@@ -2510,6 +2510,24 @@
         function updateGameBoardDisplay() {
             if (!gameBoard) return;
             
+            // If currentGuess is empty, clear ALL rows to prevent ghost characters
+            if (currentGuess === '') {
+                for (let row = 0; row < 6; row++) {
+                    for (let col = 0; col < 5; col++) {
+                        const cell = gameBoard.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                        if (cell) {
+                            if (cell.tagName === 'INPUT') {
+                                cell.value = '';
+                            } else {
+                                cell.textContent = '';
+                            }
+                            cell.classList.remove('filled', 'correct', 'present', 'absent');
+                        }
+                    }
+                }
+                return;
+            }
+            
             // Update each cell in the current row directly
             for (let i = 0; i < 5; i++) {
                 const cell = gameBoard.querySelector(`[data-row="${attempts}"][data-col="${i}"]`);
@@ -2570,10 +2588,13 @@
             }
             
             // Validate that the guess is a real word
+            console.log('About to validate word:', currentGuess);
             if (!isValidWord(currentGuess)) {
+                console.log('Word validation failed for:', currentGuess);
                 showMessage('Not a valid word! Please enter a real 5-letter word.', 'error');
                 return;
             }
+            console.log('Word validation passed for:', currentGuess);
             
             if (usedWords.has(currentGuess.toLowerCase())) {
                 showMessage('You already guessed that word!', 'error');
