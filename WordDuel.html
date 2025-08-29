@@ -2526,1319 +2526,1316 @@
         return;
     }
     
-    // Rest of the function remains the same...
+    // Update each cell in the current row directly
+    for (let i = 0; i < 5; i++) {
+        const cell = gameBoard.querySelector(`[data-row="${attempts}"][data-col="${i}"]`);
+        if (cell) {
+            if (i < currentGuess.length) {
+                if (cell.tagName === 'INPUT') {
+                    cell.value = currentGuess[i].toUpperCase();
+                } else {
+                    cell.textContent = currentGuess[i].toUpperCase();
+                }
+                cell.classList.add('filled');
+            } else {
+                if (cell.tagName === 'INPUT') {
+                    cell.value = '';
+                } else {
+                    cell.textContent = '';
+                }
+                cell.classList.remove('filled');
+            }
+        }
+    }
 }
             
-            // Update each cell in the current row directly
-            for (let i = 0; i < 5; i++) {
-                const cell = gameBoard.querySelector(`[data-row="${attempts}"][data-col="${i}"]`);
-                if (cell) {
-                    if (i < currentGuess.length) {
-                        if (cell.tagName === 'INPUT') {
-                            cell.value = currentGuess[i].toUpperCase();
-                        } else {
-                            cell.textContent = currentGuess[i].toUpperCase();
-                        }
-                        cell.classList.add('filled');
-                    } else {
-                        if (cell.tagName === 'INPUT') {
-                            cell.value = '';
-                        } else {
-                            cell.textContent = '';
-                        }
-                        cell.classList.remove('filled');
-                    }
-                }
-            }
-        }
-        
-        // Update guess counter display
-        function updateGuessCounter() {
-            if (!guessCounter || !guessIndicator) return;
-            
-            // Show the counter when game starts
-            guessCounter.style.display = 'block';
-            
-            // Update all guess dots
-            const dots = guessIndicator.querySelectorAll('.guess-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.remove('active', 'completed', 'failed');
+            // Update guess counter display
+            function updateGuessCounter() {
+                if (!guessCounter || !guessIndicator) return;
                 
-                if (index < attempts) {
-                    // Completed guesses
-                    dot.classList.add('completed');
-                } else if (index === attempts) {
-                    // Current active guess
-                    dot.classList.add('active');
+                // Show the counter when game starts
+                guessCounter.style.display = 'block';
+                
+                // Update all guess dots
+                const dots = guessIndicator.querySelectorAll('.guess-dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.remove('active', 'completed', 'failed');
+                    
+                    if (index < attempts) {
+                        // Completed guesses
+                        dot.classList.add('completed');
+                    } else if (index === attempts) {
+                        // Current active guess
+                        dot.classList.add('active');
+                    }
+                    // Future guesses remain default
+                });
+            }
+            
+            // Submit guess
+            function submitGuess() {
+                if (gameMode === 'twoPlayer') {
+                    handleTwoPlayerSubmission();
+                    return;
                 }
-                // Future guesses remain default
-            });
-        }
-        
-        // Submit guess
-        function submitGuess() {
-            if (gameMode === 'twoPlayer') {
-                handleTwoPlayerSubmission();
-                return;
-            }
-            
-            // Bot mode guess submission
-            if (currentGuess.length !== 5) {
-                showMessage('Guess must be 5 letters long', 'error');
-                return;
-            }
-            
-            // Validate that the guess is a real word
-            console.log('About to validate word:', currentGuess);
-            if (!isValidWord(currentGuess)) {
-                console.log('Word validation failed for:', currentGuess);
-                showMessage('Not a valid word! Please enter a real 5-letter word.', 'error');
-                return;
-            }
-            console.log('Word validation passed for:', currentGuess);
-            
-            if (usedWords.has(currentGuess.toLowerCase())) {
-                showMessage('You already guessed that word!', 'error');
-                return;
-            }
-            
-            usedWords.add(currentGuess.toLowerCase());
-            
-            // Generate feedback for the current guess
-            const feedback = generateFeedback(currentGuess.toLowerCase(), currentWord);
-            console.log('Feedback generated:', feedback);
-            
-            // Apply feedback to the game board
-            applyFeedbackToBoard(attempts, currentGuess, feedback);
-            
-            // Update keyboard colors
-            updateKeyboardColors(currentGuess, feedback);
-            
-            if (currentGuess.toLowerCase() === currentWord) {
-                gameWon = true;
-                gameOver = true;
-                showMessage('Congratulations! You guessed the word!', 'success');
-                updateStats();
-                showPlayAgainButton();
-                // Show celebration for win
-                setTimeout(() => showCelebration(true), 1000);
-            } else {
-                attempts++;
-                if (attempts >= 6) {
+                
+                // Bot mode guess submission
+                if (currentGuess.length !== 5) {
+                    showMessage('Guess must be 5 letters long', 'error');
+                    return;
+                }
+                
+                // Validate that the guess is a real word
+                console.log('About to validate word:', currentGuess);
+                if (!isValidWord(currentGuess)) {
+                    console.log('Word validation failed for:', currentGuess);
+                    showMessage('Not a valid word! Please enter a real 5-letter word.', 'error');
+                    return;
+                }
+                console.log('Word validation passed for:', currentGuess);
+                
+                if (usedWords.has(currentGuess.toLowerCase())) {
+                    showMessage('You already guessed that word!', 'error');
+                    return;
+                }
+                
+                usedWords.add(currentGuess.toLowerCase());
+                
+                // Generate feedback for the current guess
+                const feedback = generateFeedback(currentGuess.toLowerCase(), currentWord);
+                console.log('Feedback generated:', feedback);
+                
+                // Apply feedback to the game board
+                applyFeedbackToBoard(attempts, currentGuess, feedback);
+                
+                // Update keyboard colors
+                updateKeyboardColors(currentGuess, feedback);
+                
+                if (currentGuess.toLowerCase() === currentWord) {
+                    gameWon = true;
                     gameOver = true;
-                    showMessage(`Game over! The word was: ${currentWord.toUpperCase()}`, 'error');
+                    showMessage('Congratulations! You guessed the word!', 'success');
                     updateStats();
                     showPlayAgainButton();
-                    // Show celebration for loss
-                    setTimeout(() => showCelebration(false), 1000);
+                    // Show celebration for win
+                    setTimeout(() => showCelebration(true), 1000);
                 } else {
+                    attempts++;
+                    if (attempts >= 6) {
+                        gameOver = true;
+                        showMessage(`Game over! The word was: ${currentWord.toUpperCase()}`, 'error');
+                        updateStats();
+                        showPlayAgainButton();
+                        // Show celebration for loss
+                        setTimeout(() => showCelebration(false), 1000);
+                    } else {
+                        currentGuess = '';
+                        updateInput();
+                        
+                        // Focus on first cell of next row
+                        setTimeout(() => {
+                            const nextRowCell = document.querySelector(`[data-row="${attempts}"][data-col="0"]`);
+                            if (nextRowCell) {
+                                nextRowCell.removeAttribute('readonly');
+                                nextRowCell.focus();
+                                console.log('Focused on next row first cell');
+                            }
+                        }, 500);
+                        
+                        showMessage(`Try again! ${6 - attempts} attempts remaining.`, 'info');
+                    }
+                }
+                
+                // Update guess counter after each guess
+                updateGuessCounter();
+            }
+            
+            // Handle two player submission (word entry or guessing)
+            function handleTwoPlayerSubmission() {
+                if (isWordEntryPhase) {
+                    handleWordEntry();
+                } else {
+                    handleWordGuess();
+                }
+            }
+            
+            // Handle word entry phase
+            function handleWordEntry() {
+                if (currentGuess.length !== 5) {
+                    showMessage('Word must be 5 letters long', 'error');
+                    return;
+                }
+                
+                if (!words.includes(currentGuess.toLowerCase())) {
+                    showMessage('Not a valid word', 'error');
+                    currentGuess = '';
+                    updateInput();
+                    return;
+                }
+                
+                if (currentPlayer === 1) {
+                    player1Word = currentGuess.toLowerCase();
+                    currentPlayer = 2;
                     currentGuess = '';
                     updateInput();
                     
-                    // Focus on first cell of next row
-                    setTimeout(() => {
-                        const nextRowCell = document.querySelector(`[data-row="${attempts}"][data-col="0"]`);
-                        if (nextRowCell) {
-                            nextRowCell.removeAttribute('readonly');
-                            nextRowCell.focus();
-                            console.log('Focused on next row first cell');
-                        }
-                    }, 500);
-                    
-                    showMessage(`Try again! ${6 - attempts} attempts remaining.`, 'info');
-                }
-            }
-            
-            // Update guess counter after each guess
-            updateGuessCounter();
-        }
-        
-        // Handle two player submission (word entry or guessing)
-        function handleTwoPlayerSubmission() {
-            if (isWordEntryPhase) {
-                handleWordEntry();
-            } else {
-                handleWordGuess();
-            }
-        }
-        
-        // Handle word entry phase
-        function handleWordEntry() {
-            if (currentGuess.length !== 5) {
-                showMessage('Word must be 5 letters long', 'error');
-                return;
-            }
-            
-            if (!words.includes(currentGuess.toLowerCase())) {
-                showMessage('Not a valid word', 'error');
-                currentGuess = '';
-                updateInput();
-                return;
-            }
-            
-            if (currentPlayer === 1) {
-                player1Word = currentGuess.toLowerCase();
-                currentPlayer = 2;
-                currentGuess = '';
-                updateInput();
-                
-                // Clear input field and show waiting message
-                if (wordInput) {
-                    wordInput.value = '';
-                    wordInput.placeholder = 'Player 2: Enter word';
-                }
-                
-                showMessage('Waiting for Player 2 to enter their word...', 'info');
-            } else {
-                player2Word = currentGuess.toLowerCase();
-                currentGuess = '';
-                updateInput();
-                
-                // Both words entered, start guessing phase
-                isWordEntryPhase = false;
-                currentPlayer = 1; // Player 1 guesses first
-                
-                // Hide input area completely
-                const inputArea = document.getElementById('inputArea');
-                if (inputArea) {
-                    inputArea.style.display = 'none';
-                }
-                
-                // Show the game board and keyboard
-                if (gameBoard) gameBoard.style.display = 'grid';
-                if (keyboard) keyboard.style.display = 'block';
-                if (guessCounter) guessCounter.style.display = 'block';
-                
-                showMessage('Both words entered! Player 1 starts guessing Player 2\'s word.', 'success');
-                updateGuessCounter();
-            }
-        }
-        
-        // Handle word guessing phase
-        function handleWordGuess() {
-            if (currentGuess.length !== 5) {
-                showMessage('Guess must be 5 letters long', 'error');
-                return;
-            }
-            
-            if (usedWords.has(currentGuess.toLowerCase())) {
-                showMessage('You already guessed that word!', 'error');
-                return;
-            }
-            
-            usedWords.add(currentGuess.toLowerCase());
-            
-            // Determine which word to guess
-            const targetWord = currentPlayer === 1 ? player2Word : player1Word;
-            
-            // Generate feedback for the current guess
-            const feedback = generateFeedback(currentGuess.toLowerCase(), targetWord);
-            console.log('Feedback generated:', feedback);
-            
-            // Apply feedback to the game board
-            applyFeedbackToBoard(attempts, currentGuess, feedback);
-            
-            // Update keyboard colors
-            updateKeyboardColors(currentGuess, feedback);
-            
-            if (currentGuess.toLowerCase() === targetWord) {
-                // Player guessed the word
-                const attemptsUsed = attempts + 1;
-                
-                if (currentPlayer === 1) {
-                    player1Attempts = attemptsUsed;
-                    showMessage(`Player 1 guessed Player 2's word in ${attemptsUsed} attempts!`, 'success');
-                } else {
-                    player2Attempts = attemptsUsed;
-                    showMessage(`Player 2 guessed Player 1's word in ${attemptsUsed} attempts!`, 'success');
-                }
-                
-                // Show celebration for win
-                setTimeout(() => showCelebration(true), 1000);
-                
-                // End the round
-                endTwoPlayerRound();
-            } else {
-                attempts++;
-                if (attempts >= 6) {
-                    // Player failed to guess
-                    if (currentPlayer === 1) {
-                        player1Attempts = 6;
-                        showMessage(`Player 1 failed to guess Player 2's word. The word was: ${targetWord.toUpperCase()}`, 'error');
-                    } else {
-                        player2Attempts = 6;
-                        showMessage(`Player 2 failed to guess Player 1's word. The word was: ${targetWord.toUpperCase()}`, 'error');
+                    // Clear input field and show waiting message
+                    if (wordInput) {
+                        wordInput.value = '';
+                        wordInput.placeholder = 'Player 2: Enter word';
                     }
                     
-                    // Show celebration for loss
-                    setTimeout(() => showCelebration(false), 1000);
+                    showMessage('Waiting for Player 2 to enter their word...', 'info');
+                } else {
+                    player2Word = currentGuess.toLowerCase();
+                    currentGuess = '';
+                    updateInput();
+                    
+                    // Both words entered, start guessing phase
+                    isWordEntryPhase = false;
+                    currentPlayer = 1; // Player 1 guesses first
+                    
+                    // Hide input area completely
+                    const inputArea = document.getElementById('inputArea');
+                    if (inputArea) {
+                        inputArea.style.display = 'none';
+                    }
+                    
+                    // Show the game board and keyboard
+                    if (gameBoard) gameBoard.style.display = 'grid';
+                    if (keyboard) keyboard.style.display = 'block';
+                    if (guessCounter) guessCounter.style.display = 'block';
+                    
+                    showMessage('Both words entered! Player 1 starts guessing Player 2\'s word.', 'success');
+                    updateGuessCounter();
+                }
+            }
+            
+            // Handle word guessing phase
+            function handleWordGuess() {
+                if (currentGuess.length !== 5) {
+                    showMessage('Guess must be 5 letters long', 'error');
+                    return;
+                }
+                
+                if (usedWords.has(currentGuess.toLowerCase())) {
+                    showMessage('You already guessed that word!', 'error');
+                    return;
+                }
+                
+                usedWords.add(currentGuess.toLowerCase());
+                
+                // Determine which word to guess
+                const targetWord = currentPlayer === 1 ? player2Word : player1Word;
+                
+                // Generate feedback for the current guess
+                const feedback = generateFeedback(currentGuess.toLowerCase(), targetWord);
+                console.log('Feedback generated:', feedback);
+                
+                // Apply feedback to the game board
+                applyFeedbackToBoard(attempts, currentGuess, feedback);
+                
+                // Update keyboard colors
+                updateKeyboardColors(currentGuess, feedback);
+                
+                if (currentGuess.toLowerCase() === targetWord) {
+                    // Player guessed the word
+                    const attemptsUsed = attempts + 1;
+                    
+                    if (currentPlayer === 1) {
+                        player1Attempts = attemptsUsed;
+                        showMessage(`Player 1 guessed Player 2's word in ${attemptsUsed} attempts!`, 'success');
+                    } else {
+                        player2Attempts = attemptsUsed;
+                        showMessage(`Player 2 guessed Player 1's word in ${attemptsUsed} attempts!`, 'success');
+                    }
+                    
+                    // Show celebration for win
+                    setTimeout(() => showCelebration(true), 1000);
                     
                     // End the round
                     endTwoPlayerRound();
                 } else {
-                    currentGuess = '';
-                    updateInput();
-                    
-                    // Focus on first cell of next row
-                    setTimeout(() => {
-                        const nextRowCell = document.querySelector(`[data-row="${attempts}"][data-col="0"]`);
-                        if (nextRowCell) {
-                            nextRowCell.removeAttribute('readonly');
-                            nextRowCell.focus();
-                            console.log('Focused on next row first cell');
+                    attempts++;
+                    if (attempts >= 6) {
+                        // Player failed to guess
+                        if (currentPlayer === 1) {
+                            player1Attempts = 6;
+                            showMessage(`Player 1 failed to guess Player 2's word. The word was: ${targetWord.toUpperCase()}`, 'error');
+                        } else {
+                            player2Attempts = 6;
+                            showMessage(`Player 2 failed to guess Player 1's word. The word was: ${targetWord.toUpperCase()}`, 'error');
                         }
-                    }, 500);
-                    
-                    showMessage(`Try again! ${6 - attempts} attempts remaining.`, 'info');
+                        
+                        // Show celebration for loss
+                        setTimeout(() => showCelebration(false), 1000);
+                        
+                        // End the round
+                        endTwoPlayerRound();
+                    } else {
+                        currentGuess = '';
+                        updateInput();
+                        
+                        // Focus on first cell of next row
+                        setTimeout(() => {
+                            const nextRowCell = document.querySelector(`[data-row="${attempts}"][data-col="0"]`);
+                            if (nextRowCell) {
+                                nextRowCell.removeAttribute('readonly');
+                                nextRowCell.focus();
+                                console.log('Focused on next row first cell');
+                            }
+                        }, 500);
+                        
+                        showMessage(`Try again! ${6 - attempts} attempts remaining.`, 'info');
+                    }
                 }
+                
+                // Update guess counter after each guess
+                updateGuessCounter();
             }
             
-            // Update guess counter after each guess
-            updateGuessCounter();
-        }
-        
-        // End a two player round
-        function endTwoPlayerRound() {
-            // Determine round winner
-            let roundWinner = '';
-            let roundResultText = '';
-            
-            if (player1Attempts < player2Attempts) {
-                roundWinner = 'Player 1';
-                player1Wins++;
-                roundResultText = `Player 1 wins this round! (${player1Attempts} vs ${player2Attempts} attempts)`;
-            } else if (player2Attempts < player1Attempts) {
-                roundWinner = 'Player 2';
-                player2Wins++;
-                roundResultText = `Player 2 wins this round! (${player2Attempts} vs ${player1Attempts} attempts)`;
-            } else {
-                roundWinner = 'Tie';
-                roundResultText = `It's a tie! (${player1Attempts} vs ${player2Attempts} attempts)`;
+            // End a two player round
+            function endTwoPlayerRound() {
+                // Determine round winner
+                let roundWinner = '';
+                let roundResultText = '';
+                
+                if (player1Attempts < player2Attempts) {
+                    roundWinner = 'Player 1';
+                    player1Wins++;
+                    roundResultText = `Player 1 wins this round! (${player1Attempts} vs ${player2Attempts} attempts)`;
+                } else if (player2Attempts < player1Attempts) {
+                    roundWinner = 'Player 2';
+                    player2Wins++;
+                    roundResultText = `Player 2 wins this round! (${player2Attempts} vs ${player1Attempts} attempts)`;
+                } else {
+                    roundWinner = 'Tie';
+                    roundResultText = `It's a tie! (${player1Attempts} vs ${player2Attempts} attempts)`;
+                }
+                
+                // Show round results
+                showRoundResults(roundResultText, roundWinner);
+                
+                // Check if best of three is complete
+                if (roundNumber >= 3) {
+                    showBestOfThreeResults();
+                } else {
+                    // Prepare for next round
+                    roundNumber++;
+                    showMessage(`Round ${roundNumber} starting soon...`, 'info');
+                    setTimeout(() => {
+                        startNextRound();
+                    }, 3000);
+                }
             }
             
             // Show round results
-            showRoundResults(roundResultText, roundWinner);
-            
-            // Check if best of three is complete
-            if (roundNumber >= 3) {
-                showBestOfThreeResults();
-            } else {
-                // Prepare for next round
-                roundNumber++;
-                showMessage(`Round ${roundNumber} starting soon...`, 'info');
-                setTimeout(() => {
-                    startNextRound();
-                }, 3000);
-            }
-        }
-        
-        // Show round results
-        function showRoundResults(resultText, winner) {
-            if (roundResult) {
-                roundResult.textContent = resultText;
-                roundResult.className = `round-result ${winner === 'Tie' ? 'lose' : 'win'}`;
-            }
-            
-            // Update scores
-            if (player1Score) player1Score.textContent = player1Wins;
-            if (player2Score) player2Score.textContent = player2Wins;
-            
-            // Show scores
-            if (twoPlayerScores) twoPlayerScores.style.display = 'block';
-        }
-        
-        // Start next round
-        function startNextRound() {
-            // Reset for next round
-            currentGuess = '';
-            attempts = 0;
-            usedWords.clear();
-            isWordEntryPhase = true;
-            currentPlayer = 1;
-            
-            // Show input area again
-            const inputArea = document.getElementById('inputArea');
-            if (inputArea) inputArea.style.display = 'block';
-            
-            // Hide game elements
-            if (gameBoard) gameBoard.style.display = 'none';
-            if (keyboard) keyboard.style.display = 'none';
-            if (guessCounter) guessCounter.style.display = 'none';
-            if (twoPlayerScores) twoPlayerScores.style.display = 'none';
-            
-            // Reset input
-            if (wordInput) {
-                wordInput.value = '';
-                wordInput.placeholder = 'Player 1: Enter 5-letter word';
-            }
-            
-            showMessage(`Round ${roundNumber}: Player 1, enter a new word for Player 2 to guess.`, 'success');
-        }
-        
-        // Show best of three results
-        function showBestOfThreeResults() {
-            let finalResult = '';
-            let seriesWinner = '';
-            
-            if (player1Wins > player2Wins) {
-                seriesWinner = 'Player 1';
-                finalResult = `🏆 Player 1 wins the series ${player1Wins}-${player2Wins}! 🏆`;
-            } else if (player2Wins > player1Wins) {
-                seriesWinner = 'Player 2';
-                finalResult = `🏆 Player 2 wins the series ${player2Wins}-${player1Wins}! 🏆`;
-            } else {
-                seriesWinner = 'Tie';
-                finalResult = `🤝 Series ended in a tie ${player1Wins}-${player2Wins}! 🤝`;
-            }
-            
-            if (bestOfThreeResult) {
-                bestOfThreeResult.innerHTML = `
-                    <h4>${finalResult}</h4>
-                    <p>Final Score: Player 1 (${player1Wins}) - Player 2 (${player2Wins})</p>
-                `;
-            }
-            
-            if (bestOfThree) bestOfThree.style.display = 'block';
-        }
-        
-        // Continue best of three series
-        function continueBestOfThree() {
-            if (bestOfThree) bestOfThree.style.display = 'none';
-            startNextRound();
-        }
-        
-        // Start new best of three series
-        function startNewBestOfThree() {
-            if (bestOfThree) bestOfThree.style.display = 'none';
-            startNewGame('twoPlayer');
-        }
-        
-        // Generate feedback for a guess
-        function generateFeedback(guess, targetWord) {
-            const feedback = [];
-            const targetLetters = targetWord.split('');
-            const guessLetters = guess.split('');
-            
-            // First pass: mark correct letters in correct positions
-            for (let i = 0; i < 5; i++) {
-                if (guessLetters[i] === targetLetters[i]) {
-                    feedback[i] = 'correct';
-                    targetLetters[i] = null; // Mark as used
+            function showRoundResults(resultText, winner) {
+                if (roundResult) {
+                    roundResult.textContent = resultText;
+                    roundResult.className = `round-result ${winner === 'Tie' ? 'lose' : 'win'}`;
                 }
+                
+                // Update scores
+                if (player1Score) player1Score.textContent = player1Wins;
+                if (player2Score) player2Score.textContent = player2Wins;
+                
+                // Show scores
+                if (twoPlayerScores) twoPlayerScores.style.display = 'block';
             }
             
-            // Second pass: mark letters that are in the word but wrong position
-            for (let i = 0; i < 5; i++) {
-                if (feedback[i] === 'correct') continue; // Skip already marked letters
+            // Start next round
+            function startNextRound() {
+                // Reset for next round
+                currentGuess = '';
+                attempts = 0;
+                usedWords.clear();
+                isWordEntryPhase = true;
+                currentPlayer = 1;
                 
-                const letterIndex = targetLetters.indexOf(guessLetters[i]);
-                if (letterIndex !== -1) {
-                    feedback[i] = 'present';
-                    targetLetters[letterIndex] = null; // Mark as used
+                // Show input area again
+                const inputArea = document.getElementById('inputArea');
+                if (inputArea) inputArea.style.display = 'block';
+                
+                // Hide game elements
+                if (gameBoard) gameBoard.style.display = 'none';
+                if (keyboard) keyboard.style.display = 'none';
+                if (guessCounter) guessCounter.style.display = 'none';
+                if (twoPlayerScores) twoPlayerScores.style.display = 'none';
+                
+                // Reset input
+                if (wordInput) {
+                    wordInput.value = '';
+                    wordInput.placeholder = 'Player 1: Enter 5-letter word';
+                }
+                
+                showMessage(`Round ${roundNumber}: Player 1, enter a new word for Player 2 to guess.`, 'success');
+            }
+            
+            // Show best of three results
+            function showBestOfThreeResults() {
+                let finalResult = '';
+                let seriesWinner = '';
+                
+                if (player1Wins > player2Wins) {
+                    seriesWinner = 'Player 1';
+                    finalResult = `🏆 Player 1 wins the series ${player1Wins}-${player2Wins}! 🏆`;
+                } else if (player2Wins > player1Wins) {
+                    seriesWinner = 'Player 2';
+                    finalResult = `🏆 Player 2 wins the series ${player2Wins}-${player1Wins}! 🏆`;
                 } else {
-                    feedback[i] = 'absent';
+                    seriesWinner = 'Tie';
+                    finalResult = `🤝 Series ended in a tie ${player1Wins}-${player2Wins}! 🤝`;
                 }
+                
+                if (bestOfThreeResult) {
+                    bestOfThreeResult.innerHTML = `
+                        <h4>${finalResult}</h4>
+                        <p>Final Score: Player 1 (${player1Wins}) - Player 2 (${player2Wins})</p>
+                    `;
+                }
+                
+                if (bestOfThree) bestOfThree.style.display = 'block';
             }
             
-            return feedback;
-        }
-        
-        // Apply feedback to the game board
-        function applyFeedbackToBoard(rowIndex, guess, feedback) {
-            if (!gameBoard) return;
+            // Continue best of three series
+            function continueBestOfThree() {
+                if (bestOfThree) bestOfThree.style.display = 'none';
+                startNextRound();
+            }
             
-            for (let i = 0; i < 5; i++) {
-                const cell = gameBoard.querySelector(`[data-row="${rowIndex}"][data-col="${i}"]`);
-                if (cell) {
-                    // Set the letter
-                    if (cell.tagName === 'INPUT') {
-                        cell.value = guess[i].toUpperCase();
-                    } else {
-                        cell.textContent = guess[i].toUpperCase();
+            // Start new best of three series
+            function startNewBestOfThree() {
+                if (bestOfThree) bestOfThree.style.display = 'none';
+                startNewGame('twoPlayer');
+            }
+            
+            // Generate feedback for a guess
+            function generateFeedback(guess, targetWord) {
+                const feedback = [];
+                const targetLetters = targetWord.split('');
+                const guessLetters = guess.split('');
+                
+                // First pass: mark correct letters in correct positions
+                for (let i = 0; i < 5; i++) {
+                    if (guessLetters[i] === targetLetters[i]) {
+                        feedback[i] = 'correct';
+                        targetLetters[i] = null; // Mark as used
                     }
-                    cell.classList.add('filled');
+                }
+                
+                // Second pass: mark letters that are in the word but wrong position
+                for (let i = 0; i < 5; i++) {
+                    if (feedback[i] === 'correct') continue; // Skip already marked letters
                     
-                    // Remove any existing feedback classes
-                    cell.classList.remove('correct', 'present', 'absent');
+                    const letterIndex = targetLetters.indexOf(guessLetters[i]);
+                    if (letterIndex !== -1) {
+                        feedback[i] = 'present';
+                        targetLetters[letterIndex] = null; // Mark as used
+                    } else {
+                        feedback[i] = 'absent';
+                    }
+                }
+                
+                return feedback;
+            }
+            
+            // Apply feedback to the game board
+            function applyFeedbackToBoard(rowIndex, guess, feedback) {
+                if (!gameBoard) return;
+                
+                for (let i = 0; i < 5; i++) {
+                    const cell = gameBoard.querySelector(`[data-row="${rowIndex}"][data-col="${i}"]`);
+                    if (cell) {
+                        // Set the letter
+                        if (cell.tagName === 'INPUT') {
+                            cell.value = guess[i].toUpperCase();
+                        } else {
+                            cell.textContent = guess[i].toUpperCase();
+                        }
+                        cell.classList.add('filled');
+                        
+                        // Remove any existing feedback classes
+                        cell.classList.remove('correct', 'present', 'absent');
+                        
+                        // Add the appropriate feedback class
+                        cell.classList.add(feedback[i]);
+                        
+                        // Add animation class for visual effect
+                        cell.classList.add('feedback-animation');
+                        
+                        // Remove animation class after animation completes
+                        setTimeout(() => {
+                            cell.classList.remove('feedback-animation');
+                        }, 500);
+                    }
+                }
+            }
+            
+            // Update keyboard colors based on feedback
+            function updateKeyboardColors(guess, feedback) {
+                if (!keyboard) return;
+                
+                for (let i = 0; i < 5; i++) {
+                    const letter = guess[i].toUpperCase();
+                    const key = Array.from(keyboard.querySelectorAll('.key')).find(k => k.textContent === letter);
                     
-                    // Add the appropriate feedback class
-                    cell.classList.add(feedback[i]);
+                    if (key) {
+                        // Remove any existing feedback classes
+                        key.classList.remove('correct', 'present', 'absent');
+                        
+                        // Add the appropriate feedback class
+                        key.classList.add(feedback[i]);
+                    }
+                }
+            }
+            
+            // Show message
+            function showMessage(text, type) {
+                console.log('showMessage called with:', text, type);
+                console.log('Message element:', message);
+                
+                if (!message) {
+                    console.error('Message element not found!');
+                    return;
+                }
+                
+                message.textContent = text;
+                message.className = `message ${type}`;
+                message.style.display = 'block';
+                console.log('Message displayed:', text);
+                
+                // Different timing for different message types
+                let displayTime = 4000; // Default 4 seconds
+                
+                if (type === 'success' && text.includes('Computer has chosen')) {
+                    displayTime = 8000; // 8 seconds for important game start message
+                } else if (type === 'success' && (text.includes('Congratulations') || text.includes('Game over'))) {
+                    displayTime = 6000; // 6 seconds for game end messages
+                } else if (type === 'info') {
+                    displayTime = 5000; // 5 seconds for info messages
+                }
+                
+                setTimeout(() => {
+                    message.style.display = 'none';
+                    console.log('Message hidden');
+                }, displayTime);
+            }
+            
+            // Update stats
+            function updateStats() {
+                console.log('updateStats called');
+                console.log('Elements available:', {
+                    attemptsSpan: !!attemptsSpan,
+                    gameStatusSpan: !!gameStatusSpan
+                });
+                
+                if (attemptsSpan) attemptsSpan.textContent = attempts;
+                if (gameStatusSpan) gameStatusSpan.textContent = gameWon ? 'Won!' : (gameOver ? 'Lost' : 'Playing');
+                
+                // Update bot game statistics if in bot mode
+                if (gameMode === 'bot' && gameOver) {
+                    updateBotGameStats();
+                }
+                
+                console.log('Stats updated successfully');
+            }
+            
+            // Update bot game statistics
+            function updateBotGameStats() {
+                const stats = JSON.parse(localStorage.getItem('wordduel_stats') || '{}');
+                if (!stats.bot) stats.bot = {};
+                
+                const botStats = stats.bot;
+                
+                // Update total games
+                botStats.totalGames = (botStats.totalGames || 0) + 1;
+                
+                // Update games won
+                if (gameWon) {
+                    botStats.gamesWon = (botStats.gamesWon || 0) + 1;
+                }
+                
+                // Update best score (lowest attempts)
+                if (gameWon) {
+                    if (!botStats.bestScore || attempts < botStats.bestScore) {
+                        botStats.bestScore = attempts;
+                    }
+                }
+                
+                // Update average attempts
+                if (!botStats.totalAttempts) botStats.totalAttempts = 0;
+                botStats.totalAttempts += attempts;
+                botStats.averageAttempts = Math.round(botStats.totalAttempts / botStats.totalGames);
+                
+                // Update distribution
+                if (!botStats.distribution) botStats.distribution = {};
+                if (gameWon) {
+                    botStats.distribution[attempts] = (botStats.distribution[attempts] || 0) + 1;
+                }
+                
+                // Save updated stats
+                localStorage.setItem('wordduel_stats', JSON.stringify(stats));
+                
+                console.log('Bot game stats updated:', botStats);
+            }
+            
+            // Show play again button
+            function showPlayAgainButton() {
+                if (playAgainBtn) {
+                    playAgainBtn.style.display = 'block';
+                    console.log('Play again button shown');
                     
-                    // Add animation class for visual effect
-                    cell.classList.add('feedback-animation');
-                    
-                    // Remove animation class after animation completes
+                    // For bot mode, also show option to view Guess Counter
+                    if (gameMode === 'bot') {
+
+                    }
+                }
+            }
+            
+            // Toggle stats visibility
+            function toggleStats() {
+                const statsElement = document.getElementById('stats');
+                const showStatsBtn = document.getElementById('showStatsBtn');
+                if (statsElement) {
+                    statsElement.style.display = statsElement.style.display === 'none' ? 'block' : 'none';
+                    if (showStatsBtn) {
+        
+                    }
+                    console.log('Stats toggled:', statsElement.style.display);
+                }
+            }
+            
+            // Test functions
+            function testJavaScript() {
+                alert('JavaScript function test successful!');
+                console.log('JavaScript test function called successfully');
+            }
+            
+            function debugDOMElements() {
+                console.log('=== DOM ELEMENT DEBUG ===');
+                console.log('gameBoard:', gameBoard);
+                console.log('keyboard:', keyboard);
+                console.log('wordInput:', wordInput);
+                console.log('submitBtn:', submitBtn);
+                console.log('message:', message);
+                console.log('stats:', stats);
+                
+                const status = {
+                    gameBoard: !!gameBoard,
+                    keyboard: !!keyboard,
+                    wordInput: !!wordInput,
+                    submitBtn: !!submitBtn
+                };
+                alert('DOM Elements Status:\n' + Object.entries(status).map(([key, value]) => `${key}: ${value ? '✅' : '❌'}`).join('\n'));
+            }
+            
+            // Authentication system functions
+            function showAuthTab(tab, event) {
+                // Update tab buttons
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                if (event && event.target) {
+                    event.target.classList.add('active');
+                }
+                
+                // Show/hide forms
+                if (tab === 'login') {
+                    document.getElementById('loginForm').style.display = 'block';
+                    document.getElementById('registerForm').style.display = 'none';
+                    // Focus on email input when switching to login
                     setTimeout(() => {
-                        cell.classList.remove('feedback-animation');
-                    }, 500);
+                        const emailInput = document.getElementById('loginEmail');
+                        if (emailInput) emailInput.focus();
+                    }, 100);
+                } else {
+                    document.getElementById('loginForm').style.display = 'none';
+                    document.getElementById('registerForm').style.display = 'block';
+                    // Focus on username input when switching to register
+                    setTimeout(() => {
+                        const usernameInput = document.getElementById('registerUsername');
+                        if (usernameInput) usernameInput.focus();
+                    }, 100);
                 }
             }
-        }
-        
-        // Update keyboard colors based on feedback
-        function updateKeyboardColors(guess, feedback) {
-            if (!keyboard) return;
             
-            for (let i = 0; i < 5; i++) {
-                const letter = guess[i].toUpperCase();
-                const key = Array.from(keyboard.querySelectorAll('.key')).find(k => k.textContent === letter);
+            function loginUser() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
                 
-                if (key) {
-                    // Remove any existing feedback classes
-                    key.classList.remove('correct', 'present', 'absent');
+                if (!email || !password) {
+                    showMessage('Please fill in all fields', 'error');
+                    return;
+                }
+                
+                // Simulate login validation
+                if (email === 'test@test.com' && password === 'test') {
+                    // Hide auth container, show game container
+                    document.getElementById('authContainer').style.display = 'none';
+                    document.getElementById('gameContainer').style.display = 'block';
                     
-                    // Add the appropriate feedback class
-                    key.classList.add(feedback[i]);
-                }
-            }
-        }
-        
-        // Show message
-        function showMessage(text, type) {
-            console.log('showMessage called with:', text, type);
-            console.log('Message element:', message);
-            
-            if (!message) {
-                console.error('Message element not found!');
-                return;
-            }
-            
-            message.textContent = text;
-            message.className = `message ${type}`;
-            message.style.display = 'block';
-            console.log('Message displayed:', text);
-            
-            // Different timing for different message types
-            let displayTime = 4000; // Default 4 seconds
-            
-            if (type === 'success' && text.includes('Computer has chosen')) {
-                displayTime = 8000; // 8 seconds for important game start message
-            } else if (type === 'success' && (text.includes('Congratulations') || text.includes('Game over'))) {
-                displayTime = 6000; // 6 seconds for game end messages
-            } else if (type === 'info') {
-                displayTime = 5000; // 5 seconds for info messages
-            }
-            
-            setTimeout(() => {
-                message.style.display = 'none';
-                console.log('Message hidden');
-            }, displayTime);
-        }
-        
-        // Update stats
-        function updateStats() {
-            console.log('updateStats called');
-            console.log('Elements available:', {
-                attemptsSpan: !!attemptsSpan,
-                gameStatusSpan: !!gameStatusSpan
-            });
-            
-            if (attemptsSpan) attemptsSpan.textContent = attempts;
-            if (gameStatusSpan) gameStatusSpan.textContent = gameWon ? 'Won!' : (gameOver ? 'Lost' : 'Playing');
-            
-            // Update bot game statistics if in bot mode
-            if (gameMode === 'bot' && gameOver) {
-                updateBotGameStats();
-            }
-            
-            console.log('Stats updated successfully');
-        }
-        
-        // Update bot game statistics
-        function updateBotGameStats() {
-            const stats = JSON.parse(localStorage.getItem('wordduel_stats') || '{}');
-            if (!stats.bot) stats.bot = {};
-            
-            const botStats = stats.bot;
-            
-            // Update total games
-            botStats.totalGames = (botStats.totalGames || 0) + 1;
-            
-            // Update games won
-            if (gameWon) {
-                botStats.gamesWon = (botStats.gamesWon || 0) + 1;
-            }
-            
-            // Update best score (lowest attempts)
-            if (gameWon) {
-                if (!botStats.bestScore || attempts < botStats.bestScore) {
-                    botStats.bestScore = attempts;
-                }
-            }
-            
-            // Update average attempts
-            if (!botStats.totalAttempts) botStats.totalAttempts = 0;
-            botStats.totalAttempts += attempts;
-            botStats.averageAttempts = Math.round(botStats.totalAttempts / botStats.totalGames);
-            
-            // Update distribution
-            if (!botStats.distribution) botStats.distribution = {};
-            if (gameWon) {
-                botStats.distribution[attempts] = (botStats.distribution[attempts] || 0) + 1;
-            }
-            
-            // Save updated stats
-            localStorage.setItem('wordduel_stats', JSON.stringify(stats));
-            
-            console.log('Bot game stats updated:', botStats);
-        }
-        
-        // Show play again button
-        function showPlayAgainButton() {
-            if (playAgainBtn) {
-                playAgainBtn.style.display = 'block';
-                console.log('Play again button shown');
-                
-                // For bot mode, also show option to view Guess Counter
-                if (gameMode === 'bot') {
 
+                    
+                    showMessage('Login successful! Welcome to WordDuel!', 'success');
+                } else {
+                    showMessage('Invalid credentials. Try test@test.com / test', 'error');
                 }
             }
-        }
-        
-        // Toggle stats visibility
-        function toggleStats() {
-            const statsElement = document.getElementById('stats');
-            const showStatsBtn = document.getElementById('showStatsBtn');
-            if (statsElement) {
-                statsElement.style.display = statsElement.style.display === 'none' ? 'block' : 'none';
-                if (showStatsBtn) {
-        
+            
+            function registerUser() {
+                const username = document.getElementById('registerUsername').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const phone = document.getElementById('registerPhone').value;
+                
+                if (!username || !email || !password || !phone) {
+                    showMessage('Please fill in all fields', 'error');
+                    return;
                 }
-                console.log('Stats toggled:', statsElement.style.display);
-            }
-        }
-        
-        // Test functions
-        function testJavaScript() {
-            alert('JavaScript function test successful!');
-            console.log('JavaScript test function called successfully');
-        }
-        
-        function debugDOMElements() {
-            console.log('=== DOM ELEMENT DEBUG ===');
-            console.log('gameBoard:', gameBoard);
-            console.log('keyboard:', keyboard);
-            console.log('wordInput:', wordInput);
-            console.log('submitBtn:', submitBtn);
-            console.log('message:', message);
-            console.log('stats:', stats);
-            
-            const status = {
-                gameBoard: !!gameBoard,
-                keyboard: !!keyboard,
-                wordInput: !!wordInput,
-                submitBtn: !!submitBtn
-            };
-            alert('DOM Elements Status:\n' + Object.entries(status).map(([key, value]) => `${key}: ${value ? '✅' : '❌'}`).join('\n'));
-        }
-        
-        // Authentication system functions
-        function showAuthTab(tab, event) {
-            // Update tab buttons
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-            
-            // Show/hide forms
-            if (tab === 'login') {
-                document.getElementById('loginForm').style.display = 'block';
-                document.getElementById('registerForm').style.display = 'none';
-                // Focus on email input when switching to login
-                setTimeout(() => {
-                    const emailInput = document.getElementById('loginEmail');
-                    if (emailInput) emailInput.focus();
-                }, 100);
-            } else {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('registerForm').style.display = 'block';
-                // Focus on username input when switching to register
-                setTimeout(() => {
-                    const usernameInput = document.getElementById('registerUsername');
-                    if (usernameInput) usernameInput.focus();
-                }, 100);
-            }
-        }
-        
-        function loginUser() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            if (!email || !password) {
-                showMessage('Please fill in all fields', 'error');
-                return;
-            }
-            
-            // Simulate login validation
-            if (email === 'test@test.com' && password === 'test') {
-                // Hide auth container, show game container
-                document.getElementById('authContainer').style.display = 'none';
-                document.getElementById('gameContainer').style.display = 'block';
                 
-
+                // Validate email format
+                if (!isValidEmail(email)) {
+                    showMessage('Please enter a valid email address', 'error');
+                    return;
+                }
                 
-                showMessage('Login successful! Welcome to WordDuel!', 'success');
-            } else {
-                showMessage('Invalid credentials. Try test@test.com / test', 'error');
-            }
-        }
-        
-        function registerUser() {
-            const username = document.getElementById('registerUsername').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const phone = document.getElementById('registerPhone').value;
-            
-            if (!username || !email || !password || !phone) {
-                showMessage('Please fill in all fields', 'error');
-                return;
-            }
-            
-            // Validate email format
-            if (!isValidEmail(email)) {
-                showMessage('Please enter a valid email address', 'error');
-                return;
-            }
-            
-            // Validate phone format (basic)
-            if (phone.length < 10) {
-                showMessage('Please enter a valid phone number', 'error');
-                return;
-            }
-            
-            // Simulate registration
-            showMessage('Registration successful! Please check your email for MFA setup.', 'success');
-            
-            // Auto-switch to login tab
-            showAuthTab('login');
-            document.getElementById('loginEmail').value = email;
-        }
-        
-        function socialLogin(provider) {
-            showMessage(`Signing in with ${provider}... (Demo mode)`, 'info');
-            // In real app, this would handle OAuth
-        }
-        
-        // Celebration and Comment Modal Functions
-        function showCelebration(isWin = true) {
-            const overlay = document.getElementById('celebrationOverlay');
-            const title = document.getElementById('celebrationTitle');
-            
-            if (isWin) {
-                title.textContent = '🎉 CONGRATULATIONS! 🎉';
-                title.style.color = '#FFD700';
-            } else {
-                title.textContent = '🎯 Good Try! 🎯';
-                title.style.color = '#FF6B6B';
-            }
-            
-            overlay.style.display = 'block';
-            
-            // Create confetti
-            createConfetti();
-            
-            // Create balloons
-            createBalloons();
-            
-            // Create parade
-            createParade();
-            
-            // Hide celebration after 5 seconds
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 5000);
-        }
-        
-        function createConfetti() {
-            const overlay = document.getElementById('celebrationOverlay');
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.animationDelay = Math.random() * 3 + 's';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                overlay.appendChild(confetti);
+                // Validate phone format (basic)
+                if (phone.length < 10) {
+                    showMessage('Please enter a valid phone number', 'error');
+                    return;
+                }
                 
-                // Remove confetti after animation
+                // Simulate registration
+                showMessage('Registration successful! Please check your email for MFA setup.', 'success');
+                
+                // Auto-switch to login tab
+                showAuthTab('login');
+                document.getElementById('loginEmail').value = email;
+            }
+            
+            function socialLogin(provider) {
+                showMessage(`Signing in with ${provider}... (Demo mode)`, 'info');
+                // In real app, this would handle OAuth
+            }
+            
+            // Celebration and Comment Modal Functions
+            function showCelebration(isWin = true) {
+                const overlay = document.getElementById('celebrationOverlay');
+                const title = document.getElementById('celebrationTitle');
+                
+                if (isWin) {
+                    title.textContent = '🎉 CONGRATULATIONS! 🎉';
+                    title.style.color = '#FFD700';
+                } else {
+                    title.textContent = '🎯 Good Try! 🎯';
+                    title.style.color = '#FF6B6B';
+                }
+                
+                overlay.style.display = 'block';
+                
+                // Create confetti
+                createConfetti();
+                
+                // Create balloons
+                createBalloons();
+                
+                // Create parade
+                createParade();
+                
+                // Hide celebration after 5 seconds
                 setTimeout(() => {
-                    if (confetti.parentNode) {
-                        confetti.parentNode.removeChild(confetti);
+                    overlay.style.display = 'none';
+                }, 5000);
+            }
+            
+            function createConfetti() {
+                const overlay = document.getElementById('celebrationOverlay');
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.animationDelay = Math.random() * 3 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    overlay.appendChild(confetti);
+                    
+                    // Remove confetti after animation
+                    setTimeout(() => {
+                        if (confetti.parentNode) {
+                            confetti.parentNode.removeChild(confetti);
+                        }
+                    }, 5000);
+                }
+            }
+            
+            function createBalloons() {
+                const overlay = document.getElementById('celebrationOverlay');
+                for (let i = 0; i < 10; i++) {
+                    const balloon = document.createElement('div');
+                    balloon.className = 'balloon';
+                    balloon.style.left = Math.random() * 100 + '%';
+                    balloon.style.animationDelay = Math.random() * 2 + 's';
+                    balloon.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                    overlay.appendChild(balloon);
+                    
+                    // Remove balloon after animation
+                    setTimeout(() => {
+                        if (balloon.parentNode) {
+                            balloon.parentNode.removeChild(balloon);
+                        }
+                    }, 6000);
+                }
+            }
+            
+            function createParade() {
+                const overlay = document.getElementById('celebrationOverlay');
+                const parade = document.createElement('div');
+                parade.className = 'parade';
+                overlay.appendChild(parade);
+                
+                // Remove parade after animation
+                setTimeout(() => {
+                    if (parade.parentNode) {
+                        parade.parentNode.removeChild(parade);
                     }
                 }, 5000);
             }
-        }
-        
-        function createBalloons() {
-            const overlay = document.getElementById('celebrationOverlay');
-            for (let i = 0; i < 10; i++) {
-                const balloon = document.createElement('div');
-                balloon.className = 'balloon';
-                balloon.style.left = Math.random() * 100 + '%';
-                balloon.style.animationDelay = Math.random() * 2 + 's';
-                balloon.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-                overlay.appendChild(balloon);
-                
-                // Remove balloon after animation
-                setTimeout(() => {
-                    if (balloon.parentNode) {
-                        balloon.parentNode.removeChild(balloon);
-                    }
-                }, 6000);
-            }
-        }
-        
-        function createParade() {
-            const overlay = document.getElementById('celebrationOverlay');
-            const parade = document.createElement('div');
-            parade.className = 'parade';
-            overlay.appendChild(parade);
             
-            // Remove parade after animation
-            setTimeout(() => {
-                if (parade.parentNode) {
-                    parade.parentNode.removeChild(parade);
+
+            
+            // Admin Panel Functions
+            function openAdminPanel() {
+                const panel = document.getElementById('adminPanel');
+                panel.style.display = 'flex';
+            }
+            
+            function closeAdminPanel() {
+                const panel = document.getElementById('adminPanel');
+                panel.style.display = 'none';
+            }
+
+            
+            function testInputField() {
+                const adminData = document.getElementById('adminData');
+                let html = '<h4>🔍 Input Field Test Results</h4>';
+                
+                // Test wordInput element
+                if (wordInput) {
+                    html += '<div style="background: rgba(76, 175, 80, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                    html += '<strong>✅ Word Input Element Found</strong><br>';
+                    html += `- ID: ${wordInput.id}<br>`;
+                    html += `- Type: ${wordInput.type}<br>`;
+                    html += `- Value: "${wordInput.value}"<br>`;
+                    html += `- Placeholder: "${wordInput.placeholder}"<br>`;
+                    html += `- Display: ${getComputedStyle(wordInput).display}<br>`;
+                    html += `- Visibility: ${getComputedStyle(wordInput).visibility}<br>`;
+                    html += `- Opacity: ${getComputedStyle(wordInput).opacity}<br>`;
+                    html += `- Z-Index: ${getComputedStyle(wordInput).zIndex}<br>`;
+                    html += `- Pointer Events: ${getComputedStyle(wordInput).pointerEvents}<br>`;
+                    html += `- Focused: ${document.activeElement === wordInput ? 'Yes' : 'No'}<br>`;
+                    html += '</div>';
+                } else {
+                    html += '<div style="background: rgba(244, 67, 54, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                    html += '<strong>❌ Word Input Element NOT Found</strong><br>';
+                    html += 'The wordInput variable is null or undefined.<br>';
+                    html += '</div>';
                 }
-            }, 5000);
-        }
-        
-
-        
-        // Admin Panel Functions
-        function openAdminPanel() {
-            const panel = document.getElementById('adminPanel');
-            panel.style.display = 'flex';
-        }
-        
-        function closeAdminPanel() {
-            const panel = document.getElementById('adminPanel');
-            panel.style.display = 'none';
-        }
-
-        
-        function testInputField() {
-            const adminData = document.getElementById('adminData');
-            let html = '<h4>🔍 Input Field Test Results</h4>';
-            
-            // Test wordInput element
-            if (wordInput) {
-                html += '<div style="background: rgba(76, 175, 80, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
-                html += '<strong>✅ Word Input Element Found</strong><br>';
-                html += `- ID: ${wordInput.id}<br>`;
-                html += `- Type: ${wordInput.type}<br>`;
-                html += `- Value: "${wordInput.value}"<br>`;
-                html += `- Placeholder: "${wordInput.placeholder}"<br>`;
-                html += `- Display: ${getComputedStyle(wordInput).display}<br>`;
-                html += `- Visibility: ${getComputedStyle(wordInput).visibility}<br>`;
-                html += `- Opacity: ${getComputedStyle(wordInput).opacity}<br>`;
-                html += `- Z-Index: ${getComputedStyle(wordInput).zIndex}<br>`;
-                html += `- Pointer Events: ${getComputedStyle(wordInput).pointerEvents}<br>`;
-                html += `- Focused: ${document.activeElement === wordInput ? 'Yes' : 'No'}<br>`;
-                html += '</div>';
-            } else {
-                html += '<div style="background: rgba(244, 67, 54, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
-                html += '<strong>❌ Word Input Element NOT Found</strong><br>';
-                html += 'The wordInput variable is null or undefined.<br>';
-                html += '</div>';
-            }
-            
-            // Test inputArea element
-            const inputArea = document.getElementById('inputArea');
-            if (inputArea) {
-                html += '<div style="background: rgba(76, 175, 80, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
-                html += '<strong>✅ Input Area Element Found</strong><br>';
-                html += `- ID: ${inputArea.id}<br>`;
-                html += `- Display: ${getComputedStyle(inputArea).display}<br>`;
-                html += `- Visibility: ${getComputedStyle(inputArea).visibility}<br>`;
-                html += '</div>';
-            } else {
-                html += '<div style="background: rgba(244, 67, 54, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
-                html += '<strong>❌ Input Area Element NOT Found</strong><br>';
-                html += 'The inputArea element is missing from the DOM.<br>';
-                html += '</div>';
-            }
-            
-            // Test current game state
-            html += '<div style="background: rgba(33, 150, 243, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
-            html += '<strong>🎮 Current Game State</strong><br>';
-            html += `- Game Mode: ${gameMode}<br>`;
-            html += `- Game Over: ${gameOver}<br>`;
-            html += `- Game Won: ${gameWon}<br>`;
-            html += `- Current Guess: "${currentGuess}"<br>`;
-            html += `- Attempts: ${attempts}<br>`;
-            html += '</div>';
-            
-            // Test event listeners
-            html += '<div style="background: rgba(255, 193, 7, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
-            html += '<strong>🎧 Event Listener Test</strong><br>';
-            if (wordInput) {
-                html += '<button onclick="testInputEventListeners()" style="padding: 8px 16px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Test Input Events</button>';
-                html += '<button onclick="focusInputField()" style="padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Focus Input</button>';
-                html += '<button onclick="showInputArea(\'Test Placeholder\')" style="padding: 8px 16px; background: #FF9800; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Show Input Area</button>';
-            }
-            html += '</div>';
-            
-            adminData.innerHTML = html;
-        }
-        
-        function testInputEventListeners() {
-            if (!wordInput) return;
-            
-            // Test input event
-            wordInput.dispatchEvent(new Event('input', { bubbles: true }));
-            console.log('Input event dispatched');
-            
-            // Test keydown event
-            wordInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'A', bubbles: true }));
-            console.log('Keydown event dispatched');
-            
-            // Test focus event
-            wordInput.dispatchEvent(new Event('focus', { bubbles: true }));
-            console.log('Focus event dispatched');
-            
-            showMessage('Input event listeners tested! Check console for results.', 'success');
-        }
-        
-        function focusInputField() {
-            if (wordInput) {
-                wordInput.focus();
-                showMessage('Input field focused!', 'success');
-            } else {
-                showMessage('Input field not found!', 'error');
-            }
-        }
-        
-
-
-        
-        // Comment system functions
-
-        
-        function formatTimestamp(timestamp) {
-            const date = new Date(timestamp);
-            const now = new Date();
-            const diffMs = now - date;
-            const diffMins = Math.floor(diffMs / 60000);
-            const diffHours = Math.floor(diffMs / 3600000);
-            const diffDays = Math.floor(diffMs / 86400000);
-            
-            if (diffMins < 1) return 'Just now';
-            if (diffMins < 60) return `${diffMins}m ago`;
-            if (diffHours < 24) return `${diffHours}h ago`;
-            if (diffDays < 7) return `${diffDays}d ago`;
-            return date.toLocaleDateString();
-        }
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        // Guess Counter Screen for Bot Mode
-        function showGuessCounterScreen() {
-            // Create and show the guess counter screen
-            const guessCounterScreen = document.createElement('div');
-            guessCounterScreen.id = 'guessCounterScreen';
-            guessCounterScreen.className = 'guess-counter-screen';
-            guessCounterScreen.innerHTML = `
-                <div class="guess-counter-content">
-                    <h2>🎯 Guess Counter</h2>
-                    <div class="guess-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">Total Games:</span>
-                            <span class="stat-value" id="totalGames">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Games Won:</span>
-                            <span class="stat-value" id="gamesWon">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Best Score:</span>
-                            <span class="stat-value" id="bestScore">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Average Attempts:</span>
-                            <span class="stat-value" id="avgAttempts">-</span>
-                        </div>
-                    </div>
-                    <div class="guess-distribution">
-                        <h3>Guess Distribution</h3>
-                        <div class="distribution-bars" id="distributionBars">
-                            <!-- Distribution bars will be populated here -->
-                        </div>
-                    </div>
-                    <div class="guess-actions">
-                        <button onclick="startBotGame()" class="start-game-btn">Start Game</button>
-                        <button onclick="showGameModeSelector()" class="back-btn">Back to Game Mode</button>
-                    </div>
-                </div>
-            `;
-            
-            // Add to the page
-            const gameContainer = document.getElementById('gameContainer');
-            if (gameContainer) {
-                gameContainer.appendChild(guessCounterScreen);
-            }
-            
-            // Load and display stats
-            loadGuessCounterStats();
-        }
-        
-        function loadGuessCounterStats() {
-            // Load statistics from localStorage
-            const stats = JSON.parse(localStorage.getItem('wordduel_stats') || '{}');
-            const botStats = stats.bot || {};
-            
-            // Update display
-            document.getElementById('totalGames').textContent = botStats.totalGames || 0;
-            document.getElementById('gamesWon').textContent = botStats.gamesWon || 0;
-            document.getElementById('bestScore').textContent = botStats.bestScore || '-';
-            document.getElementById('avgAttempts').textContent = botStats.averageAttempts || '-';
-            
-            // Update distribution bars
-            updateDistributionBars(botStats.distribution || {});
-            
-            // Add some encouraging text based on performance
-            const winRate = botStats.totalGames > 0 ? (botStats.gamesWon / botStats.totalGames * 100).toFixed(1) : 0;
-            let encouragement = '';
-            
-            if (winRate >= 80) {
-                encouragement = '🎯 Excellent! You\'re a WordDuel master!';
-            } else if (winRate >= 60) {
-                encouragement = '🌟 Great job! You\'re getting better every game!';
-            } else if (winRate >= 40) {
-                encouragement = '💪 Good progress! Keep practicing!';
-            } else if (winRate > 0) {
-                encouragement = '📚 Learning is fun! Every game makes you stronger!';
-            } else {
-                encouragement = '🚀 Ready for your first game? Let\'s start!';
-            }
-            
-            // Add encouragement text below the stats
-            const encouragementEl = document.createElement('div');
-            encouragementEl.className = 'encouragement-text';
-            encouragementEl.textContent = encouragement;
-            encouragementEl.style.cssText = 'text-align: center; color: #FFC107; font-size: 18px; margin: 20px 0; font-style: italic;';
-            
-            const guessStats = document.querySelector('.guess-stats');
-            if (guessStats && !document.querySelector('.encouragement-text')) {
-                guessStats.parentNode.insertBefore(encouragementEl, guessStats.nextSibling);
-            }
-        }
-        
-        function updateDistributionBars(distribution) {
-            const distributionBars = document.getElementById('distributionBars');
-            if (!distributionBars) return;
-            
-            let html = '';
-            for (let i = 1; i <= 6; i++) {
-                const count = distribution[i] || 0;
-                const maxCount = Math.max(...Object.values(distribution), 1);
-                const barHeight = count > 0 ? (count / maxCount) * 100 : 0;
                 
-                html += `
-                    <div class="dist-bar-item">
-                        <span class="dist-number">${i}</span>
-                        <div class="dist-bar">
-                            <div class="dist-bar-fill" style="height: ${barHeight}%"></div>
+                // Test inputArea element
+                const inputArea = document.getElementById('inputArea');
+                if (inputArea) {
+                    html += '<div style="background: rgba(76, 175, 80, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                    html += '<strong>✅ Input Area Element Found</strong><br>';
+                    html += `- ID: ${inputArea.id}<br>`;
+                    html += `- Display: ${getComputedStyle(inputArea).display}<br>`;
+                    html += `- Visibility: ${getComputedStyle(inputArea).visibility}<br>`;
+                    html += '</div>';
+                } else {
+                    html += '<div style="background: rgba(244, 67, 54, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                    html += '<strong>❌ Input Area Element NOT Found</strong><br>';
+                    html += 'The inputArea element is missing from the DOM.<br>';
+                    html += '</div>';
+                }
+                
+                // Test current game state
+                html += '<div style="background: rgba(33, 150, 243, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                html += '<strong>🎮 Current Game State</strong><br>';
+                html += `- Game Mode: ${gameMode}<br>`;
+                html += `- Game Over: ${gameOver}<br>`;
+                html += `- Game Won: ${gameWon}<br>`;
+                html += `- Current Guess: "${currentGuess}"<br>`;
+                html += `- Attempts: ${attempts}<br>`;
+                html += '</div>';
+                
+                // Test event listeners
+                html += '<div style="background: rgba(255, 193, 7, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">';
+                html += '<strong>🎧 Event Listener Test</strong><br>';
+                if (wordInput) {
+                    html += '<button onclick="testInputEventListeners()" style="padding: 8px 16px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Test Input Events</button>';
+                    html += '<button onclick="focusInputField()" style="padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Focus Input</button>';
+                    html += '<button onclick="showInputArea(\'Test Placeholder\')" style="padding: 8px 16px; background: #FF9800; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Show Input Area</button>';
+                }
+                html += '</div>';
+                
+                adminData.innerHTML = html;
+            }
+            
+            function testInputEventListeners() {
+                if (!wordInput) return;
+                
+                // Test input event
+                wordInput.dispatchEvent(new Event('input', { bubbles: true }));
+                console.log('Input event dispatched');
+                
+                // Test keydown event
+                wordInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'A', bubbles: true }));
+                console.log('Keydown event dispatched');
+                
+                // Test focus event
+                wordInput.dispatchEvent(new Event('focus', { bubbles: true }));
+                console.log('Focus event dispatched');
+                
+                showMessage('Input event listeners tested! Check console for results.', 'success');
+            }
+            
+            function focusInputField() {
+                if (wordInput) {
+                    wordInput.focus();
+                    showMessage('Input field focused!', 'success');
+                } else {
+                    showMessage('Input field not found!', 'error');
+                }
+            }
+            
+
+
+            
+            // Comment system functions
+
+            
+            function formatTimestamp(timestamp) {
+                const date = new Date(timestamp);
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / 60000);
+                const diffHours = Math.floor(diffMs / 3600000);
+                const diffDays = Math.floor(diffMs / 86400000);
+                
+                if (diffMins < 1) return 'Just now';
+                if (diffMins < 60) return `${diffMins}m ago`;
+                if (diffHours < 24) return `${diffHours}h ago`;
+                if (diffDays < 7) return `${diffDays}d ago`;
+                return date.toLocaleDateString();
+            }
+            
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            
+            // Guess Counter Screen for Bot Mode
+            function showGuessCounterScreen() {
+                // Create and show the guess counter screen
+                const guessCounterScreen = document.createElement('div');
+                guessCounterScreen.id = 'guessCounterScreen';
+                guessCounterScreen.className = 'guess-counter-screen';
+                guessCounterScreen.innerHTML = `
+                    <div class="guess-counter-content">
+                        <h2>🎯 Guess Counter</h2>
+                        <div class="guess-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Total Games:</span>
+                                <span class="stat-value" id="totalGames">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Games Won:</span>
+                                <span class="stat-value" id="gamesWon">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Best Score:</span>
+                                <span class="stat-value" id="bestScore">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Average Attempts:</span>
+                                <span class="stat-value" id="avgAttempts">-</span>
+                            </div>
                         </div>
-                        <span class="dist-count">${count}</span>
+                        <div class="guess-distribution">
+                            <h3>Guess Distribution</h3>
+                            <div class="distribution-bars" id="distributionBars">
+                                <!-- Distribution bars will be populated here -->
+                            </div>
+                        </div>
+                        <div class="guess-actions">
+                            <button onclick="startBotGame()" class="start-game-btn">Start Game</button>
+                            <button onclick="showGameModeSelector()" class="back-btn">Back to Game Mode</button>
+                        </div>
                     </div>
                 `;
+                
+                // Add to the page
+                const gameContainer = document.getElementById('gameContainer');
+                if (gameContainer) {
+                    gameContainer.appendChild(guessCounterScreen);
+                }
+                
+                // Load and display stats
+                loadGuessCounterStats();
             }
             
-            distributionBars.innerHTML = html;
-        }
-        
-        function startBotGame() {
-            // Hide guess counter screen
-            const guessCounterScreen = document.getElementById('guessCounterScreen');
-            if (guessCounterScreen) {
-                guessCounterScreen.remove();
+            function loadGuessCounterStats() {
+                // Load statistics from localStorage
+                const stats = JSON.parse(localStorage.getItem('wordduel_stats') || '{}');
+                const botStats = stats.bot || {};
+                
+                // Update display
+                document.getElementById('totalGames').textContent = botStats.totalGames || 0;
+                document.getElementById('gamesWon').textContent = botStats.gamesWon || 0;
+                document.getElementById('bestScore').textContent = botStats.bestScore || '-';
+                document.getElementById('avgAttempts').textContent = botStats.averageAttempts || '-';
+                
+                // Update distribution bars
+                updateDistributionBars(botStats.distribution || {});
+                
+                // Add some encouraging text based on performance
+                const winRate = botStats.totalGames > 0 ? (botStats.gamesWon / botStats.totalGames * 100).toFixed(1) : 0;
+                let encouragement = '';
+                
+                if (winRate >= 80) {
+                    encouragement = '🎯 Excellent! You\'re a WordDuel master!';
+                } else if (winRate >= 60) {
+                    encouragement = '🌟 Great job! You\'re getting better every game!';
+                } else if (winRate >= 40) {
+                    encouragement = '💪 Good progress! Keep practicing!';
+                } else if (winRate > 0) {
+                    encouragement = '📚 Learning is fun! Every game makes you stronger!';
+                } else {
+                    encouragement = '🚀 Ready for your first game? Let\'s start!';
+                }
+                
+                // Add encouragement text below the stats
+                const encouragementEl = document.createElement('div');
+                encouragementEl.className = 'encouragement-text';
+                encouragementEl.textContent = encouragement;
+                encouragementEl.style.cssText = 'text-align: center; color: #FFC107; font-size: 18px; margin: 20px 0; font-style: italic;';
+                
+                const guessStats = document.querySelector('.guess-stats');
+                if (guessStats && !document.querySelector('.encouragement-text')) {
+                    guessStats.parentNode.insertBefore(encouragementEl, guessStats.nextSibling);
+                }
             }
             
-            // Start the actual bot game
-            initGame();
-        }
-        
-        function showGameModeSelector() {
-            // Hide guess counter screen
-            const guessCounterScreen = document.getElementById('guessCounterScreen');
-            if (guessCounterScreen) {
-                guessCounterScreen.remove();
+            function updateDistributionBars(distribution) {
+                const distributionBars = document.getElementById('distributionBars');
+                if (!distributionBars) return;
+                
+                let html = '';
+                for (let i = 1; i <= 6; i++) {
+                    const count = distribution[i] || 0;
+                    const maxCount = Math.max(...Object.values(distribution), 1);
+                    const barHeight = count > 0 ? (count / maxCount) * 100 : 0;
+                    
+                    html += `
+                        <div class="dist-bar-item">
+                            <span class="dist-number">${i}</span>
+                            <div class="dist-bar">
+                                <div class="dist-bar-fill" style="height: ${barHeight}%"></div>
+                            </div>
+                            <span class="dist-count">${count}</span>
+                        </div>
+                    `;
+                }
+                
+                distributionBars.innerHTML = html;
             }
             
-            // Show game mode selector
-            const gameModeSelector = document.getElementById('gameModeSelector');
-            if (gameModeSelector) {
-                gameModeSelector.style.display = 'block';
+            function startBotGame() {
+                // Hide guess counter screen
+                const guessCounterScreen = document.getElementById('guessCounterScreen');
+                if (guessCounterScreen) {
+                    guessCounterScreen.remove();
+                }
+                
+                // Start the actual bot game
+                initGame();
             }
-        }
-        
-        // Friend system functions
-        function showFriendSelector() {
-            if (friendSelector) {
-                friendSelector.style.display = 'block';
-                showMessage('Choose how you want to play with a friend!', 'info');
+            
+            function showGameModeSelector() {
+                // Hide guess counter screen
+                const guessCounterScreen = document.getElementById('guessCounterScreen');
+                if (guessCounterScreen) {
+                    guessCounterScreen.remove();
+                }
+                
+                // Show game mode selector
+                const gameModeSelector = document.getElementById('gameModeSelector');
+                if (gameModeSelector) {
+                    gameModeSelector.style.display = 'block';
+                }
             }
-        }
-        
-        function selectFriendOption(option) {
-            playMode = option;
             
-            // Hide all friend options
-            if (friendSelector) friendSelector.style.display = 'none';
-            if (contactInput) contactInput.style.display = 'none';
-            if (randomMatch) randomMatch.style.display = 'none';
+            // Friend system functions
+            function showFriendSelector() {
+                if (friendSelector) {
+                    friendSelector.style.display = 'block';
+                    showMessage('Choose how you want to play with a friend!', 'info');
+                }
+            }
             
-            if (option === 'local') {
-                // Show local network options
+            function selectFriendOption(option) {
+                playMode = option;
+                
+                // Hide all friend options
+                if (friendSelector) friendSelector.style.display = 'none';
+                if (contactInput) contactInput.style.display = 'none';
+                if (randomMatch) randomMatch.style.display = 'none';
+                
+                if (option === 'local') {
+                    // Show local network options
+                    const localOptions = document.getElementById('localOptions');
+                    if (localOptions) localOptions.style.display = 'block';
+                    showMessage('Choose how to connect with local friends!', 'info');
+                } else if (option === 'contact') {
+                    // Show contact input
+                    if (contactInput) contactInput.style.display = 'block';
+                    showMessage('Enter your friend\'s email to send them a game invite!', 'info');
+                } else if (option === 'random') {
+                    // Show random match option
+                    if (randomMatch) randomMatch.style.display = 'block';
+                    showMessage('Random matchmaking selected! Find a random player online.', 'info');
+                }
+            }
+            
+            function selectLocalOption(option) {
+                // Hide local options
+                const localOptions = document.getElementById('localOptions');
+                if (localOptions) localOptions.style.display = 'none';
+                
+                if (option === 'username') {
+                    const usernameSearch = document.getElementById('usernameSearch');
+                    if (usernameSearch) usernameSearch.style.display = 'block';
+                    showMessage('Search for players by username on your local network', 'info');
+                } else if (option === 'ip') {
+                    const ipConnection = document.getElementById('ipConnection');
+                    if (ipConnection) ipConnection.style.display = 'block';
+                    showMessage('Connect directly to a player using their IP address', 'info');
+                } else if (option === 'bluetooth') {
+                    const bluetoothDiscovery = document.getElementById('bluetoothDiscovery');
+                    if (bluetoothDiscovery) bluetoothDiscovery.style.display = 'block';
+                    showMessage('Discovering nearby players via Bluetooth...', 'info');
+                }
+            }
+            
+            function backToLocalOptions() {
+                // Hide current option and show local options again
+                const usernameSearch = document.getElementById('usernameSearch');
+                const ipConnection = document.getElementById('ipConnection');
+                const bluetoothDiscovery = document.getElementById('bluetoothDiscovery');
+                
+                if (usernameSearch) usernameSearch.style.display = 'none';
+                if (ipConnection) ipConnection.style.display = 'none';
+                if (bluetoothDiscovery) bluetoothDiscovery.style.display = 'none';
+                
                 const localOptions = document.getElementById('localOptions');
                 if (localOptions) localOptions.style.display = 'block';
-                showMessage('Choose how to connect with local friends!', 'info');
-            } else if (option === 'contact') {
-                // Show contact input
-                if (contactInput) contactInput.style.display = 'block';
-                showMessage('Enter your friend\'s email to send them a game invite!', 'info');
-            } else if (option === 'random') {
-                // Show random match option
-                if (randomMatch) randomMatch.style.display = 'block';
-                showMessage('Random matchmaking selected! Find a random player online.', 'info');
             }
-        }
-        
-        function selectLocalOption(option) {
-            // Hide local options
-            const localOptions = document.getElementById('localOptions');
-            if (localOptions) localOptions.style.display = 'none';
             
-            if (option === 'username') {
+            function searchByUsername() {
+                const username = document.getElementById('searchUsername').value;
+                if (!username) {
+                    showMessage('Please enter a username to search for', 'error');
+                    return;
+                }
+                
+                showMessage(`Searching LAN for username: ${username}...`, 'info');
+                // Simulate LAN search
+                setTimeout(() => {
+                    showMessage(`Player "${username}" found! Sending game invite...`, 'success');
+                    // Proceed to game setup
+                    startLocalGame();
+                }, 2000);
+            }
+            
+            function connectByIP() {
+                const ip = document.getElementById('ipAddress').value;
+                if (!ip) {
+                    showMessage('Please enter an IP address', 'error');
+                    return;
+                }
+                
+                // Basic IP validation
+                const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
+                if (!ipPattern.test(ip)) {
+                    showMessage('Please enter a valid IP address', 'error');
+                    return;
+                }
+                
+                showMessage(`Sending game invite to ${ip}...`, 'info');
+                // Simulate connection
+                setTimeout(() => {
+                    showMessage(`Connected to player at ${ip}! Starting game...`, 'success');
+                    startLocalGame();
+                }, 1500);
+            }
+            
+            function connectToPlayer(username, ip) {
+                showMessage(`Connecting to ${username} (${ip})...`, 'info');
+                // Simulate connection
+                setTimeout(() => {
+                    showMessage(`Connected to ${username}! Starting game...`, 'success');
+                    startLocalGame();
+                }, 1000);
+            }
+            
+            function startLocalGame() {
+                // Hide all local network options
+                const localOptions = document.getElementById('localOptions');
                 const usernameSearch = document.getElementById('usernameSearch');
-                if (usernameSearch) usernameSearch.style.display = 'block';
-                showMessage('Search for players by username on your local network', 'info');
-            } else if (option === 'ip') {
                 const ipConnection = document.getElementById('ipConnection');
-                if (ipConnection) ipConnection.style.display = 'block';
-                showMessage('Connect directly to a player using their IP address', 'info');
-            } else if (option === 'bluetooth') {
                 const bluetoothDiscovery = document.getElementById('bluetoothDiscovery');
-                if (bluetoothDiscovery) bluetoothDiscovery.style.display = 'block';
-                showMessage('Discovering nearby players via Bluetooth...', 'info');
-            }
-        }
-        
-        function backToLocalOptions() {
-            // Hide current option and show local options again
-            const usernameSearch = document.getElementById('usernameSearch');
-            const ipConnection = document.getElementById('ipConnection');
-            const bluetoothDiscovery = document.getElementById('bluetoothDiscovery');
-            
-            if (usernameSearch) usernameSearch.style.display = 'none';
-            if (ipConnection) ipConnection.style.display = 'none';
-            if (bluetoothDiscovery) bluetoothDiscovery.style.display = 'none';
-            
-            const localOptions = document.getElementById('localOptions');
-            if (localOptions) localOptions.style.display = 'block';
-        }
-        
-        function searchByUsername() {
-            const username = document.getElementById('searchUsername').value;
-            if (!username) {
-                showMessage('Please enter a username to search for', 'error');
-                return;
+                
+                if (localOptions) localOptions.style.display = 'none';
+                if (usernameSearch) usernameSearch.style.display = 'none';
+                if (ipConnection) ipConnection.style.display = 'none';
+                if (bluetoothDiscovery) bluetoothDiscovery.style.display = 'none';
+                
+                // Show input area for word entry
+                const inputArea = document.getElementById('inputArea');
+                if (inputArea) inputArea.style.display = 'block';
+                
+                showMessage('Local game started! Player 1: Enter a 5-letter word for Player 2 to guess.', 'success');
+                initGame();
             }
             
-            showMessage(`Searching LAN for username: ${username}...`, 'info');
-            // Simulate LAN search
-            setTimeout(() => {
-                showMessage(`Player "${username}" found! Sending game invite...`, 'success');
-                // Proceed to game setup
-                startLocalGame();
-            }, 2000);
-        }
-        
-        function connectByIP() {
-            const ip = document.getElementById('ipAddress').value;
-            if (!ip) {
-                showMessage('Please enter an IP address', 'error');
-                return;
+            function backToFriendOptions() {
+                // Hide current option and show friend selector again
+                if (contactInput) contactInput.style.display = 'none';
+                if (randomMatch) randomMatch.style.display = 'none';
+                if (friendSelector) friendSelector.style.display = 'block';
+                showMessage('Choose how you want to play with a friend!', 'info');
             }
             
-            // Basic IP validation
-            const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
-            if (!ipPattern.test(ip)) {
-                showMessage('Please enter a valid IP address', 'error');
-                return;
+            function backToGameMode() {
+                // Hide friend selector and show game mode selector
+                if (friendSelector) friendSelector.style.display = 'none';
+                if (contactInput) contactInput.style.display = 'none';
+                if (randomMatch) randomMatch.style.display = 'none';
+                if (waitingMessage) waitingMessage.style.display = 'none';
+                
+                const gameModeSelector = document.getElementById('gameModeSelector');
+                if (gameModeSelector) gameModeSelector.style.display = 'block';
+                
+                showMessage('Select your game mode!', 'info');
             }
             
-            showMessage(`Sending game invite to ${ip}...`, 'info');
-            // Simulate connection
-            setTimeout(() => {
-                showMessage(`Connected to player at ${ip}! Starting game...`, 'success');
-                startLocalGame();
-            }, 1500);
-        }
-        
-        function connectToPlayer(username, ip) {
-            showMessage(`Connecting to ${username} (${ip})...`, 'info');
-            // Simulate connection
-            setTimeout(() => {
-                showMessage(`Connected to ${username}! Starting game...`, 'success');
-                startLocalGame();
-            }, 1000);
-        }
-        
-        function startLocalGame() {
-            // Hide all local network options
-            const localOptions = document.getElementById('localOptions');
-            const usernameSearch = document.getElementById('usernameSearch');
-            const ipConnection = document.getElementById('ipConnection');
-            const bluetoothDiscovery = document.getElementById('bluetoothDiscovery');
-            
-            if (localOptions) localOptions.style.display = 'none';
-            if (usernameSearch) usernameSearch.style.display = 'none';
-            if (ipConnection) ipConnection.style.display = 'none';
-            if (bluetoothDiscovery) bluetoothDiscovery.style.display = 'none';
-            
-            // Show input area for word entry
-            const inputArea = document.getElementById('inputArea');
-            if (inputArea) inputArea.style.display = 'block';
-            
-            showMessage('Local game started! Player 1: Enter a 5-letter word for Player 2 to guess.', 'success');
-            initGame();
-        }
-        
-        function backToFriendOptions() {
-            // Hide current option and show friend selector again
-            if (contactInput) contactInput.style.display = 'none';
-            if (randomMatch) randomMatch.style.display = 'none';
-            if (friendSelector) friendSelector.style.display = 'block';
-            showMessage('Choose how you want to play with a friend!', 'info');
-        }
-        
-        function backToGameMode() {
-            // Hide friend selector and show game mode selector
-            if (friendSelector) friendSelector.style.display = 'none';
-            if (contactInput) contactInput.style.display = 'none';
-            if (randomMatch) randomMatch.style.display = 'none';
-            if (waitingMessage) waitingMessage.style.display = 'none';
-            
-            const gameModeSelector = document.getElementById('gameModeSelector');
-            if (gameModeSelector) gameModeSelector.style.display = 'block';
-            
-            showMessage('Select your game mode!', 'info');
-        }
-        
-        function sendGameInvite() {
-            const emailInput = document.getElementById('friendEmail');
-            if (!emailInput || !emailInput.value) {
-                showMessage('Please enter a valid email address!', 'error');
-                return;
-            }
-            
-            const friendEmail = emailInput.value.trim();
-            if (!isValidEmail(friendEmail)) {
-                showMessage('Please enter a valid email address!', 'error');
-                return;
-            }
-            
-            // Generate game invite code
-            gameInviteCode = generateInviteCode();
-            
-            // Show waiting message
-            if (contactInput) contactInput.style.display = 'none';
-            if (waitingMessage) {
-                waitingMessage.style.display = 'block';
-                if (waitingText) {
-                    waitingText.textContent = `Invite sent to ${friendEmail}! Waiting for them to join...`;
+            function sendGameInvite() {
+                const emailInput = document.getElementById('friendEmail');
+                if (!emailInput || !emailInput.value) {
+                    showMessage('Please enter a valid email address!', 'error');
+                    return;
                 }
+                
+                const friendEmail = emailInput.value.trim();
+                if (!isValidEmail(friendEmail)) {
+                    showMessage('Please enter a valid email address!', 'error');
+                    return;
+                }
+                
+                // Generate game invite code
+                gameInviteCode = generateInviteCode();
+                
+                // Show waiting message
+                if (contactInput) contactInput.style.display = 'none';
+                if (waitingMessage) {
+                    waitingMessage.style.display = 'block';
+                    if (waitingText) {
+                        waitingText.textContent = `Invite sent to ${friendEmail}! Waiting for them to join...`;
+                    }
+                }
+                
+                isWaitingForPlayer = true;
+                
+                // Simulate sending invite (in real app, this would send email/notification)
+                showMessage(`Game invite sent to ${friendEmail}! Share this code: ${gameInviteCode}`, 'success');
+                
+                // For demo purposes, simulate friend joining after 5 seconds
+                setTimeout(() => {
+                    if (isWaitingForPlayer) {
+                        simulateFriendJoining();
+                    }
+                }, 5000);
             }
             
-            isWaitingForPlayer = true;
-            
-            // Simulate sending invite (in real app, this would send email/notification)
-            showMessage(`Game invite sent to ${friendEmail}! Share this code: ${gameInviteCode}`, 'success');
-            
-            // For demo purposes, simulate friend joining after 5 seconds
-            setTimeout(() => {
-                if (isWaitingForPlayer) {
-                    simulateFriendJoining();
+            function findRandomPlayer() {
+                // Show waiting message for random match
+                if (randomMatch) randomMatch.style.display = 'none';
+                if (waitingMessage) {
+                    waitingMessage.style.display = 'block';
+                    if (waitingText) {
+                        waitingText.textContent = 'Searching for a random player...';
+                    }
                 }
-            }, 5000);
-        }
-        
-        function findRandomPlayer() {
-            // Show waiting message for random match
-            if (randomMatch) randomMatch.style.display = 'none';
-            if (waitingMessage) {
-                waitingMessage.style.display = 'block';
-                if (waitingText) {
-                    waitingText.textContent = 'Searching for a random player...';
-                }
+                
+                isWaitingForPlayer = true;
+                
+                // Simulate finding random player after 3-8 seconds
+                const randomDelay = Math.random() * 5000 + 3000;
+                setTimeout(() => {
+                    if (isWaitingForPlayer) {
+                        simulateRandomPlayerFound();
+                    }
+                }, randomDelay);
+                
+                // Show clear message about what's happening
+                showMessage('Searching for random player... This may take a few seconds.', 'info');
             }
             
-            isWaitingForPlayer = true;
-            
-            // Simulate finding random player after 3-8 seconds
-            const randomDelay = Math.random() * 5000 + 3000;
-            setTimeout(() => {
-                if (isWaitingForPlayer) {
-                    simulateRandomPlayerFound();
-                }
-            }, randomDelay);
-            
-            // Show clear message about what's happening
-            showMessage('Searching for random player... This may take a few seconds.', 'info');
-        }
-        
-        function simulateFriendJoining() {
-            isWaitingForPlayer = false;
-            if (waitingMessage) waitingMessage.style.display = 'none';
-            
-            showMessage('Your friend joined the game! Starting local play...', 'success');
-            
-            // Start local play
-            const inputArea = document.getElementById('inputArea');
-            if (inputArea) inputArea.style.display = 'block';
-            initGame();
-        }
-        
-        function simulateRandomPlayerFound() {
-            isWaitingForPlayer = false;
-            if (waitingMessage) waitingMessage.style.display = 'none';
-            
-            showMessage('Random player found! Starting online game...', 'success');
-            
-            // For demo, start local play (in real app, this would be online multiplayer)
-            const inputArea = document.getElementById('inputArea');
-            if (inputArea) inputArea.style.display = 'block';
-            initGame();
-        }
-        
-        function cancelWaiting() {
-            isWaitingForPlayer = false;
-            if (waitingMessage) waitingMessage.style.display = 'none';
-            
-            // Go back to friend selector
-            if (friendSelector) friendSelector.style.display = 'block';
-            showMessage('Search cancelled. Choose how you want to play!', 'info');
-        }
-        
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-        
-        function generateInviteCode() {
-            // Generate a random 6-character invite code
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let result = '';
-            for (let i = 0; i < 6; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            function simulateFriendJoining() {
+                isWaitingForPlayer = false;
+                if (waitingMessage) waitingMessage.style.display = 'none';
+                
+                showMessage('Your friend joined the game! Starting local play...', 'success');
+                
+                // Start local play
+                const inputArea = document.getElementById('inputArea');
+                if (inputArea) inputArea.style.display = 'block';
+                initGame();
             }
-            return result;
-        }
-    </script>
-</body>
+            
+            function simulateRandomPlayerFound() {
+                isWaitingForPlayer = false;
+                if (waitingMessage) waitingMessage.style.display = 'none';
+                
+                showMessage('Random player found! Starting online game...', 'success');
+                
+                // For demo, start local play (in real app, this would be online multiplayer)
+                const inputArea = document.getElementById('inputArea');
+                if (inputArea) inputArea.style.display = 'block';
+                initGame();
+            }
+            
+            function cancelWaiting() {
+                isWaitingForPlayer = false;
+                if (waitingMessage) waitingMessage.style.display = 'none';
+                
+                // Go back to friend selector
+                if (friendSelector) friendSelector.style.display = 'block';
+                showMessage('Search cancelled. Choose how you want to play!', 'info');
+            }
+            
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            function generateInviteCode() {
+                // Generate a random 6-character invite code
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let result = '';
+                for (let i = 0; i < 6; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return result;
+            }
+        </script>
+    </body>
 </html>
