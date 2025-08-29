@@ -2496,6 +2496,24 @@
             if (currentGuess.length > 0) {
                 currentGuess = currentGuess.slice(0, -1);
                 updateGameBoardDisplay();
+                
+                // Restore focus to the appropriate cell after backspace
+                if (currentGuess.length > 0) {
+                    // Focus on the last remaining character's cell
+                    const cell = document.querySelector(`[data-row="${attempts}"][data-col="${currentGuess.length}"]`);
+                    if (cell) {
+                        cell.removeAttribute('readonly');
+                        cell.focus();
+                    }
+                } else {
+                    // If all characters are removed, focus on the first cell
+                    const firstCell = document.querySelector(`[data-row="${attempts}"][data-col="0"]`);
+                    if (firstCell) {
+                        firstCell.removeAttribute('readonly');
+                        firstCell.focus();
+                    }
+                }
+                
                 console.log('Current guess after backspace:', currentGuess);
             }
         }
@@ -3089,15 +3107,113 @@
             
             // Show play again button
             function showPlayAgainButton() {
-                if (playAgainBtn) {
-                    playAgainBtn.style.display = 'block';
-                    console.log('Play again button shown');
+                const playAgainContainer = document.getElementById('playAgainContainer');
+                if (playAgainContainer) {
+                    // Clear any existing content
+                    playAgainContainer.innerHTML = '';
                     
-                    // For bot mode, also show option to view Guess Counter
-                    if (gameMode === 'bot') {
-
+                    // Create play again button
+                    const playAgainBtn = document.createElement('button');
+                    playAgainBtn.className = 'play-again-btn';
+                    playAgainBtn.textContent = 'Play Again';
+                    playAgainBtn.onclick = resetGame;
+                    
+                    // Create back button
+                    const backBtn = document.createElement('button');
+                    backBtn.className = 'play-again-btn';
+                    backBtn.textContent = 'Back to Menu';
+                    backBtn.style.marginLeft = '10px';
+                    backBtn.style.background = 'linear-gradient(45deg, #FF5722, #E64A19)';
+                    backBtn.onclick = () => {
+                        document.getElementById('gameContainer').style.display = 'none';
+                        document.getElementById('mainMenu').style.display = 'block';
+                    };
+                    
+                    // Add buttons to container
+                    playAgainContainer.appendChild(playAgainBtn);
+                    playAgainContainer.appendChild(backBtn);
+                    
+                    // Show the word when game is lost
+                    if (gameOver && !gameWon) {
+                        showWordOnBoard();
                     }
+                    
+                    console.log('Play again button shown');
                 }
+            }
+            
+            // Show the word on the game board when game is lost
+            function showWordOnBoard() {
+                if (!gameBoard || !currentWord) return;
+                
+                // Create a new row to display the word
+                const wordRow = document.createElement('div');
+                wordRow.className = 'game-row word-reveal-row';
+                wordRow.style.marginTop = '20px';
+                wordRow.style.borderTop = '2px solid #FF5722';
+                wordRow.style.paddingTop = '20px';
+                
+                // Add label
+                const labelDiv = document.createElement('div');
+                labelDiv.style.gridColumn = '1 / -1';
+                labelDiv.style.textAlign = 'center';
+                labelDiv.style.color = '#FF5722';
+                labelDiv.style.fontWeight = 'bold';
+                labelDiv.style.marginBottom = '10px';
+                labelDiv.textContent = 'The word was:';
+                wordRow.appendChild(labelDiv);
+                
+                // Create cells for the word
+                for (let i = 0; i < 5; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'game-cell word-reveal-cell';
+                    cell.textContent = currentWord[i].toUpperCase();
+                    cell.style.background = '#FF5722';
+                    cell.style.borderColor = '#FF5722';
+                    cell.style.color = 'white';
+                    cell.style.fontWeight = 'bold';
+                    wordRow.appendChild(cell);
+                }
+                
+                // Add the word row to the game board
+                gameBoard.appendChild(wordRow);
+            }
+            
+            // Reset the game
+            function resetGame() {
+                // Reset game state
+                gameOver = false;
+                gameWon = false;
+                attempts = 0;
+                currentGuess = '';
+                currentRow = 0;
+                currentCol = 0;
+                
+                // Clear the word reveal row if it exists
+                const wordRevealRow = gameBoard.querySelector('.word-reveal-row');
+                if (wordRevealRow) {
+                    wordRevealRow.remove();
+                }
+                
+                // Hide play again button
+                const playAgainContainer = document.getElementById('playAgainContainer');
+                if (playAgainContainer) {
+                    playAgainContainer.innerHTML = '';
+                }
+                
+                // Reset game board
+                createGameBoard();
+                
+                // Reset keyboard colors
+                if (keyboard) {
+                    const keys = keyboard.querySelectorAll('.key');
+                    keys.forEach(key => {
+                        key.classList.remove('correct', 'present', 'absent');
+                    });
+                }
+                
+                // Start new game
+                startNewGame();
             }
             
             // Toggle stats visibility
