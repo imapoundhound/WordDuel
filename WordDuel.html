@@ -1561,9 +1561,16 @@
         
         <div class="game-board" id="gameBoard"></div>
         
-        <!-- Play again button right under the game matrix -->
+        <!-- ADD THIS SECTION -->
+        <div class="input-area" id="inputArea" style="display: none;">
+            <div class="input-container">
+                <input type="text" id="wordInput" placeholder="Enter your 5-letter word" maxlength="5" class="word-input-field">
+                <button id="submitBtn" onclick="submitGuess()" class="submit-btn">Submit</button>
+            </div>
+        </div>
+        <!-- END OF ADDITION -->
+        
         <div class="play-again-container" id="playAgainContainer">
-            <button class="play-again-btn" id="playAgainBtn" onclick="startNewGame(gameMode)">Play Again</button>
         </div>
         
         <div class="keyboard" id="keyboard"></div>
