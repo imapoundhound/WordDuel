@@ -1,0 +1,10 @@
+{
+    "editor.acceptSuggestionOnCommitCharacter": true,
+    "android-dev-ext.codeCompletionLibraries": [
+        "androidx.activity:activity",
+        "androidx.activity:activity"
+    ],
+    "spring-boot.ls.java.vmargs": [
+        ""
+    ]
+}
