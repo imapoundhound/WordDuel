@@ -39,127 +39,128 @@
 26-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:11:9-54
 27        android:supportsRtl="true"
 27-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:12:9-35
-28        android:theme="@style/Theme.WordDuel" >
-28-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:13:9-46
-29        <activity
-29-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:16:9-25:20
-30            android:name="com.wordduel.app.MainActivity"
-30-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:17:13-41
-31            android:exported="true"
-31-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:18:13-36
-32            android:screenOrientation="portrait"
-32-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:19:13-49
-33            android:theme="@style/Theme.WordDuel" >
-33-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:20:13-50
-34            <intent-filter>
-34-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:21:13-24:29
-35                <action android:name="android.intent.action.MAIN" />
-35-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:22:17-69
-35-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:22:25-66
-36
-37                <category android:name="android.intent.category.LAUNCHER" />
-37-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:23:17-77
-37-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:23:27-74
-38            </intent-filter>
-39        </activity>
-40        <activity
-40-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:27:9-31:53
-41            android:name="com.wordduel.app.GameActivity"
-41-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:28:13-41
-42            android:exported="false"
-42-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:29:13-37
-43            android:screenOrientation="portrait"
-43-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:30:13-49
-44            android:theme="@style/Theme.WordDuel" />
-44-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:31:13-50
-45
-46        <provider
-46-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-47            android:name="androidx.startup.InitializationProvider"
-47-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
-48            android:authorities="com.wordduel.app.androidx-startup"
-48-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
-49            android:exported="false" >
-49-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
-50            <meta-data
-50-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-51                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-51-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
-52                android:value="androidx.startup" />
-52-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
-53            <meta-data
-53-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\658a2e08a938dcc9fde9a12b05185706\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
-54                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-54-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\658a2e08a938dcc9fde9a12b05185706\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
-55                android:value="androidx.startup" />
-55-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\658a2e08a938dcc9fde9a12b05185706\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
-56            <meta-data
-56-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
-57                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-57-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
-58                android:value="androidx.startup" />
-58-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
-59        </provider>
-60
-61        <uses-library
-61-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
-62            android:name="androidx.window.extensions"
-62-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
-63            android:required="false" />
-63-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
-64        <uses-library
-64-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
-65            android:name="androidx.window.sidecar"
-65-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
-66            android:required="false" />
-66-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
-67
-68        <service
-68-->[androidx.room:room-runtime:2.6.1] C:\Users\richt\.gradle\caches\9.0.0\transforms\e04902a66dd63f551d2f4da67aaf5ed0\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
-69            android:name="androidx.room.MultiInstanceInvalidationService"
-69-->[androidx.room:room-runtime:2.6.1] C:\Users\richt\.gradle\caches\9.0.0\transforms\e04902a66dd63f551d2f4da67aaf5ed0\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
-70            android:directBootAware="true"
-70-->[androidx.room:room-runtime:2.6.1] C:\Users\richt\.gradle\caches\9.0.0\transforms\e04902a66dd63f551d2f4da67aaf5ed0\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
-71            android:exported="false" />
-71-->[androidx.room:room-runtime:2.6.1] C:\Users\richt\.gradle\caches\9.0.0\transforms\e04902a66dd63f551d2f4da67aaf5ed0\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
-72
-73        <receiver
-73-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
-74            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-74-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
-75            android:directBootAware="false"
-75-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
-76            android:enabled="true"
-76-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
-77            android:exported="true"
-77-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
-78            android:permission="android.permission.DUMP" >
-78-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
-79            <intent-filter>
-79-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
-80                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-80-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
-80-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
-81            </intent-filter>
-82            <intent-filter>
-82-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
-83                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-83-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
-83-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
-84            </intent-filter>
-85            <intent-filter>
-85-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
-86                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-86-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
-86-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
-87            </intent-filter>
-88            <intent-filter>
-88-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
-89                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-89-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
-89-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
-90            </intent-filter>
-91        </receiver>
-92    </application>
-93
-94</manifest>
+28        android:testOnly="true"
+29        android:theme="@style/Theme.WordDuel" >
+29-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:13:9-46
+30        <activity
+30-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:16:9-25:20
+31            android:name="com.wordduel.app.MainActivity"
+31-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:17:13-41
+32            android:exported="true"
+32-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:18:13-36
+33            android:screenOrientation="portrait"
+33-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:19:13-49
+34            android:theme="@style/Theme.WordDuel" >
+34-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:20:13-50
+35            <intent-filter>
+35-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:21:13-24:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:22:17-69
+36-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:22:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:23:17-77
+38-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:23:27-74
+39            </intent-filter>
+40        </activity>
+41        <activity
+41-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:27:9-31:53
+42            android:name="com.wordduel.app.GameActivity"
+42-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:28:13-41
+43            android:exported="false"
+43-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:29:13-37
+44            android:screenOrientation="portrait"
+44-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:30:13-49
+45            android:theme="@style/Theme.WordDuel" />
+45-->R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\AndroidManifest.xml:31:13-50
+46
+47        <provider
+47-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+48            android:name="androidx.startup.InitializationProvider"
+48-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+49            android:authorities="com.wordduel.app.androidx-startup"
+49-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+50            android:exported="false" >
+50-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+51            <meta-data
+51-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+52                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+52-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+53                android:value="androidx.startup" />
+53-->[androidx.emoji2:emoji2:1.2.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\250edf6d473a1a9313c024b0fa51e6c0\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+54            <meta-data
+54-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\658a2e08a938dcc9fde9a12b05185706\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+55                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+55-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\658a2e08a938dcc9fde9a12b05185706\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+56                android:value="androidx.startup" />
+56-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\658a2e08a938dcc9fde9a12b05185706\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+57            <meta-data
+57-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+58                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+58-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+59                android:value="androidx.startup" />
+59-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+60        </provider>
+61
+62        <uses-library
+62-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+63            android:name="androidx.window.extensions"
+63-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+64            android:required="false" />
+64-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+65        <uses-library
+65-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+66            android:name="androidx.window.sidecar"
+66-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+67            android:required="false" />
+67-->[androidx.window:window:1.0.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\783d27c71132c83d95bcc3f6b1bad1be\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+68
+69        <service
+69-->[androidx.room:room-runtime:2.6.1] C:\Users\richt\.gradle\caches\9.0.0\transforms\e04902a66dd63f551d2f4da67aaf5ed0\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+70            android:name="androidx.room.MultiInstanceInvalidationService"
+70-->[androidx.room:room-runtime:2.6.1] C:\Users\richt\.gradle\caches\9.0.0\transforms\e04902a66dd63f551d2f4da67aaf5ed0\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+71            android:directBootAware="true"
+71-->[androidx.room:room-runtime:2.6.1] C:\Users\richt\.gradle\caches\9.0.0\transforms\e04902a66dd63f551d2f4da67aaf5ed0\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+72            android:exported="false" />
+72-->[androidx.room:room-runtime:2.6.1] C:\Users\richt\.gradle\caches\9.0.0\transforms\e04902a66dd63f551d2f4da67aaf5ed0\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+73
+74        <receiver
+74-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+75            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+75-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+76            android:directBootAware="false"
+76-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+77            android:enabled="true"
+77-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+78            android:exported="true"
+78-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+79            android:permission="android.permission.DUMP" >
+79-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+80            <intent-filter>
+80-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+81                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+81-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+81-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+82            </intent-filter>
+83            <intent-filter>
+83-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+84                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+84-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+84-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+85            </intent-filter>
+86            <intent-filter>
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+87                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+87-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+87-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+88            </intent-filter>
+89            <intent-filter>
+89-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+90                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\richt\.gradle\caches\9.0.0\transforms\32d0796918c36462a2e390cf7a786fc9\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+91            </intent-filter>
+92        </receiver>
+93    </application>
+94
+95</manifest>
