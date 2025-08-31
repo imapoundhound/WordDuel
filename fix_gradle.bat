@@ -13,7 +13,7 @@ echo.
 
 REM Set GRADLE_HOME
 echo Setting GRADLE_HOME...
-setx GRADLE_HOME "C:\Gradle\gradle-8.2/M
+setx GRADLE_HOME "C:\Gradle\gradle-8.2" /M
 if %errorlevel% equ 0 (
     echo ✅ GRADLE_HOME set successfully
 ) else (
@@ -22,13 +22,13 @@ if %errorlevel% equ 0 (
 
 echo.
 
-REM Set JAVA_HOME (common location)
+REM Set JAVA_HOME to Cursor Java Extension path
 echo Setting JAVA_HOME...
-setx JAVA_HOME "C:\Program Files\Java\jdk-17" /M
+setx JAVA_HOME "C:\Users\richt\AppData\Roaming\Cursor\User\globalStorage\pleiades.java-extension-pack-jdk\java\latest" /M
 if %errorlevel% equ 0 (
     echo ✅ JAVA_HOME set successfully
 ) else (
-    echo ⚠️  JAVA_HOME may already be set or JDK not found at default location
+    echo ❌ Failed to set JAVA_HOME. Try running as Administrator.
 )
 
 echo.
