@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.wordduel.app-mergeReleaseResources-56:/layout/activity_game.xml",
+        "source": "com.wordduel.app-main-58:/layout/activity_game.xml"
+    },
+    {
+        "merged": "com.wordduel.app-mergeReleaseResources-56:/layout/activity_main.xml",
+        "source": "com.wordduel.app-main-58:/layout/activity_main.xml"
+    }
+]

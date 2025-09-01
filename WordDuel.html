@@ -3188,8 +3188,48 @@
                     backBtn.style.marginLeft = '10px';
                     backBtn.style.background = 'linear-gradient(45deg, #FF5722, #E64A19)';
                     backBtn.onclick = () => {
-                        document.getElementById('gameContainer').style.display = 'none';
-                        document.getElementById('mainMenu').style.display = 'block';
+                        // Reset game state
+                        gameOver = false;
+                        gameWon = false;
+                        attempts = 0;
+                        currentGuess = '';
+                        currentRow = 0;
+                        currentCol = 0;
+                        
+                        // Clear the word reveal row if it exists
+                        const wordRevealRow = gameBoard.querySelector('.word-reveal-row');
+                        if (wordRevealRow) {
+                            wordRevealRow.remove();
+                        }
+                        
+                        // Hide play again button
+                        const playAgainContainer = document.getElementById('playAgainContainer');
+                        if (playAgainContainer) {
+                            playAgainContainer.innerHTML = '';
+                        }
+                        
+                        // Reset game board
+                        createGameBoard();
+                        
+                        // Show the game mode selector (main menu)
+                        const gameModeSelector = document.getElementById('gameModeSelector');
+                        const friendSelector = document.getElementById('friendSelector');
+                        const waitingMessage = document.getElementById('waitingMessage');
+                        
+                        if (gameModeSelector) gameModeSelector.style.display = 'block';
+                        if (friendSelector) friendSelector.style.display = 'none';
+                        if (waitingMessage) waitingMessage.style.display = 'none';
+                        
+                        // Reset keyboard
+                        if (keyboard) {
+                            keyboard.innerHTML = '';
+                            createKeyboard();
+                        }
+                        
+                        // Reset guess counter
+                        updateGuessCounter();
+                        
+                        console.log('Returned to main menu');
                     };
                     
                     // Add buttons to container
