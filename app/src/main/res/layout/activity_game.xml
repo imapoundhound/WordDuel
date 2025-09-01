@@ -26,12 +26,12 @@
             app:icon="@drawable/ic_arrow_back"
             app:iconTint="@color/white"
             app:iconGravity="textStart"
-            app:iconPadding="0"
+            app:iconPadding="8dp"
             app:backgroundTint="@android:color/transparent"
             app:cornerRadius="24dp"
-            android:minWidth="0"
-            android:minHeight="0"
-            android:padding="0" />
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:padding="8dp" />
 
         <TextView
             android:id="@+id/tvGameTitle"

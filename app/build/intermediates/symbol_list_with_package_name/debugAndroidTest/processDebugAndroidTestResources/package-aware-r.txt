@@ -1,3 +1,0 @@
-com.wordduel.app.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme

@@ -1,6 +1,0 @@
-com.wordduel.app.test.app-jetified-annotation-experimental-1.3.0-0 C:\Users\richt\.gradle\caches\9.0.0\transforms\bbbe3b983d7995803faf4a0c76d68360\transformed\jetified-annotation-experimental-1.3.0\res
-com.wordduel.app.test.app-jetified-core-1.5.0-1 C:\Users\richt\.gradle\caches\9.0.0\transforms\c5e2fc9d1159f17715897597b2207896\transformed\jetified-core-1.5.0\res
-com.wordduel.app.test.app-androidTest-2 R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\build\generated\res\resValues\androidTest\debug
-com.wordduel.app.test.app-mergeDebugAndroidTestResources-3 R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.wordduel.app.test.app-mergeDebugAndroidTestResources-4 R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.wordduel.app.test.app-debugAndroidTest-5 R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
