@@ -11,7 +11,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.wordduel.app.databinding.ActivityGameBinding
 //import kotlin.random.Random
-import kotlin.random.Random.Default
+import kotlin.random.Random 
 class GameActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityGameBinding
