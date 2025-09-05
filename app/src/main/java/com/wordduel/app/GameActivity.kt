@@ -10,8 +10,8 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.wordduel.app.databinding.ActivityGameBinding
-import kotlin.random.Random
-
+//import kotlin.random.Random
+import kotlin.random.Random.Default
 class GameActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityGameBinding
