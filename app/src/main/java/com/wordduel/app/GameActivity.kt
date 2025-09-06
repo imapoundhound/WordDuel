@@ -108,7 +108,7 @@ class GameActivity : AppCompatActivity() {
                     setOnClickListener { onKeyPress(char) }
                     setBackgroundColor(ContextCompat.getColor(context, R.color.keyboard_key_background))
                     setTextColor(ContextCompat.getColor(context, R.color.white))
-                    textSize = 16f
+                    16f.also { textSize = it }
                     minWidth = 0
                     minHeight = 0
                     padding = 0
