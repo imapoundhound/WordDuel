@@ -1,2 +1,3 @@
 R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\java\com\wordduel\app\GameActivity.kt
 R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\java\com\wordduel\app\MainActivity.kt
+R:\AppBuilds\source\WordDuelCursorProject\WordDuel_Projects\WordDuel_Too_Project\app\src\main\java\com\wordduel\app\GameActivityTest.kt
