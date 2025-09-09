@@ -1,0 +1,37 @@
+CURSOR Berg-Style Mini Disc Marker - Printing Instructions v1.00
+================================================================
+
+MATERIAL DISTRIBUTION:
+- Bottom 40%: TPU Clear
+- Middle 20%: Flashforge Black Flexible (Jellyfish Design)
+- Top 40%: TPU Clear
+
+PRINTING SEQUENCE:
+1. Start with TPU Clear
+2. At 40% height: Switch to Flashforge Black Flexible
+3. At 60% height: Switch back to TPU Clear
+4. Complete with TPU Clear
+
+FILAMENT CHANGE COMMANDS (M600):
+- Layer change at 40% height: M600 T0 (TPU Clear → Black)
+- Layer change at 60% height: M600 T1 (Black → TPU Clear)
+
+ORCA SLICER SETTINGS:
+- Import provided TPU_Clear_Orca_Profile.ini
+- Import provided Flashforge_Flexible_Black_Orca_Profile.ini
+- Set layer height: 0.2mm
+- Enable multi-material printing
+- Use "Set Extruder based on height" feature
+
+ESTIMATED PRINT TIME: 2-3 hours
+SUPPORT: None required
+INFILL: 20-30%
+WALLS: 3-4 perimeters
+
+NOTES:
+- Berg-style design features fat, rounded rim like disc golf putter
+- Jellyfish design is embedded in middle layers
+- Ensure proper bed adhesion for TPU materials
+- Monitor first few layers carefully
+
+For detailed setup guide, see: Orca_Slicer_Setup_Guide.md
