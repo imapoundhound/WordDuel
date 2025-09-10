@@ -565,7 +565,7 @@ class GameActivity : AppCompatActivity() {
         
         // Second pass: mark present letters
         for (i in 0 until 5) {
-            if (feedback[i] == "correct") continue
+            if(feedback[i] == "correct") continue
             
             val letterIndex = targetLetters.indexOf(guessLetters[i])
             if (letterIndex != -1) {
