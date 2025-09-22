@@ -480,7 +480,7 @@ class GameActivity : AppCompatActivity() {
             binding.keyboardContainer.addView(specialRow)
         }
 
-        private fun initializeGame() {
+       private fun initializeGame() {
             currentWord = words.random()
             currentGuess = ""
             attempts = 0
