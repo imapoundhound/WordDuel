@@ -1,0 +1,5 @@
+<root>
+    <item name='androidx.fragment.app.FragmentActivity FragmentActivity()'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
+</root>
