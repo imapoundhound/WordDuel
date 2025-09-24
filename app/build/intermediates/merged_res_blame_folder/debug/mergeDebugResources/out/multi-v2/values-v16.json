@@ -4,7 +4,7 @@
             "outputFile": "com.wordduel.app-mergeDebugResources-55:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\491e838cdacc6226914c8497cbe01ef6\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\7bd464856a64d4d070aa3bfc1cf9f3aa\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\91a3606ef069b483c11ffacf06183d9e\\transformed\\core-1.12.0\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\0945b9e4a389f76ea730b25a974fe29e\\transformed\\core-1.12.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

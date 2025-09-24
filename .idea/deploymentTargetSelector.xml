@@ -16,9 +16,6 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="GameActivity (1)">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="GameActivity (2)">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>

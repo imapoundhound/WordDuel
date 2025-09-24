@@ -2,4 +2,7 @@
     <item name='androidx.fragment.app.FragmentActivity FragmentActivity()'>
         <annotation name='java.lang.Deprecated' />
     </item>
+    <item name='androidx.fragment.app.FragmentActivity FragmentActivity(int)'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
 </root>

@@ -4,7 +4,7 @@
             "outputFile": "com.wordduel.app-mergeReleaseResources-55:/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\491e838cdacc6226914c8497cbe01ef6\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
+                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\7bd464856a64d4d070aa3bfc1cf9f3aa\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
