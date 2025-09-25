@@ -5,10 +5,10 @@ library {
   maven_library {
     groupId: "androidx.databinding"
     artifactId: "viewbinding"
-    version: "8.12.2"
+    version: "8.12.3"
   }
   digests {
-    sha256: "\033{\v\214\233\335O\0067v\r\276k:&\036KZ\347\024\365\302\\\331\311\f\356\002@\a\1771"
+    sha256: "0\204Ifl\003\227hD\243@\211\320\224+b\321\236\301\273\034?\222>2\037\332D^\256tA"
   }
   repo_index {
   }
@@ -100,7 +100,7 @@ library {
   maven_library {
     groupId: "androidx.databinding"
     artifactId: "databinding-common"
-    version: "8.12.2"
+    version: "8.12.3"
   }
   digests {
     sha256: "f\312\270&9\332\300\366\302C4d\300\223\260t\326\b\304\273\210~\303\212\233\213\304\254\230\022g2"
@@ -112,10 +112,10 @@ library {
   maven_library {
     groupId: "androidx.databinding"
     artifactId: "databinding-runtime"
-    version: "8.12.2"
+    version: "8.12.3"
   }
   digests {
-    sha256: "\243\364\216\034\252z\033W\006C,U\317\261\351\367\027\220H\344\364\342\204I\253\002\200\277c\361\222\024"
+    sha256: "\215<)\036.\356^a \005z\224v\226j\213\2643)\n\332\230\255\266\367|\266\316\260\305\221\034"
   }
   repo_index {
   }
@@ -495,10 +495,10 @@ library {
   maven_library {
     groupId: "androidx.databinding"
     artifactId: "databinding-adapters"
-    version: "8.12.2"
+    version: "8.12.3"
   }
   digests {
-    sha256: "\360\323CY\244\0250`yL7yw\240\362\025\254\275\030\202\357\226\323\3419\205\241\266\215\217\365\325"
+    sha256: "\026\215\'y\026\227\b\266\311t\370\355\326\300\273\237\232\263\265?H-]\017\271Hk \263\331\201\b"
   }
   repo_index {
   }
@@ -507,10 +507,10 @@ library {
   maven_library {
     groupId: "androidx.databinding"
     artifactId: "databinding-ktx"
-    version: "8.12.2"
+    version: "8.12.3"
   }
   digests {
-    sha256: "\203\n\307$\230\327\313\272\264\355\255\244#\261\3007\202\304\v\244A~c\376\356\226\2152\363\244T\212"
+    sha256: "\203\313\v\261\322d\017\306S\266Q-G\275\006\203\233|\037\227\345]\225\000K&*\315t\264U\200"
   }
   repo_index {
   }

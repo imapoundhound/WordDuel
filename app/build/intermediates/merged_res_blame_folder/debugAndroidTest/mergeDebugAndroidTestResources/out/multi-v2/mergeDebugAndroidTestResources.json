@@ -4,7 +4,7 @@
             "outputFile": "com.wordduel.app.test.app-debugAndroidTest-5:/values_values.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\c5e2fc9d1159f17715897597b2207896\\transformed\\jetified-core-1.5.0\\res\\values\\values.xml",
+                    "source": "C:\\Program Files\\Android\\Android Studio\\jbr\\caches\\9.0.0\\transforms\\5a23a80cc284aa659112723bb74cf8a8\\transformed\\jetified-core-1.5.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "4,11",
                         "startColumns": "0,0",
@@ -28,7 +28,7 @@
             "outputFile": "com.wordduel.app.test.app-debugAndroidTest-5:/values-v28_values-v28.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\c5e2fc9d1159f17715897597b2207896\\transformed\\jetified-core-1.5.0\\res\\values-v28\\values.xml",
+                    "source": "C:\\Program Files\\Android\\Android Studio\\jbr\\caches\\9.0.0\\transforms\\5a23a80cc284aa659112723bb74cf8a8\\transformed\\jetified-core-1.5.0\\res\\values-v28\\values.xml",
                     "from": {
                         "startLines": "4,13",
                         "startColumns": "0,0",
@@ -52,7 +52,7 @@
             "outputFile": "com.wordduel.app.test.app-debugAndroidTest-5:/values-v21_values-v21.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\c5e2fc9d1159f17715897597b2207896\\transformed\\jetified-core-1.5.0\\res\\values-v21\\values.xml",
+                    "source": "C:\\Program Files\\Android\\Android Studio\\jbr\\caches\\9.0.0\\transforms\\5a23a80cc284aa659112723bb74cf8a8\\transformed\\jetified-core-1.5.0\\res\\values-v21\\values.xml",
                     "from": {
                         "startLines": "4,13",
                         "startColumns": "0,0",
@@ -76,7 +76,7 @@
             "outputFile": "com.wordduel.app.test.app-debugAndroidTest-5:/values-v18_values-v18.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\richt\\.gradle\\caches\\9.0.0\\transforms\\c5e2fc9d1159f17715897597b2207896\\transformed\\jetified-core-1.5.0\\res\\values-v18\\values.xml",
+                    "source": "C:\\Program Files\\Android\\Android Studio\\jbr\\caches\\9.0.0\\transforms\\5a23a80cc284aa659112723bb74cf8a8\\transformed\\jetified-core-1.5.0\\res\\values-v18\\values.xml",
                     "from": {
                         "startLines": "4,12",
                         "startColumns": "0,0",
