@@ -1,0 +1,280 @@
+# .github/workflows/ci-cd.yml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+
+env:
+  JAVA_VERSION: '17'
+  FLUTTER_VERSION: '3.16.0'
+
+jobs:
+  # Backend Java/Gradle Build & Test
+  backend-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+    
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+    
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+      working-directory: ./backend
+    
+    - name: Run backend tests
+      run: ./gradlew test
+      working-directory: ./backend
+    
+    - name: Build backend
+      run: ./gradlew build
+      working-directory: ./backend
+    
+    - name: Upload backend artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: backend-build
+        path: backend/build/libs/*.jar
+
+  # Flutter Build for Multiple Platforms
+  flutter-build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: web
+          - os: ubuntu-latest
+            platform: android
+          - os: macos-latest
+            platform: ios
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ env.FLUTTER_VERSION }}
+        channel: 'stable'
+        cache: true
+    
+    - name: Install dependencies
+      run: flutter pub get
+      working-directory: ./flutter_game
+    
+    - name: Run Flutter tests
+      run: flutter test
+      working-directory: ./flutter_game
+    
+    - name: Build for Web
+      if: matrix.platform == 'web'
+      run: flutter build web --release
+      working-directory: ./flutter_game
+    
+    - name: Build for Android
+      if: matrix.platform == 'android'
+      run: |
+        flutter build appbundle --release
+        flutter build apk --release
+      working-directory: ./flutter_game
+    
+    - name: Build for iOS
+      if: matrix.platform == 'ios'
+      run: flutter build ios --release --no-codesign
+      working-directory: ./flutter_game
+    
+    - name: Upload Web artifacts
+      if: matrix.platform == 'web'
+      uses: actions/upload-artifact@v4
+      with:
+        name: web-build
+        path: flutter_game/build/web/
+    
+    - name: Upload Android artifacts
+      if: matrix.platform == 'android'
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-build
+        path: |
+          flutter_game/build/app/outputs/bundle/release/*.aab
+          flutter_game/build/app/outputs/flutter-apk/*.apk
+    
+    - name: Upload iOS artifacts
+      if: matrix.platform == 'ios'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ios-build
+        path: flutter_game/build/ios/iphoneos/
+
+  # Deployment Jobs
+  deploy-web:
+    needs: [backend-build, flutter-build]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' || github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Download web artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: web-build
+        path: ./web-build
+    
+    - name: Deploy to Firebase Hosting
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: ${{ secrets.GITHUB_TOKEN }}
+        firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        channelId: live
+        projectId: your-firebase-project-id
+    
+    # Alternative: Deploy to GitHub Pages
+    # - name: Deploy to GitHub Pages
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: ./web-build
+
+  deploy-android:
+    needs: [backend-build, flutter-build]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Download Android artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: android-build
+        path: ./android-build
+    
+    - name: Sign Android App Bundle
+      uses: r0adkll/sign-android-release@v1
+      with:
+        releaseDirectory: android-build
+        signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+        alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+        keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+    
+    - name: Deploy to Google Play
+      uses: r0adkll/upload-google-play@v1
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT }}
+        packageName: com.yourcompany.yourgame
+        releaseFiles: android-build/*.aab
+        track: production
+
+  deploy-ios:
+    needs: [backend-build, flutter-build]
+    runs-on: macos-latest
+    if: github.event_name == 'release'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Download iOS artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: ios-build
+        path: ./ios-build
+    
+    - name: Set up Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+    
+    - name: Import Code-Signing Certificates
+      uses: Apple-Actions/import-codesign-certs@v2
+      with:
+        p12-file-base64: ${{ secrets.IOS_CERTIFICATES }}
+        p12-password: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+    
+    - name: Install Provisioning Profile
+      uses: Apple-Actions/download-provisioning-profiles@v1
+      with:
+        bundle-id: com.yourcompany.yourgame
+        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+        api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+        api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+    
+    - name: Build and sign iOS app
+      run: |
+        cd flutter_game
+        flutter build ios --release
+        xcodebuild -workspace ios/Runner.xcworkspace \
+                   -scheme Runner \
+                   -configuration Release \
+                   -destination generic/platform=iOS \
+                   -archivePath build/Runner.xcarchive \
+                   archive
+        
+        xcodebuild -exportArchive \
+                   -archivePath build/Runner.xcarchive \
+                   -exportPath build/ \
+                   -exportOptionsPlist ios/ExportOptions.plist
+    
+    - name: Upload to App Store
+      uses: Apple-Actions/upload-testflight-build@v1
+      with:
+        app-path: flutter_game/build/Runner.ipa
+        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+        api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+        api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+
+  # Backend Deployment
+  deploy-backend:
+    needs: [backend-build]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' || github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Download backend artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: backend-build
+        path: ./backend-build
+    
+    # Example: Deploy to AWS Elastic Beanstalk
+    - name: Deploy to AWS Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: your-game-backend
+        environment_name: production
+        version_label: ${{ github.sha }}
+        region: us-east-1
+        deployment_package: backend-build/your-app.jar
+    
+    # Alternative: Deploy to Google Cloud Run
+    # - name: Deploy to Google Cloud Run
+    #   uses: google-github-actions/deploy-cloudrun@v1
+    #   with:
+    #     service: game-backend
+    #     image: gcr.io/your-project/backend:${{ github.sha }}
+    #     credentials: ${{ secrets.GOOGLE_CLOUD_SA_KEY }}
