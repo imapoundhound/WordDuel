@@ -18,7 +18,7 @@ Android Studio can't find Gradle because the environment variables aren't proper
 2. Click **Advanced** tab → **Environment Variables**
 3. Under **System Variables**, click **New**
 4. **Variable name**: `GRADLE_HOME`
-5. **Variable value**: `C:\Gradle\gradle-8.5`
+5. **Variable value**: `C:\Gradle\gradle-8.2`
 6. Click **OK**
 
 ### Step 3: Add to PATH

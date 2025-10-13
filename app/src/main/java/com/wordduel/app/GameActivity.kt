@@ -55,7 +55,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding.root)`
 
         words = loadWords() // Load/prepare the word list
 
@@ -168,6 +168,7 @@ class GameActivity : AppCompatActivity() {
             gameOver = true // Prevent further interaction
             binding.enterButton.isEnabled = false
             binding.backspaceButton.isEnabled = false
+            binding.
             return
         }
 
@@ -236,6 +237,7 @@ class GameActivity : AppCompatActivity() {
 
         val feedback = generateFeedback(currentGuess, currentWord)
         applyFeedbackToBoard(attempts, currentGuess, feedback)
+
         updateKeyboardColors(currentGuess, feedback)
 
         if (currentGuess == currentWord) {
@@ -313,8 +315,11 @@ class GameActivity : AppCompatActivity() {
                     it.setBackgroundResource(R.drawable.key_correct_position) // **ACTION: Create**
                 } else if (newCharFeedback == CharFeedback.WRONG_POSITION && currentKeyFeedback != CharFeedback.CORRECT_POSITION) {
                     it.setBackgroundResource(R.drawable.key_wrong_position)   // **ACTION: Create**
-                } else if (newCharFeedback == CharFeedback.NOT_IN_WORD && currentKeyFeedback == null) { // null or default state
-                    it.setBackgroundResource(R.drawable.key_not_in_word)       // **ACTION: Create**
+                } // This condition will always be true if the key hasn't been colored green or yellow yet
+                else if (newCharFeedback == CharFeedback.NOT_IN_WORD && currentKeyFeedback == null) {
+                    it.setBackgroundResource(R.drawable.key_not_in_word)
+                }
+                // **ACTION: Create**
                 }
             }
         }
