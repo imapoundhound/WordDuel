@@ -1648,8 +1648,9 @@
         let twoPlayerScores, player1Score, player2Score, roundResult, bestOfThree, bestOfThreeResult;
         let friendSelector, contactInput, randomMatch, waitingMessage, waitingText;
         
-        // Word list - valid 5-letter words (expanded and corrected)
-        const words = [
+
+
+//////////////////////////////////////////////////////
             // Original words (cleaned up)
             'about', 'above', 'abuse', 'actor', 'acute', 'admit', 'adopt', 'adult', 'after', 'again',
             'agent', 'agree', 'ahead', 'alarm', 'album', 'alert', 'alike', 'alive', 'allow', 'alone',
@@ -1917,11 +1918,12 @@
             'suave', 'sugar', 'suite', 'sulk', 'sulky', 'sunny', 'super', 'surf', 'surge', 'surly',
             'swab', 'swag', 'swam', 'swamp', 'swan', 'swap', 'swarm', 'swat', 'sway', 'swear', 'sweep',
             'hello', 'eagle', 'flame', 'spark', 'snark', 'start', 'crate', 'bingo', 'plaid', 'freak', 'leery', 'berry'
+    
         // Validate if a word is in the word list
         function isValidWord(word) {
             // Normalize input: lowercase, trim whitespace
             const normalizedWord = word.toLowerCase().trim();
-            
+////////////////////////////////////////////////////////////         
             // Check if word is exactly 5 letters
             if (normalizedWord.length !== 5) {
                 console.warn(`Word validation failed: "${word}" is not 5 letters`);
@@ -1933,9 +1935,25 @@
                 console.warn(`Word validation failed: "${word}" contains non-letter characters`);
                 return false;
             }
+
+
+                    // Word list - valid 5-letter words (expanded and corrected)
+        let validWords = [];
+
+        fetch("https://imapoundhound.github.io/WordDuelData/wordlist.json")
+        .then(response => response.json())
+        .then(data => {
+            validWords = data;
+        });
+
+        // Example validation function
+        function isValidWord(word) {
+        return validWords.includes(word.toLowerCase());
+        }
             
             // Check if word is in list
             const isValid = words.includes(normalizedWord);
+            
             if (!isValid) {
                 console.warn(`Word validation failed: "${word}" not found in word list`);
             }
@@ -2335,7 +2353,7 @@
             if (waitingMessage) waitingMessage.style.display = 'none';
             
             if (gameMode === 'bot') {
-                currentWord = word [Math.floor(Math.random() * words.length)];
+                currentWord = words[Math.floor(Math.random() * word.length)];
                 console.log('Computer picked word:', currentWord);
                 showMessage('Computer has chosen a word. You vs Bot! Use the on-screen keyboard to play!', 'success');
                 
