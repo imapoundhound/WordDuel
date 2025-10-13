@@ -1917,8 +1917,6 @@
             'suave', 'sugar', 'suite', 'sulk', 'sulky', 'sunny', 'super', 'surf', 'surge', 'surly',
             'swab', 'swag', 'swam', 'swamp', 'swan', 'swap', 'swarm', 'swat', 'sway', 'swear', 'sweep',
             'hello', 'eagle', 'flame', 'spark', 'snark', 'start', 'crate', 'bingo', 'plaid', 'freak', 'leery', 'berry'
-        ];
-        
         // Validate if a word is in the word list
         function isValidWord(word) {
             // Normalize input: lowercase, trim whitespace
@@ -2337,7 +2335,7 @@
             if (waitingMessage) waitingMessage.style.display = 'none';
             
             if (gameMode === 'bot') {
-                currentWord = words[Math.floor(Math.random() * words.length)];
+                currentWord = word [Math.floor(Math.random() * words.length)];
                 console.log('Computer picked word:', currentWord);
                 showMessage('Computer has chosen a word. You vs Bot! Use the on-screen keyboard to play!', 'success');
                 
