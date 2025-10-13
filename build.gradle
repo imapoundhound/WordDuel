@@ -3,7 +3,6 @@ buildscript {
     repositories {
        WordDuel_Too_Project()
        WordDuel()
-       WordDuelData()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.2'
