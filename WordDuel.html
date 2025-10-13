@@ -1916,17 +1916,33 @@
             'stub', 'stuck', 'stud', 'study', 'stuff', 'stump', 'stung', 'stunk', 'stunt', 'style',
             'suave', 'sugar', 'suite', 'sulk', 'sulky', 'sunny', 'super', 'surf', 'surge', 'surly',
             'swab', 'swag', 'swam', 'swamp', 'swan', 'swap', 'swarm', 'swat', 'sway', 'swear', 'sweep',
-            
-            // Add missing common words that were in Android version
-            'hello', 'eagle', 'flame',
-            
-            // Additional common 5-letter words
-            'spark', 'snark', 'start', 'crate', 'bingo', 'plaid', 'freak', 'leery', 'berry'
+            'hello', 'eagle', 'flame', 'spark', 'snark', 'start', 'crate', 'bingo', 'plaid', 'freak', 'leery', 'berry'
         ];
         
         // Validate if a word is in the word list
         function isValidWord(word) {
-            return words.includes(word.toLowerCase());
+            // Normalize input: lowercase, trim whitespace
+            const normalizedWord = word.toLowerCase().trim();
+            
+            // Check if word is exactly 5 letters
+            if (normalizedWord.length !== 5) {
+                console.warn(`Word validation failed: "${word}" is not 5 letters`);
+                return false;
+            }
+            
+            // Check if word contains only letters
+            if (!/^[a-z]+$/.test(normalizedWord)) {
+                console.warn(`Word validation failed: "${word}" contains non-letter characters`);
+                return false;
+            }
+            
+            // Check if word is in list
+            const isValid = words.includes(normalizedWord);
+            if (!isValid) {
+                console.warn(`Word validation failed: "${word}" not found in word list`);
+            }
+            
+            return isValid;
         }
         
         // Initialize when DOM is ready
@@ -3069,11 +3085,21 @@
                     const key = Array.from(keyboard.querySelectorAll('.key')).find(k => k.textContent === letter);
                     
                     if (key) {
-                        // Remove any existing feedback classes
-                        key.classList.remove('correct', 'present', 'absent');
+                        // Priority system: correct > present > absent
+                        const currentClass = key.classList.contains('correct') ? 'correct' :
+                                            key.classList.contains('present') ? 'present' :
+                                            key.classList.contains('absent') ? 'absent' : null;
                         
-                        // Add the appropriate feedback class
-                        key.classList.add(feedback[i]);
+                        const newClass = feedback[i];
+                        
+                        // Only update if new feedback is higher priority
+                        if (currentClass === null || 
+                            (currentClass === 'absent' && (newClass === 'present' || newClass === 'correct')) ||
+                            (currentClass === 'present' && newClass === 'correct')) {
+                            
+                            key.classList.remove('correct', 'present', 'absent');
+                            key.classList.add(newClass);
+                        }
                     }
                 }
             }
@@ -3131,41 +3157,46 @@
             
             // Update bot game statistics
             function updateBotGameStats() {
-                const stats = JSON.parse(localStorage.getItem('wordduel_stats') || '{}');
-                if (!stats.bot) stats.bot = {};
-                
-                const botStats = stats.bot;
-                
-                // Update total games
-                botStats.totalGames = (botStats.totalGames || 0) + 1;
-                
-                // Update games won
-                if (gameWon) {
-                    botStats.gamesWon = (botStats.gamesWon || 0) + 1;
-                }
-                
-                // Update best score (lowest attempts)
-                if (gameWon) {
-                    if (!botStats.bestScore || attempts < botStats.bestScore) {
-                        botStats.bestScore = attempts;
+                try {
+                    const stats = JSON.parse(localStorage.getItem('wordduel_stats') || '{}');
+                    if (!stats.bot) stats.bot = {};
+                    
+                    const botStats = stats.bot;
+                    
+                    // Update total games
+                    botStats.totalGames = (botStats.totalGames || 0) + 1;
+                    
+                    // Update games won
+                    if (gameWon) {
+                        botStats.gamesWon = (botStats.gamesWon || 0) + 1;
                     }
+                    
+                    // Update best score (lowest attempts)
+                    if (gameWon) {
+                        if (!botStats.bestScore || attempts < botStats.bestScore) {
+                            botStats.bestScore = attempts;
+                        }
+                    }
+                    
+                    // Update average attempts
+                    if (!botStats.totalAttempts) botStats.totalAttempts = 0;
+                    botStats.totalAttempts += attempts;
+                    botStats.averageAttempts = Math.round(botStats.totalAttempts / botStats.totalGames);
+                    
+                    // Update distribution
+                    if (!botStats.distribution) botStats.distribution = {};
+                    if (gameWon) {
+                        botStats.distribution[attempts] = (botStats.distribution[attempts] || 0) + 1;
+                    }
+                    
+                    // Save updated stats
+                    localStorage.setItem('wordduel_stats', JSON.stringify(stats));
+                    
+                    console.log('✓ Bot game stats updated and saved:', botStats);
+                } catch (error) {
+                    console.error('✗ Error updating bot game stats:', error);
+                    showMessage('Warning: Statistics could not be saved', 'error');
                 }
-                
-                // Update average attempts
-                if (!botStats.totalAttempts) botStats.totalAttempts = 0;
-                botStats.totalAttempts += attempts;
-                botStats.averageAttempts = Math.round(botStats.totalAttempts / botStats.totalGames);
-                
-                // Update distribution
-                if (!botStats.distribution) botStats.distribution = {};
-                if (gameWon) {
-                    botStats.distribution[attempts] = (botStats.distribution[attempts] || 0) + 1;
-                }
-                
-                // Save updated stats
-                localStorage.setItem('wordduel_stats', JSON.stringify(stats));
-                
-                console.log('Bot game stats updated:', botStats);
             }
             
             // Show play again button
