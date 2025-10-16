@@ -6,5 +6,6 @@
     ],
     "spring-boot.ls.java.vmargs": [
         ""
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
