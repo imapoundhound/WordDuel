@@ -1,8 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-     //  WordDuel_Too_Project()
-       WordDuel()
+        google()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.2'
@@ -12,11 +12,11 @@ buildscript {
 
 allprojects {
     repositories {
-        WordDuel()
+        google()
+        mavenCentral()
     }
 }
 
 tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
-
