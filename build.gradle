@@ -22,7 +22,7 @@ tasks.register('clean', Delete) {
 }
 */
 
-{
+
   /*`mode`: `rewrite`,
   `path`: `C:\\Users\\richt\\StudioProjects\\WordDuel\\build.gradle`,
   `content`:*/
@@ -47,6 +47,4 @@ allprojects {
 
 tasks.register('clean', Delete) {
     delete rootProject.buildDir
-}
-`
 }
