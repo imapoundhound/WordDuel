@@ -1,6 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\.gradle",
+    "\\.gradle\\8.9",
+    "\\.gradle\\8.9\\checksums",
+    "\\.gradle\\8.9\\dependencies-accessors",
+    "\\.gradle\\8.9\\fileChanges",
+    "\\.gradle\\8.9\\vcsMetadata",
+    "\\.gradle\\9.0.0",
+    "\\androidx",
+    "\\app"
   ],
+  "SelectedNode": "\\.gradle\\vcs-1\\gc.properties",
   "PreviewInSolutionExplorer": false
 }
