@@ -1634,10 +1634,11 @@
         let friendSelector, contactInput, randomMatch, waitingMessage, waitingText;
         
 
-javascrip[
-//////////////////////////////////////////////////////
-            // Original words (cleaned up)
-            'about', 'above', 'abuse', 'actor', 'acute', 'admit', 'adopt', 'adult', 'after', 'again',
+<script>
+        // Word list for the game
+        //////////////////////////////////////////////////////
+        //Original words (cleaned up)
+        const wordList = ['about', 'above', 'abuse', 'actor', 'acute', 'admit', 'adopt', 'adult', 'after', 'again',
             'agent', 'agree', 'ahead', 'alarm', 'album', 'alert', 'alike', 'alive', 'allow', 'alone',
             'along', 'alter', 'among', 'anger', 'angle', 'angry', 'apart', 'apple', 'apply', 'arena',
             'argue', 'arise', 'array', 'aside', 'asset', 'audio', 'audit', 'avoid', 'award', 'aware',
@@ -1903,12 +1904,13 @@ javascrip[
             'suave', 'sugar', 'suite', 'sulk', 'sulky', 'sunny', 'super', 'surf', 'surge', 'surly',
             'swab', 'swag', 'swam', 'swamp', 'swan', 'swap', 'swarm', 'swat', 'sway', 'swear', 'sweep',
             'hello', 'eagle', 'flame', 'spark', 'snark', 'start', 'crate', 'bingo', 'plaid', 'freak', 'leery', 'berry'
-    ]
+        ];
+        
         // Validate if a word is in the word list
         function isValidWord(word) {
             // Normalize input: lowercase, trim whitespace
             const normalizedWord = word.toLowerCase().trim();
-////////////////////////////////////////////////////////////         
+            
             // Check if word is exactly 5 letters
             if (normalizedWord.length !== 5) {
                 console.warn(`Word validation failed: "${word}" is not 5 letters`);
@@ -1920,24 +1922,9 @@ javascrip[
                 console.warn(`Word validation failed: "${word}" contains non-letter characters`);
                 return false;
             }
-
-
-                    // Word list - valid 5-letter words (expanded and corrected)
-        let validWords = [];
-
-        fetch("https://imapoundhound.github.io/WordDuelData/wordlist.json")
-        .then(response => response.json())
-        .then(data => {
-            validWords = data;
-        });
-
-        // Example validation function
-        function isValidWord(word) {
-        return validWords.includes(word.toLowerCase());
-        }
             
             // Check if word is in list
-            const isValid = words.includes(normalizedWord);
+            const isValid = wordList.includes(normalizedWord);
             
             if (!isValid) {
                 console.warn(`Word validation failed: "${word}" not found in word list`);
@@ -1945,7 +1932,9 @@ javascrip[
             
             return isValid;
         }
-        
+    </script>
+    
+    <script>
         // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, starting initialization...');
