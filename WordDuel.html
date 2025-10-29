@@ -3417,16 +3417,48 @@
                 
                 // Simulate login validation
                 if (email === 'test@test.com' && password === 'test') {
-                    // Hide auth container, show game container
-                    document.getElementById('authContainer').style.display = 'none';
-                    document.getElementById('gameContainer').style.display = 'block';
+                    // Hide auth box, keep auth container visible (game elements are inside it)
+                    const authBox = document.querySelector('.auth-box');
+                    if (authBox) authBox.style.display = 'none';
                     
-
+                    // Show game mode selector or initialize game
+                    initializeGame();
                     
                     showMessage('Login successful! Welcome to WordDuel!', 'success');
+                    setTimeout(() => {
+                        message.style.display = 'none';
+                    }, 2000);
                 } else {
                     showMessage('Invalid credentials. Try test@test.com / test', 'error');
                 }
+            }
+            
+            // Initialize the game after login
+            function initializeGame() {
+                console.log('Initializing game...');
+                
+                // Make sure game board is created
+                createGameBoard();
+                createKeyboard();
+                
+                // Show game elements
+                if (gameBoard) gameBoard.style.display = 'grid';
+                if (keyboard) keyboard.style.display = 'block';
+                if (guessCounter) guessCounter.style.display = 'block';
+                
+                // Start the bot game by default
+                currentWord = getRandomWord();
+                console.log('Game initialized. Target word set (hidden).');
+                
+                // Reset game state
+                attempts = 0;
+                currentRow = 0;
+                currentCol = 0;
+                gameWon = false;
+                gameOver = false;
+                currentGuess = '';
+                
+                updateGuessCounter();
             }
             
             function registerUser() {
