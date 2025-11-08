@@ -7,5 +7,6 @@
     "spring-boot.ls.java.vmargs": [
         ""
     ],
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.dependency.syncWithFolderExplorer": false
 }
