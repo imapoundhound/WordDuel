@@ -3333,8 +3333,8 @@
                 if (guessCounter) guessCounter.style.display = 'block';
                 
                 // Start the bot game by default
-                //******currentWord = getRandomWord();
-                console.log('Game initialized. Target word set (hidden).');
+                currentWord = wordList[Math.floor(Math.random() * wordList.length)];
+                console.log('Game initialized. Target word set:', currentWord);
                 
                 // Reset game state
                 attempts = 0;
