@@ -2756,6 +2756,7 @@
                 
                 // Update guess counter after each guess
                 updateGuessCounter();
+                
             }
             
             // End a two player round
@@ -3192,13 +3193,22 @@
             
             // Reset the game
             function resetGame() {
-                // Reset game state
+                console.log('resetGame called, current mode:', gameMode);
+                
+                // Hide guess counter screen if it's visible
+                const guessCounterScreen = document.getElementById('guessCounterScreen');
+                if (guessCounterScreen) {
+                    guessCounterScreen.remove();
+                }
+                
+                // Reset all game state variables
                 gameOver = false;
                 gameWon = false;
                 attempts = 0;
                 currentGuess = '';
                 currentRow = 0;
                 currentCol = 0;
+                usedWords.clear(); // Clear used words set
                 
                 // Clear the word reveal row if it exists
                 const wordRevealRow = gameBoard.querySelector('.word-reveal-row');
@@ -3212,19 +3222,22 @@
                     playAgainContainer.innerHTML = '';
                 }
                 
-                // Reset game board
-                createGameBoard();
-                
-                // Reset keyboard colors
-                if (keyboard) {
-                    const keys = keyboard.querySelectorAll('.key');
-                    keys.forEach(key => {
-                        key.classList.remove('correct', 'present', 'absent');
-                    });
+                // For bot mode, directly initialize a new game (skip guess counter screen)
+                // initGame() will handle resetting the board, keyboard, and selecting a new word
+                if (gameMode === 'bot') {
+                    // Initialize the game directly - this will:
+                    // - Reset game state (already done above, but initGame does it too)
+                    // - Select a new random word
+                    // - Recreate game board
+                    // - Recreate keyboard
+                    // - Focus first cell
+                    initGame();
+                    // Update guess counter display after initialization
+                    updateGuessCounter();
+                } else {
+                    // For other modes, use startNewGame with the current mode
+                    startNewGame(gameMode);
                 }
-                
-                // Start new game
-                startNewGame();
             }
             
             // Toggle stats visibility
@@ -3724,7 +3737,7 @@
                 
                 // Start the actual bot game
                 initGame();
-                handleCellFocus(0, 0);
+               
             }
             
             function showGameModeSelector() {
