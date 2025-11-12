@@ -55,7 +55,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
-        setContentView(binding.root)`
+        setContentView(binding.root)
 
         words = loadWords() // Load/prepare the word list
 
@@ -166,9 +166,6 @@ class GameActivity : AppCompatActivity() {
         if (words.isEmpty()) {
             showMessage("Error: Word list is empty. Cannot start game.", Snackbar.LENGTH_INDEFINITE)
             gameOver = true // Prevent further interaction
-            binding.enterButton.isEnabled = false
-            binding.backspaceButton.isEnabled = false
-            binding.
             return
         }
 
@@ -185,19 +182,14 @@ class GameActivity : AppCompatActivity() {
         updateGuessCounter()
 
         binding.btnPlayAgain.visibility = View.GONE
-        // Enable interaction buttons
-        binding.enterButton.isEnabled = true
-        binding.backspaceButton.isEnabled = true
 
         // showMessage("New game started!", Snackbar.LENGTH_SHORT) // Optional: message to user
     }
 
     private fun setupClickListeners() {
         // Keyboard keys are set up in createKeyboard
-
-        binding.enterButton.setOnClickListener { submitGuess() }
-        binding.backspaceButton.setOnClickListener { onBackspace() }
         binding.btnPlayAgain.setOnClickListener { startNewGame() }
+        binding.btnBack.setOnClickListener { finish() }
     }
 
     private fun onKeyPress(char: Char) {
@@ -292,9 +284,9 @@ class GameActivity : AppCompatActivity() {
             val cell = gameBoard[attemptRow][i]
             cell.text = guess[i].toString() // Already uppercase
             when (feedback[i]) {
-                CharFeedback.CORRECT_POSITION -> cell.setBackgroundResource(R.drawable.cell_correct_position) // **ACTION: Create**
-                CharFeedback.WRONG_POSITION -> cell.setBackgroundResource(R.drawable.cell_wrong_position)     // **ACTION: Create**
-                CharFeedback.NOT_IN_WORD -> cell.setBackgroundResource(R.drawable.cell_not_in_word)         // **ACTION: Create**
+                CharFeedback.CORRECT_POSITION -> cell.setBackgroundResource(R.drawable.cell_correct_position)
+                CharFeedback.WRONG_POSITION -> cell.setBackgroundResource(R.drawable.game_cell_present)
+                CharFeedback.NOT_IN_WORD -> cell.setBackgroundResource(R.drawable.game_cell_absent)
             }
         }
     }
@@ -312,14 +304,12 @@ class GameActivity : AppCompatActivity() {
 
                 // Only upgrade the key color, or set it if it's default
                 if (newCharFeedback == CharFeedback.CORRECT_POSITION) {
-                    it.setBackgroundResource(R.drawable.key_correct_position) // **ACTION: Create**
+                    it.setBackgroundColor(ContextCompat.getColor(this, R.color.correct))
                 } else if (newCharFeedback == CharFeedback.WRONG_POSITION && currentKeyFeedback != CharFeedback.CORRECT_POSITION) {
-                    it.setBackgroundResource(R.drawable.key_wrong_position)   // **ACTION: Create**
-                } // This condition will always be true if the key hasn't been colored green or yellow yet
-                else if (newCharFeedback == CharFeedback.NOT_IN_WORD && currentKeyFeedback == null) {
-                    it.setBackgroundResource(R.drawable.key_not_in_word)
+                    it.setBackgroundColor(ContextCompat.getColor(this, R.color.present))
+                } else if (newCharFeedback == CharFeedback.NOT_IN_WORD && currentKeyFeedback == null) {
+                    it.setBackgroundColor(ContextCompat.getColor(this, R.color.absent))
                 }
-                // **ACTION: Create**
                 }
             }
         }
@@ -352,9 +342,8 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun updateGuessCounter() {
-        // Example: Update a TextView if you have one for guess count
-        // binding.tvGuessCount.text = "Attempt: ${attempts + 1} / $MAX_ATTEMPTS"
-        Log.d("GameActivity", "Attempt: ${attempts + 1} / $MAX_ATTEMPTS")
+        // Update the header guess counter TextView
+        binding.guessCounter.text = "Guess ${attempts + 1}/$MAX_ATTEMPTS"
     }
 
     private fun updateGameBoardDisplay() {

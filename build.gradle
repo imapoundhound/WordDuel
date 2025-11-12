@@ -5,7 +5,7 @@
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2'
+        classpath 'com.android.tools.build:gradle:8.12.3'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22'
     }
 }
@@ -19,22 +19,17 @@ allprojects {
 
 tasks.register('clean', Delete) {
     delete rootProject.buildDir
-}
-*/
-
-
-  /*`mode`: `rewrite`,
-  `path`: `C:\\Users\\richt\\StudioProjects\\WordDuel\\build.gradle`,
-  `content`:*/
-  
+}*/
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22'
+        classpath 'com.android.tools.build:gradle:8.12.3'
+        // Update this line
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0'
     }
 }
 

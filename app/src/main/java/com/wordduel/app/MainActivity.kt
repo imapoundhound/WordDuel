@@ -102,23 +102,17 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun startGame(gameMode: GameMode) {
-        val intent = when (gameMode) {
-            GameMode.BOT -> Intent(this, GameActivity::class.java)
-            GameMode.TWO_PLAYER -> Intent(this, TwoPlayerActivity::class.java)
-        }
-        
+        // For now route both modes to GameActivity until TwoPlayer is implemented
+        val intent = Intent(this, GameActivity::class.java)
         intent.putExtra("GAME_MODE", gameMode.name)
         startActivity(intent)
-        
-        // Add slide transition animation
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
     }
     
     private fun startStatsActivity() {
-        val intent = Intent(this, StatsActivity::class.java)
+        // TODO: Implement StatsActivity; for now just launch GameActivity or ignore
+        val intent = Intent(this, GameActivity::class.java)
         startActivity(intent)
-        
-        // Add fade transition animation
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
     
