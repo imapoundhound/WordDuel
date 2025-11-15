@@ -1498,9 +1498,11 @@
         <div class="friend-selector" id="friendSelector">
             <h3>Choose How to Play</h3>
             <div class="friend-options">
-                <button class="friend-option" onclick="selectFriendOption('local')">Play with Local Friend</button>
-                <button class="friend-option" onclick="selectFriendOption('contact')">Find Friend by Email</button>
-                <button class="friend-option" onclick="selectFriendOption('random')">Play with Random Player</button>
+                <button class="friend-option" onclick="startSameDeviceGame()">🎮 Same Device (Pass & Play)</button>
+                <button class="friend-option" onclick="selectFriendOption('local')">🌐 Local Network</button>
+                <button class="friend-option" onclick="selectFriendOption('contact')">📧 Find Friend by Email</button>
+                <button class="friend-option" onclick="selectFriendOption('random')">🎲 Random Matchmaking</button>
+                <button class="friend-option back-btn" onclick="backToGameModeSelection()">← Back to Game Modes</button>
             </div>
             
             <!-- Local friend options -->
@@ -1553,19 +1555,33 @@
             </div>
             
             <!-- Contact input for finding friends -->
-            <div class="contact-input" id="contactInput">
-                <h4>Find Friend by Email</h4>
-                <input type="email" id="friendEmail" placeholder="Enter friend's email" maxlength="50">
-                <button onclick="sendGameInvite()">Send Game Invite</button>
-                <button onclick="backToFriendOptions()">Back</button>
+            <!-- Contact input for finding friends -->
+            <div class="contact-input" id="contactInput" style="display: none;">
+                <h4>📧 Find Friend by Email</h4>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px;">Enter your friend's email to send them a game invite!</p>
+                <input type="email" id="friendEmail" placeholder="friend@example.com" maxlength="50" autocomplete="off">
+                <div style="margin-top: 15px;">
+                    <button onclick="sendGameInvite()" style="margin-right: 10px;">📨 Send Invite</button>
+                    <button onclick="backToFriendOptions()" class="back-btn">← Back</button>
+                </div>
             </div>
             
             <!-- Random match option -->
-            <div class="random-match" id="randomMatch">
-                <h4>🎮 Random Matchmaking</h4>
-                <p>Find a random player online to challenge!</p>
-                <button onclick="findRandomPlayer()">Find Random Player</button>
-                <button onclick="backToFriendOptions()">Back</button>
+            <div class="random-match" id="randomMatch" style="display: none;">
+                <h4>🎲 Random Matchmaking</h4>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">
+                    Find a random player online with similar skill level!
+                </p>
+                <div style="background: rgba(76, 175, 80, 0.2); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="font-size: 0.9em; line-height: 1.6;">
+                        ⚡ We'll match you with a player close to your ranking<br>
+                        🎯 Get ready - matches start immediately!<br>
+                        ⏱️ This usually takes 10-30 seconds
+                    </p>
+                </div>
+                <button onclick="findRandomPlayer()" style="padding: 15px 30px; font-size: 1.1em;">🔍 Find Match Now!</button>
+                <br><br>
+                <button onclick="backToFriendOptions()" class="back-btn">← Back</button>
             </div>
         </div>
         
@@ -2470,6 +2486,9 @@
         function updateGameBoardDisplay() {
     if (!gameBoard) return;
     
+    // Check if we're in word entry phase for two-player mode
+    const isWordEntry = (gameMode === 'twoPlayer' && isWordEntryPhase);
+    
     // If currentGuess is empty, only clear the current row - keep previous guesses visible
     if (currentGuess === '') {
         for (let i = 0; i < 5; i++) {
@@ -2492,9 +2511,10 @@
         if (cell) {
             if (i < currentGuess.length) {
                 if (cell.tagName === 'INPUT') {
-                    cell.value = currentGuess[i].toUpperCase();
+                    // In word entry phase, show masked characters
+                    cell.value = isWordEntry ? '●' : currentGuess[i].toUpperCase();
                 } else {
-                    cell.textContent = currentGuess[i].toUpperCase();
+                    cell.textContent = isWordEntry ? '●' : currentGuess[i].toUpperCase();
                 }
                 cell.classList.add('filled');
             } else {
@@ -2625,12 +2645,15 @@
             
             // Handle word entry phase
             function handleWordEntry() {
+                // Clean up the guess
+                currentGuess = currentGuess.trim().replace(/\s+/g, '').toLowerCase();
+                
                 if (currentGuess.length !== 5) {
                     showMessage('Word must be 5 letters long', 'error');
                     return;
                 }
                 
-                if (!words.includes(currentGuess.toLowerCase())) {
+                if (!isValidWord(currentGuess)) {
                     showMessage('Not a valid word', 'error');
                     currentGuess = '';
                     updateInput();
@@ -2638,41 +2661,20 @@
                 }
                 
                 if (currentPlayer === 1) {
-                    player1Word = currentGuess.toLowerCase();
-                    currentPlayer = 2;
-                    currentGuess = '';
-                    updateInput();
+                    player1Word = currentGuess;
+                    console.log('Player 1 word set:', player1Word);
                     
-                    // Clear input field and show waiting message
-                    if (wordInput) {
-                        wordInput.value = '';
-                        wordInput.placeholder = 'Player 2: Enter word';
-                    }
+                    // Show "Pass to Player 2" screen
+                    showPassDeviceScreen(2);
                     
-                    showMessage('Waiting for Player 2 to enter their word...', 'info');
                 } else {
-                    player2Word = currentGuess.toLowerCase();
-                    currentGuess = '';
-                    updateInput();
+                    player2Word = currentGuess;
+                    console.log('Player 2 word set:', player2Word);
                     
-                    // Both words entered, start guessing phase
-                    isWordEntryPhase = false;
-                    currentPlayer = 1; // Player 1 guesses first
-                    
-                    // Hide input area completely
-                    const inputArea = document.getElementById('inputArea');
-                    if (inputArea) {
-                        inputArea.style.display = 'none';
-                    }
-                    
-                    // Show the game board and keyboard
-                    if (gameBoard) gameBoard.style.display = 'grid';
-                    if (keyboard) keyboard.style.display = 'block';
-                    if (guessCounter) guessCounter.style.display = 'block';
-                    
-                    showMessage('Both words entered! Player 1 starts guessing Player 2\'s word.', 'success');
-                    updateGuessCounter();
+                    // Both words entered, show transition to guessing
+                    showStartGuessingScreen();
                 }
+            }
             }
             
             // Handle word guessing phase
@@ -3754,12 +3756,285 @@
                 }
             }
             
+            // Show "Pass Device" transition screen
+            function showPassDeviceScreen(playerNumber) {
+                // Create overlay
+                const overlay = document.createElement('div');
+                overlay.id = 'passDeviceOverlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.95);
+                    z-index: 10000;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                `;
+                
+                overlay.innerHTML = `
+                    <div style="text-align: center; padding: 40px; background: rgba(255,255,255,0.1); border-radius: 20px; max-width: 500px;">
+                        <h1 style="font-size: 3em; color: #FFC107; margin-bottom: 20px;">
+                            🔄 Pass Device
+                        </h1>
+                        <p style="font-size: 1.5em; margin-bottom: 30px; line-height: 1.6;">
+                            Player 1's word has been set!
+                        </p>
+                        <p style="font-size: 1.8em; color: #4CAF50; margin-bottom: 40px; font-weight: bold;">
+                            👉 Hand device to Player ${playerNumber} 👈
+                        </p>
+                        <p style="font-size: 1.2em; color: rgba(255,255,255,0.8); margin-bottom: 30px;">
+                            Player ${playerNumber}, you will enter your secret word next.
+                        </p>
+                        <button onclick="continueToPlayer2Entry()" style="
+                            padding: 20px 40px;
+                            font-size: 1.3em;
+                            background: #4CAF50;
+                            color: white;
+                            border: none;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: bold;
+                            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+                        ">
+                            Player ${playerNumber} Ready! ✓
+                        </button>
+                        <br><br>
+                        <button onclick="cancelTwoPlayerGame()" style="
+                            padding: 12px 24px;
+                            font-size: 1em;
+                            background: rgba(255,255,255,0.2);
+                            color: white;
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            margin-top: 15px;
+                        ">
+                            Cancel Game
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(overlay);
+            }
+            
+            function continueToPlayer2Entry() {
+                // Remove overlay
+                const overlay = document.getElementById('passDeviceOverlay');
+                if (overlay) overlay.remove();
+                
+                // Reset for player 2
+                currentPlayer = 2;
+                currentGuess = '';
+                
+                // Clear and prepare board for player 2's word
+                if (gameBoard) {
+                    // Clear all cells
+                    const allCells = gameBoard.querySelectorAll('.game-cell-input');
+                    allCells.forEach(cell => {
+                        cell.value = '';
+                        cell.classList.remove('filled');
+                        cell.removeAttribute('readonly');
+                    });
+                    
+                    // Focus on first cell
+                    const firstCell = gameBoard.querySelector('[data-row="0"][data-col="0"]');
+                    if (firstCell) {
+                        firstCell.focus();
+                    }
+                }
+                
+                showMessage('Player 2: Enter your 5-letter secret word', 'info');
+            }
+            
+            function showStartGuessingScreen() {
+                // Create overlay
+                const overlay = document.createElement('div');
+                overlay.id = 'startGuessingOverlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.95);
+                    z-index: 10000;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                `;
+                
+                overlay.innerHTML = `
+                    <div style="text-align: center; padding: 40px; background: rgba(255,255,255,0.1); border-radius: 20px; max-width: 600px;">
+                        <h1 style="font-size: 3em; color: #FFC107; margin-bottom: 20px;">
+                            🎮 Ready to Play!
+                        </h1>
+                        <p style="font-size: 1.5em; margin-bottom: 30px; line-height: 1.6;">
+                            Both players have set their secret words!
+                        </p>
+                        <div style="background: rgba(76, 175, 80, 0.2); padding: 20px; border-radius: 15px; margin-bottom: 30px;">
+                            <p style="font-size: 1.3em; color: #4CAF50; margin-bottom: 15px; font-weight: bold;">
+                                📋 Game Rules:
+                            </p>
+                            <p style="font-size: 1.1em; line-height: 1.8; text-align: left;">
+                                • Player 1 guesses Player 2's word first<br>
+                                • You have 6 attempts to guess the word<br>
+                                • Green = correct letter & position<br>
+                                • Yellow = correct letter, wrong position<br>
+                                • Gray = letter not in word
+                            </p>
+                        </div>
+                        <p style="font-size: 1.3em; color: rgba(255,255,255,0.9); margin-bottom: 30px;">
+                            👉 <strong>Player 1</strong>, you're up first! 👈
+                        </p>
+                        <button onclick="startGuessingPhase()" style="
+                            padding: 20px 40px;
+                            font-size: 1.3em;
+                            background: #4CAF50;
+                            color: white;
+                            border: none;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: bold;
+                            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+                        ">
+                            Start Guessing! 🎯
+                        </button>
+                        <br><br>
+                        <button onclick="cancelTwoPlayerGame()" style="
+                            padding: 12px 24px;
+                            font-size: 1em;
+                            background: rgba(255,255,255,0.2);
+                            color: white;
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            margin-top: 15px;
+                        ">
+                            Cancel Game
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(overlay);
+            }
+            
+            function startGuessingPhase() {
+                // Remove overlay
+                const overlay = document.getElementById('startGuessingOverlay');
+                if (overlay) overlay.remove();
+                
+                // Enter guessing phase
+                isWordEntryPhase = false;
+                currentPlayer = 1;
+                currentGuess = '';
+                attempts = 0;
+                usedWords.clear();
+                
+                // Clear and set up game board
+                createGameBoard();
+                createKeyboard();
+                
+                // Show game elements
+                if (gameBoard) gameBoard.style.display = 'grid';
+                if (keyboard) keyboard.style.display = 'block';
+                if (guessCounter) guessCounter.style.display = 'block';
+                
+                // Focus on first cell
+                setTimeout(() => {
+                    const firstCell = gameBoard.querySelector('[data-row="0"][data-col="0"]');
+                    if (firstCell) {
+                        firstCell.removeAttribute('readonly');
+                        firstCell.focus();
+                    }
+                }, 100);
+                
+                showMessage('Player 1: Guess Player 2\'s word! (6 attempts)', 'info');
+                updateGuessCounter();
+            }
+            
+            function cancelTwoPlayerGame() {
+                // Remove any overlays
+                const passOverlay = document.getElementById('passDeviceOverlay');
+                const startOverlay = document.getElementById('startGuessingOverlay');
+                if (passOverlay) passOverlay.remove();
+                if (startOverlay) startOverlay.remove();
+                
+                // Reset game state
+                gameMode = 'bot';
+                isWordEntryPhase = true;
+                currentPlayer = 1;
+                player1Word = '';
+                player2Word = '';
+                currentGuess = '';
+                attempts = 0;
+                
+                // Hide game elements
+                if (gameBoard) gameBoard.style.display = 'none';
+                if (keyboard) keyboard.style.display = 'none';
+                if (guessCounter) guessCounter.style.display = 'none';
+                
+                // Show friend selector again
+                if (friendSelector) friendSelector.style.display = 'block';
+                
+                showMessage('Game cancelled. Choose another option.', 'info');
+            }
+            
             // Friend system functions
             function showFriendSelector() {
                 if (friendSelector) {
                     friendSelector.style.display = 'block';
                     showMessage('Choose how you want to play with a friend!', 'info');
                 }
+            }
+            
+            // Start same-device pass-and-play mode
+            function startSameDeviceGame() {
+                // Hide friend selector
+                if (friendSelector) friendSelector.style.display = 'none';
+                
+                // Set game mode
+                gameMode = 'twoPlayer';
+                isWordEntryPhase = true;
+                currentPlayer = 1;
+                player1Word = '';
+                player2Word = '';
+                currentGuess = '';
+                attempts = 0;
+                usedWords.clear();
+                
+                // Set up game board for word entry
+                createGameBoard();
+                
+                // Show game board (but not keyboard yet)
+                if (gameBoard) gameBoard.style.display = 'grid';
+                if (keyboard) keyboard.style.display = 'none'; // Hidden during word entry
+                if (guessCounter) guessCounter.style.display = 'none'; // Hidden during word entry
+                
+                // Focus on first cell
+                setTimeout(() => {
+                    const firstCell = gameBoard.querySelector('[data-row="0"][data-col="0"]');
+                    if (firstCell) {
+                        firstCell.removeAttribute('readonly');
+                        firstCell.focus();
+                    }
+                }, 100);
+                
+                showMessage('🎮 Player 1: Enter your 5-letter secret word', 'info');
+            }
+            
+            // Back to game mode selection
+            function backToGameModeSelection() {
+                // Hide friend selector
+                if (friendSelector) friendSelector.style.display = 'none';
+                
+                // Show game mode selection
+                const gameModeSelection = document.getElementById('gameModeSelection');
+                if (gameModeSelection) gameModeSelection.style.display = 'block';
+                
+                showMessage('Choose your game mode', 'info');
             }
             
             function selectFriendOption(option) {
@@ -3947,27 +4222,46 @@
             }
             
             function findRandomPlayer() {
-                // Show waiting message for random match
+                console.log('🔍 Starting random matchmaking...');
+                
+                // Hide random match selection
                 if (randomMatch) randomMatch.style.display = 'none';
+                
+                // Show waiting message with progress updates
                 if (waitingMessage) {
                     waitingMessage.style.display = 'block';
                     if (waitingText) {
-                        waitingText.textContent = 'Searching for a random player...';
+                        waitingText.textContent = '🔍 Searching for players...';
                     }
                 }
                 
                 isWaitingForPlayer = true;
                 
-                // Simulate finding random player after 3-8 seconds
-                const randomDelay = Math.random() * 5000 + 3000;
+                // Progressive status updates for better UX
+                let statusUpdates = [
+                    { delay: 0, message: '🔍 Connecting to matchmaking server...', type: 'info' },
+                    { delay: 1000, message: '⚡ Searching for available players...', type: 'info' },
+                    { delay: 2500, message: '🎯 Finding player with similar rank...', type: 'info' },
+                    { delay: 4000, message: '✨ Match found! Connecting...', type: 'success' }
+                ];
+                
+                statusUpdates.forEach(update => {
+                    setTimeout(() => {
+                        if (isWaitingForPlayer) {
+                            showMessage(update.message, update.type);
+                            if (waitingText) {
+                                waitingText.textContent = update.message;
+                            }
+                        }
+                    }, update.delay);
+                });
+                
+                // Simulate finding random player after 5 seconds
                 setTimeout(() => {
                     if (isWaitingForPlayer) {
                         simulateRandomPlayerFound();
                     }
-                }, randomDelay);
-                
-                // Show clear message about what's happening
-                showMessage('Searching for random player... This may take a few seconds.', 'info');
+                }, 5000);
             }
             
             function simulateFriendJoining() {
