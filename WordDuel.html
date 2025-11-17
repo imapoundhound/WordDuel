@@ -171,6 +171,7 @@
         
         .beer-clink {
             font-size: 6em;
+            color: #777;
             animation: clink 2s ease-in-out infinite;
             margin: 20px;
         }
@@ -316,7 +317,7 @@
         }
         
         .admin-close-btn:hover {
-            background: #777;
+            background:#666;
         }
         
         .admin-access {
@@ -454,7 +455,7 @@
                 height: 50px;
                 font-size: 1.5em;
             }
-            
+        .   
             .keyboard {
                 max-width: 100%;
                 padding: 0 10px;
@@ -1433,6 +1434,7 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+    
     </style>
 </head>
 <body>
@@ -1567,7 +1569,7 @@
             </div>
             
             <!-- Random match option -->
-            <div class="random-match" id="randomMatch" style="display: none;">
+            <div class="random-match" id="randomMatch" style="display: none;"></div>>
                 <h4>🎲 Random Matchmaking</h4>
                 <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">
                     Find a random player online with similar skill level!
@@ -1587,7 +1589,10 @@
         
         <!-- Waiting message for online play -->
         <div class="waiting-message" id="waitingMessage">
-            <div class="spinner"></div>
+            <style="display: non</style>
+            <div class="spinner">
+                <div class="spinner-inner"></div>
+            </div>
             <h3>Waiting for Player...</h3>
             <p id="waitingText">Searching for an opponent...</p>
             <div class="waiting-buttons">
