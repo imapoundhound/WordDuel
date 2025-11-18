@@ -7,7 +7,7 @@
     "spring-boot.ls.java.vmargs": [
         ""
     ],
-    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.configuration.updateBuildConfiguration": "automatic",
     "java.dependency.syncWithFolderExplorer": false,
     "gradle.debug": true,
     "terminal.integrated.tabs.defaultColor": "terminal.ansiMagenta"

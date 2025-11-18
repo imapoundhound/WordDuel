@@ -659,6 +659,11 @@
             margin: 20px 0;
         }
         
+        .mode-hint {
+            margin: 10px 0 0 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
         .mode-btn {
             padding: 15px 30px;
             font-size: 1.2em;
@@ -1491,6 +1496,16 @@
             </div>
             <div style="text-align: center; margin: 20px 0;">
                 <button onclick="toggleStats()" id="showStatsBtn" style="padding: 10px 20px; background: #FF9800; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Show Statistics</button>
+            </div>
+        </div>
+        
+        <!-- Game mode selector -->
+        <div class="game-mode-selector" id="gameModeSelector" style="display: none;">
+            <h3>Choose Your Game Mode</h3>
+            <p class="mode-hint">Jump into a solo match against the bot or set up a duel with a friend.</p>
+            <div class="mode-buttons">
+                <button class="mode-btn" onclick="startNewGame('bot')">One Player vs Bot</button>
+                <button class="mode-btn" onclick="startNewGame('twoPlayer')">Two Player (Friends)</button>
             </div>
         </div>
         
@@ -4033,8 +4048,8 @@
                 if (friendSelector) friendSelector.style.display = 'none';
                 
                 // Show game mode selection
-                const gameModeSelection = document.getElementById('gameModeSelection');
-                if (gameModeSelection) gameModeSelection.style.display = 'block';
+                const gameModeSelector = document.getElementById('gameModeSelector');
+                if (gameModeSelector) gameModeSelector.style.display = 'block';
                 
                 showMessage('Choose your game mode', 'info');
             }
