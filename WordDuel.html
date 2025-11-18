@@ -3846,6 +3846,13 @@
                 currentPlayer = 2;
                 currentGuess = '';
                 
+                // Clear the visible input field so Player 2 can't see Player 1's word
+                if (wordInput) {
+                    wordInput.value = '';
+                    wordInput.placeholder = 'Player 2: Enter 5-letter word';
+                }
+                updateInput();
+                
                 // Clear and prepare board for player 2's word
                 if (gameBoard) {
                     // Clear all cells
