@@ -3,7 +3,7 @@
 A modern, feature-rich word guessing game with authentication, local network play, and social features.
 
 ## 🌐 **Live Demo**
-**Play Now**: [WordDuel Game](https://yourusername.github.io/wordduel/WordDuel.html)
+**Play Now**: [WordDuel Game](https://imapoundhound.github.io/wordduel/WordDuel.html)
 
 ## ✨ **Features**
 
