@@ -1,0 +1,180 @@
+{
+  "timestamp": 1763939719473,
+  "data": {
+    "metadata": {
+      "scannedFiles": 8,
+      "processedFiles": 8,
+      "errorCount": 0,
+      "skippedFiles": 0,
+      "generatedAt": "2025-11-23T23:15:19.462Z",
+      "version": "2.0.0",
+      "config": {
+        "patterns": [
+          "**/*.{js,ts,tsx,jsx,css,html}",
+          "**/*.vue",
+          "**/*.svelte"
+        ],
+        "ignore": [
+          "**/node_modules/**",
+          "**/dist/**",
+          "**/build/**",
+          "**/.git/**",
+          "**/coverage/**",
+          "**/.next/**",
+          "**/out/**"
+        ],
+        "performance": {
+          "maxFileSize": 1048576,
+          "concurrentFiles": 10,
+          "cacheResults": true
+        }
+      }
+    },
+    "detected": [
+      {
+        "feature": "Private Fields",
+        "files": [
+          "index.html",
+          "input-debug.html",
+          "keyboard-test.html",
+          "netlify-deploy.html",
+          "OLDERWordDuel.html",
+          "test-input.html",
+          "WordDuel.html"
+        ],
+        "count": 7
+      },
+      {
+        "feature": "Focus Management",
+        "files": [
+          "index.html",
+          "input-debug.html",
+          "keyboard-test.html",
+          "netlify-deploy.html",
+          "OLDERWordDuel.html",
+          "test-input.html",
+          "WordDuel.html"
+        ],
+        "count": 7
+      },
+      {
+        "feature": "Color Contrast",
+        "files": [
+          "index.html",
+          "netlify-deploy.html",
+          "OLDERWordDuel.html",
+          "test-input.html",
+          "WordDuel.html"
+        ],
+        "count": 5
+      },
+      {
+        "feature": "css.flexbox",
+        "files": [
+          "index.html",
+          "keyboard-test.html",
+          "OLDERWordDuel.html",
+          "WordDuel.html"
+        ],
+        "count": 4
+      },
+      {
+        "feature": "css.backdrop_filter",
+        "files": [
+          "index.html",
+          "input-debug.html",
+          "keyboard-test.html",
+          "netlify-deploy.html",
+          "OLDERWordDuel.html",
+          "test-input.html",
+          "WordDuel.html"
+        ],
+        "count": 7
+      },
+      {
+        "feature": "Form Labels",
+        "files": [
+          "input-debug.html",
+          "keyboard-test.html",
+          "OLDERWordDuel.html",
+          "test-input.html",
+          "WordDuel.html"
+        ],
+        "count": 5
+      },
+      {
+        "feature": "Web Animations API",
+        "files": [
+          "OLDERWordDuel.html",
+          "WordDuel.html"
+        ],
+        "count": 2
+      },
+      {
+        "feature": "CSS Cascade Layers",
+        "files": [
+          "OLDERWordDuel.html",
+          "WordDuel.html"
+        ],
+        "count": 2
+      },
+      {
+        "feature": "CSS Nesting",
+        "files": [
+          "OLDERWordDuel.html",
+          "WordDuel.html"
+        ],
+        "count": 2
+      },
+      {
+        "feature": "CSS Math Functions",
+        "files": [
+          "OLDERWordDuel.html",
+          "WordDuel.html"
+        ],
+        "count": 2
+      },
+      {
+        "feature": "Form Elements (modern)",
+        "files": [
+          "OLDERWordDuel.html",
+          "test-input.html",
+          "WordDuel.html"
+        ],
+        "count": 3
+      },
+      {
+        "feature": "Logical Assignment",
+        "files": [
+          "OLDERWordDuel.html",
+          "test-input.html",
+          "WordDuel.html"
+        ],
+        "count": 3
+      },
+      {
+        "feature": "ARIA Attributes",
+        "files": [
+          "OLDERWordDuel.html"
+        ],
+        "count": 1
+      },
+      {
+        "feature": "css.grid",
+        "files": [
+          "OLDERWordDuel.html",
+          "WordDuel.html"
+        ],
+        "count": 2
+      },
+      {
+        "feature": "css.min_max",
+        "files": [
+          "OLDERWordDuel.html",
+          "WordDuel.html"
+        ],
+        "count": 2
+      }
+    ]
+  }
+}
