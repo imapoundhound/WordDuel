@@ -3338,9 +3338,16 @@
                     // Hide auth box, keep auth container visible (game elements are inside it)
                     const authBox = document.querySelector('.auth-box');
                     if (authBox) authBox.style.display = 'none';
-                    
-                    // Show game mode selector or initialize game
-                    initializeGame();
+                        // Show game mode selector so the user can pick how to play
+                        const gameModeSelector = document.getElementById('gameModeSelector');
+                        if (gameModeSelector) {
+                            gameModeSelector.style.display = 'block';
+                        }
+                        // Ensure friend selector / input area is hidden until a mode is chosen
+                        const friendSelector = document.getElementById('friendSelector');
+                        const inputArea = document.getElementById('inputArea');
+                        if (friendSelector) friendSelector.style.display = 'none';
+                        if (inputArea) inputArea.style.display = 'none';
                     
                     showMessage('Login successful! Welcome to WordDuel!', 'success');
                     setTimeout(() => {
@@ -3377,6 +3384,47 @@
                 currentGuess = '';
                 
                 updateGuessCounter();
+            }
+
+            // Handle mode selection from the UI buttons
+            function startNewGame(mode) {
+                console.log('startNewGame called with mode:', mode);
+                const gameModeSelector = document.getElementById('gameModeSelector');
+                const friendSelector = document.getElementById('friendSelector');
+
+                // Hide the mode selector once a choice is made
+                if (gameModeSelector) gameModeSelector.style.display = 'none';
+
+                if (mode === 'bot') {
+                    gameMode = 'bot';
+                    // Initialize single-player game against the bot
+                    createGameBoard();
+                    createKeyboard();
+                    if (gameBoard) gameBoard.style.display = 'grid';
+                    if (keyboard) keyboard.style.display = 'block';
+                    if (guessCounter) guessCounter.style.display = 'block';
+
+                    // Pick a target word and reset state
+                    currentWord = wordList[Math.floor(Math.random() * wordList.length)];
+                    attempts = 0;
+                    currentRow = 0;
+                    currentCol = 0;
+                    gameWon = false;
+                    gameOver = false;
+                    currentGuess = '';
+                    usedWords.clear();
+
+                    updateGuessCounter();
+                    showMessage('Starting One Player vs Bot — good luck!', 'success');
+                } else if (mode === 'twoPlayer') {
+                    gameMode = 'twoPlayer';
+                    // Show friend / two-player options UI
+                    if (friendSelector) friendSelector.style.display = 'block';
+                    showMessage('Two Player selected — choose how to play with a friend.', 'info');
+                } else {
+                    console.warn('Unknown game mode requested:', mode);
+                    showMessage('Unknown game mode selected.', 'error');
+                }
             }
             
             function registerUser() {
