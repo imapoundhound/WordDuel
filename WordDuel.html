@@ -1916,6 +1916,20 @@
                     display: getComputedStyle(wordInput).display,
                     visibility: getComputedStyle(wordInput).visibility
                 });
+                // Keep currentGuess in sync with the input-area for local/network games
+                wordInput.addEventListener('input', (e) => {
+                    currentGuess = e.target.value.toLowerCase().replace(/[^a-z]/g, '').slice(0,5);
+                    // Reflect masked or plain input into the game board if applicable
+                    updateInput();
+                    updateGameBoardDisplay();
+                });
+                // Allow Enter to submit from the input-area
+                wordInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        submitGuess();
+                    }
+                });
             } else {
                 console.error('❌ Word input element NOT found!');
                 console.log('Available input elements:', document.querySelectorAll('input[type="text"]'));
@@ -3055,41 +3069,56 @@
             // Update bot game statistics
             function updateBotGameStats() {
                 try {
+                    // Save stats per logged-in user when possible
+                    const current = getCurrentUser();
+                    if (current && current.email) {
+                        const users = getUsers();
+                        const u = users[current.email] || current;
+
+                        if (!u.stats) u.stats = {};
+                        if (!u.stats.bot) u.stats.bot = { totalGames: 0, gamesWon: 0, bestScore: null, totalAttempts: 0, distribution: {} };
+
+                        const botStats = u.stats.bot;
+                        botStats.totalGames = (botStats.totalGames || 0) + 1;
+
+                        if (gameWon) botStats.gamesWon = (botStats.gamesWon || 0) + 1;
+
+                        if (gameWon) {
+                            if (!botStats.bestScore || attempts < botStats.bestScore) {
+                                botStats.bestScore = attempts;
+                            }
+                        }
+
+                        botStats.totalAttempts = (botStats.totalAttempts || 0) + attempts;
+                        botStats.averageAttempts = Math.round(botStats.totalAttempts / botStats.totalGames);
+
+                        if (!botStats.distribution) botStats.distribution = {};
+                        if (gameWon) {
+                            botStats.distribution[attempts] = (botStats.distribution[attempts] || 0) + 1;
+                        }
+
+                        // Persist back to users
+                        users[current.email] = u;
+                        saveUsers(users);
+                        console.log('✓ Bot game stats updated for user:', current.email, botStats);
+                        return;
+                    }
+
+                    // Fallback: global stats if no user session
                     const stats = JSON.parse(localStorage.getItem('wordduel_stats') || '{}');
                     if (!stats.bot) stats.bot = {};
-                    
                     const botStats = stats.bot;
-                    
-                    // Update total games
                     botStats.totalGames = (botStats.totalGames || 0) + 1;
-                    
-                    // Update games won
+                    if (gameWon) botStats.gamesWon = (botStats.gamesWon || 0) + 1;
                     if (gameWon) {
-                        botStats.gamesWon = (botStats.gamesWon || 0) + 1;
+                        if (!botStats.bestScore || attempts < botStats.bestScore) botStats.bestScore = attempts;
                     }
-                    
-                    // Update best score (lowest attempts)
-                    if (gameWon) {
-                        if (!botStats.bestScore || attempts < botStats.bestScore) {
-                            botStats.bestScore = attempts;
-                        }
-                    }
-                    
-                    // Update average attempts
-                    if (!botStats.totalAttempts) botStats.totalAttempts = 0;
-                    botStats.totalAttempts += attempts;
+                    botStats.totalAttempts = (botStats.totalAttempts || 0) + attempts;
                     botStats.averageAttempts = Math.round(botStats.totalAttempts / botStats.totalGames);
-                    
-                    // Update distribution
                     if (!botStats.distribution) botStats.distribution = {};
-                    if (gameWon) {
-                        botStats.distribution[attempts] = (botStats.distribution[attempts] || 0) + 1;
-                    }
-                    
-                    // Save updated stats
+                    if (gameWon) botStats.distribution[attempts] = (botStats.distribution[attempts] || 0) + 1;
                     localStorage.setItem('wordduel_stats', JSON.stringify(stats));
-                    
-                    console.log('✓ Bot game stats updated and saved:', botStats);
+                    console.log('✓ Bot game stats updated and saved (global):', botStats);
                 } catch (error) {
                     console.error('✗ Error updating bot game stats:', error);
                     showMessage('Warning: Statistics could not be saved', 'error');
@@ -3324,37 +3353,107 @@
                 }
             }
             
-            function loginUser() {
-                const email = document.getElementById('loginEmail').value;
+            // --- Client-side user storage & auth (demo) ---
+            function getUsers() {
+                try {
+                    const raw = localStorage.getItem('wordduel_users') || '{}';
+                    return JSON.parse(raw);
+                } catch (e) {
+                    console.error('Failed to read users from localStorage', e);
+                    return {};
+                }
+            }
+
+            function saveUsers(users) {
+                try {
+                    localStorage.setItem('wordduel_users', JSON.stringify(users));
+                } catch (e) {
+                    console.error('Failed to save users to localStorage', e);
+                }
+            }
+
+            async function hashPassword(password) {
+                // Simple SHA-256 hash for demo purposes only (NOT production safe)
+                try {
+                    const enc = new TextEncoder();
+                    const data = enc.encode(password);
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                } catch (e) {
+                    console.error('Password hashing failed', e);
+                    return null;
+                }
+            }
+
+            function saveSession(session) {
+                try {
+                    localStorage.setItem('wordduel_session', JSON.stringify(session));
+                } catch (e) {
+                    console.error('Failed to save session', e);
+                }
+            }
+
+            function getSession() {
+                try {
+                    return JSON.parse(localStorage.getItem('wordduel_session') || 'null');
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function clearSession() {
+                try { localStorage.removeItem('wordduel_session'); } catch (e) { }
+            }
+
+            function getCurrentUser() {
+                const sess = getSession();
+                if (!sess || !sess.email) return null;
+                const users = getUsers();
+                return users[sess.email] || null;
+            }
+
+            async function loginUser() {
+                const email = document.getElementById('loginEmail').value.trim().toLowerCase();
                 const password = document.getElementById('loginPassword').value;
-                
+
                 if (!email || !password) {
                     showMessage('Please fill in all fields', 'error');
                     return;
                 }
-                
-                // Simulate login validation
-                if (email === 'test@test.com' && password === 'test') {
-                    // Hide auth box, keep auth container visible (game elements are inside it)
+
+                const users = getUsers();
+                const user = users[email];
+                if (!user) {
+                    showMessage('No account found for that email. Please register first.', 'error');
+                    return;
+                }
+
+                const pwHash = await hashPassword(password);
+                if (!pwHash) {
+                    showMessage('Login error (hashing failed).', 'error');
+                    return;
+                }
+
+                if (pwHash === user.passwordHash) {
+                    // Successful login: save session and show game mode selector
+                    saveSession({ email: user.email, username: user.username, id: user.id });
+
                     const authBox = document.querySelector('.auth-box');
                     if (authBox) authBox.style.display = 'none';
-                        // Show game mode selector so the user can pick how to play
-                        const gameModeSelector = document.getElementById('gameModeSelector');
-                        if (gameModeSelector) {
-                            gameModeSelector.style.display = 'block';
-                        }
-                        // Ensure friend selector / input area is hidden until a mode is chosen
-                        const friendSelector = document.getElementById('friendSelector');
-                        const inputArea = document.getElementById('inputArea');
-                        if (friendSelector) friendSelector.style.display = 'none';
-                        if (inputArea) inputArea.style.display = 'none';
-                    
-                    showMessage('Login successful! Welcome to WordDuel!', 'success');
-                    setTimeout(() => {
-                        message.style.display = 'none';
-                    }, 2000);
+
+                    const gameModeSelector = document.getElementById('gameModeSelector');
+                    if (gameModeSelector) gameModeSelector.style.display = 'block';
+
+                    const friendSelector = document.getElementById('friendSelector');
+                    const inputArea = document.getElementById('inputArea');
+                    if (friendSelector) friendSelector.style.display = 'none';
+                    if (inputArea) inputArea.style.display = 'none';
+
+                    showMessage(`Login successful! Welcome back, ${user.username}!`, 'success');
+                    setTimeout(() => { if (message) message.style.display = 'none'; }, 2000);
                 } else {
-                    showMessage('Invalid credentials. Try test@test.com / test', 'error');
+                    showMessage('Invalid credentials. Please try again.', 'error');
                 }
             }
             
@@ -3427,35 +3526,69 @@
                 }
             }
             
-            function registerUser() {
-                const username = document.getElementById('registerUsername').value;
-                const email = document.getElementById('registerEmail').value;
+            async function registerUser() {
+                const username = document.getElementById('registerUsername').value.trim();
+                const email = document.getElementById('registerEmail').value.trim().toLowerCase();
                 const password = document.getElementById('registerPassword').value;
-                const phone = document.getElementById('registerPhone').value;
-                
+                const phone = document.getElementById('registerPhone').value.trim();
+
                 if (!username || !email || !password || !phone) {
                     showMessage('Please fill in all fields', 'error');
                     return;
                 }
-                
-                // Validate email format
+
                 if (!isValidEmail(email)) {
                     showMessage('Please enter a valid email address', 'error');
                     return;
                 }
-                
-                // Validate phone format (basic)
-                if (phone.length < 10) {
+
+                if (password.length < 4) {
+                    showMessage('Password must be at least 4 characters for demo accounts', 'error');
+                    return;
+                }
+
+                // Validate phone (basic)
+                if (phone.length < 7) {
                     showMessage('Please enter a valid phone number', 'error');
                     return;
                 }
-                
-                // Simulate registration
-                showMessage('Registration successful! Please check your email for MFA setup.', 'success');
-                
-                // Auto-switch to login tab
-                showAuthTab('login');
-                document.getElementById('loginEmail').value = email;
+
+                // Check for duplicate account
+                const users = getUsers();
+                if (users[email]) {
+                    showMessage('An account with that email already exists. Please login.', 'error');
+                    return;
+                }
+
+                const pwHash = await hashPassword(password);
+                if (!pwHash) {
+                    showMessage('Registration error (hash failed)', 'error');
+                    return;
+                }
+
+                const id = 'u_' + Date.now();
+                users[email] = {
+                    id,
+                    username,
+                    email,
+                    passwordHash: pwHash,
+                    createdAt: new Date().toISOString(),
+                    phone,
+                    stats: { bot: { totalGames: 0, gamesWon: 0, bestScore: null, totalAttempts: 0, distribution: {} } }
+                };
+
+                saveUsers(users);
+
+                // Auto-login after register (demo convenience)
+                saveSession({ email, username, id });
+
+                const authBox = document.querySelector('.auth-box');
+                if (authBox) authBox.style.display = 'none';
+                const gameModeSelector = document.getElementById('gameModeSelector');
+                if (gameModeSelector) gameModeSelector.style.display = 'block';
+
+                showMessage('Registration successful! You are now logged in.', 'success');
+                setTimeout(() => { if (message) message.style.display = 'none'; }, 2000);
             }
             
             function socialLogin(provider) {
@@ -4215,6 +4348,16 @@
             }
             
             function startLocalGame() {
+                // Ensure two-player mode is active for local games
+                gameMode = 'twoPlayer';
+                isWordEntryPhase = true;
+                currentPlayer = 1;
+                player1Word = '';
+                player2Word = '';
+                currentGuess = '';
+                attempts = 0;
+                usedWords.clear();
+
                 // Hide all local network options
                 const localOptions = document.getElementById('localOptions');
                 const usernameSearch = document.getElementById('usernameSearch');
@@ -4228,10 +4371,22 @@
                 
                 // Show input area for word entry
                 const inputArea = document.getElementById('inputArea');
-                if (inputArea) inputArea.style.display = 'block';
+                if (inputArea) {
+                    inputArea.style.display = 'block';
+                    // Prepare input-area for player 1 entry
+                    if (wordInput) {
+                        wordInput.value = '';
+                        wordInput.placeholder = 'Player 1: Enter 5-letter word';
+                    }
+                }
                 
                 showMessage('Local game started! Player 1: Enter a 5-letter word for Player 2 to guess.', 'success');
-                initGame();
+                // Initialize game visuals for entry mode (board shown but masked input handled via input-area)
+                createGameBoard();
+                if (gameBoard) gameBoard.style.display = 'grid';
+                if (keyboard) keyboard.style.display = 'none';
+                if (guessCounter) guessCounter.style.display = 'none';
+                updateGameBoardDisplay();
             }
             
             function backToFriendOptions() {
