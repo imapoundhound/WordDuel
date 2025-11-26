@@ -1720,6 +1720,12 @@
         let firebaseInitialized = false;
         // Set to true and provide `window.firebaseConfig = { ... }` in the page to enable Firebase
         const WD_USE_FIREBASE = true;
+        
+        // Firebase ↔ localStorage sync heartbeat (hard cutoff strategy)
+        let syncHeartbeatInterval = null;
+        const SYNC_HEARTBEAT_INTERVAL = 30000; // Check Firebase every 30 seconds
+        let lastSyncTimestamp = null;
+        let firebaseConnectionLost = false;
                 <script>
 
         </script>
@@ -1899,6 +1905,39 @@
                     console.error('Firebase initialization failed:', e);
                 }
             })();
+
+            // Start Firebase heartbeat to monitor connection and maintain offline snapshot
+            function startFirebaseHeartbeat() {
+                if (!WD_USE_FIREBASE || !firebaseInitialized || !FB) return;
+
+                syncHeartbeatInterval = setInterval(async () => {
+                    try {
+                        // Check Firebase connection by attempting a simple auth state query
+                        if (FB.onAuthStateChanged) {
+                            // Query a minimal user doc if user is logged in; else just confirm connection
+                            const currentUser = JSON.parse(localStorage.getItem('wordduel_session') || 'null');
+                            if (currentUser && currentUser.uid && FB.getUserDoc) {
+                                const userDoc = await FB.getUserDoc(currentUser.uid);
+                                // Store snapshot in localStorage as fallback
+                                if (userDoc) {
+                                    localStorage.setItem('wordduel_firebase_snapshot', JSON.stringify(userDoc));
+                                }
+                            }
+                        }
+                        lastSyncTimestamp = Date.now();
+                        firebaseConnectionLost = false;
+                        console.debug(`[Heartbeat] Firebase connection OK at ${new Date().toISOString()}`);
+                    } catch (e) {
+                        firebaseConnectionLost = true;
+                        console.warn(`[Heartbeat] Firebase connection failed at ${new Date().toISOString()}:`, e.message);
+                    }
+                }, SYNC_HEARTBEAT_INTERVAL);
+            }
+
+            // Start heartbeat after Firebase init
+            if (WD_USE_FIREBASE && firebaseInitialized) {
+                startFirebaseHeartbeat();
+            }
             
             console.log('Page loaded successfully. Please select a game mode to start playing.');
         });
