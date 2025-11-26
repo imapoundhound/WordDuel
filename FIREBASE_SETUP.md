@@ -11,6 +11,29 @@ IMPORTANT: The scaffold in this repo is intended to help wire Firebase Auth and 
 - In the project overview, click "Add app" → Web.
 - Enter an app nickname and optionally enable Firebase Hosting if you want to host from Firebase.
 - After creating the app, you'll get a `firebaseConfig` object. Copy it.
+the ffollwoing is what was generated for the initialzation fo firebase. The remaining steps will be down below that 
+npm install firebase
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBVpa04XgKNnN4txudjKdPiZOOd6r_BzhM",
+  authDomain: "wordduel-demo.firebaseapp.com",
+  projectId: "wordduel-demo",
+  storageBucket: "wordduel-demo.firebasestorage.app",
+  messagingSenderId: "278714517048",
+  appId: "1:278714517048:web:a659e67842edc645ac88cd",
+  measurementId: "G-Y0D5TPZJ1G"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 3) Enable Authentication
 - From the left menu, choose "Authentication" → "Sign-in method".
