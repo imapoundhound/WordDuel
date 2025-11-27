@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WordDuel - Word Guessing Game</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+
+        body {         
+             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             margin: 0;
             padding: 20px;
@@ -1726,9 +1727,7 @@
         const SYNC_HEARTBEAT_INTERVAL = 30000; // Check Firebase every 30 seconds
         let lastSyncTimestamp = null;
         let firebaseConnectionLost = false;
-                <script>
 
-        </script>
         
 
 
@@ -4078,12 +4077,12 @@
                         <div class="dist-bar-item">
                             <span class="dist-number">${i}</span>
                             <div class="dist-bar">
-                                <div class="dist-bar-fill" style="height: ${barHeight}%"></div>
+                                <div class="dist-bar-fill" style="height: %{barHeight}%"></div>
                             </div>
                             <span class="dist-count">${count}</span>
                         </div>
-                    `;
-                }
+                    `;}
+                
                 
                 distributionBars.innerHTML = html;
             }
