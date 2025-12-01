@@ -21,6 +21,7 @@ export async function initFirebase(config) {
   return { firebaseApp, auth, db };
 }
 
+
 export async function registerWithEmail(email, password, displayName, phone = null) {
   if (!auth) throw new Error('Firebase not initialized (call initFirebase)');
   const { createUserWithEmailAndPassword, updateProfile } = await import('https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js');
