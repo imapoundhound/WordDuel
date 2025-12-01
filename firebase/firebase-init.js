@@ -21,7 +21,7 @@ export async function initFirebase(config) {
   return { firebaseApp, auth, db };
 }
 
-export async function registerWithEmail(email, password, displayName) {
+export async function registerWithEmail(email, password, displayName, phone = null) {
   if (!auth) throw new Error('Firebase not initialized (call initFirebase)');
   const { createUserWithEmailAndPassword, updateProfile } = await import('https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js');
   const { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js');
@@ -33,6 +33,7 @@ export async function registerWithEmail(email, password, displayName) {
   await setDoc(doc(db, 'users', userCred.user.uid), {
     email: userCred.user.email,
     displayName: displayName || null,
+    phone: phone || null,
     createdAt: new Date().toISOString(),
     stats: { bot: { totalGames: 0, gamesWon: 0, bestScore: null, totalAttempts: 0, distribution: {} } }
   });

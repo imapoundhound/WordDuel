@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>    const firebaseConfig = {
-  apiKey: "AIzaSyBVpa04XgKNnN4txudjKdPiZOOd6r_BzhM",
-  authDomain: "wordduel-demo.firebaseapp.com",
-  projectId: "wordduel-demo",
-  storageBucket: "wordduel-demo.firebasestorage.app",
-  messagingSenderId: "278714517048",
-  appId: "1:278714517048:web:a659e67842edc645ac88cd",
-  measurementId: "G-Y0D5TPZJ1G"
-};
-</script>
+    <script>
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVpa04XgKNnN4txudjKdPiZO0d6r_BzhM",
+            authDomain: "wordduel-demo.firebaseapp.com",
+            projectId: "wordduel-demo",
+            storageBucket: "wordduel-demo.firebasestorage.app",
+            messagingSenderId: "278714517048",
+            appId: "1:278714517048:web:a659e67842edc645ac88cd",
+            measurementId: "G-Y0D5TPZJ1G"
+        };
+        // Make config available globally for Firebase initialization
+        window.firebaseConfig = firebaseConfig;
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WordDuel - Word Guessing Game</title>
@@ -1502,10 +1506,9 @@
                 <input type="email" id="registerEmail" placeholder="Email" required>
                 <input type="password" id="registerPassword" placeholder="Password" required>
                 <input type="tel" id="registerPhone" placeholder="Phone Number" required>
-      
-                <button class="mode-btn admin-btn" onclick="openAdminPanel()">Admin Panel</button>
+                <button onclick="registerUser()" class="auth-btn">Register</button>
             </div>
-            <div style="text-align: center; margin: 20px 0;">
+            <div style="text-align: center; margin: 20px 0; display: none;" id="showStatsBtnContainer">
                 <button onclick="toggleStats()" id="showStatsBtn" style="padding: 10px 20px; background: #FF9800; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Show Statistics</button>
             </div>
         </div>
@@ -3457,6 +3460,10 @@
                     event.target.classList.add('active');
                 }
                 
+                // Hide Statistics and Admin panel buttons during auth
+                const statsContainer = document.getElementById('showStatsBtnContainer');
+                if (statsContainer) statsContainer.style.display = 'none';
+                
                 // Show/hide forms
                 if (tab === 'login') {
                     document.getElementById('loginForm').style.display = 'block';
@@ -3703,7 +3710,7 @@
                 // If Firebase is enabled, attempt to register there first
                 if (firebaseInitialized && FB) {
                     try {
-                        const fbUser = await FB.registerWithEmail(email, password, username);
+                        const fbUser = await FB.registerWithEmail(email, password, username, phone);
                         const userDoc = await FB.getUserDoc(fbUser.uid);
                         const appUser = FB.toAppUser(fbUser, userDoc);
                         saveSession({ uid: appUser.uid, email: appUser.email, username: appUser.displayName });
