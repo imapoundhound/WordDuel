@@ -1694,6 +1694,13 @@
 
     </div>
 
+    <!-- Load Firebase module -->
+    <script type="module">
+        // Load Firebase adapter module and make it available globally
+        import * as FirebaseModule from './firebase/firebase-init.js';
+        window.FirebaseModule = FirebaseModule;
+    </script>
+
     <script>
         // Game state variables
         let gameMode = 'bot';
@@ -1888,9 +1895,21 @@
                     return;
                 }
 
+                // Wait for Firebase module to load if it hasn't yet
+                let retries = 0;
+                while (!window.FirebaseModule && retries < 50) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    retries++;
+                }
+
+                if (!window.FirebaseModule) {
+                    console.error('Firebase module failed to load. Make sure firebase/firebase-init.js exists.');
+                    return;
+                }
+
                 try {
                     console.log('Attempting to initialize Firebase adapter...');
-                    FB = await import('./firebase/firebase-init.js');
+                    FB = window.FirebaseModule;
                     await FB.initFirebase(window.firebaseConfig);
                     firebaseInitialized = true;
                     console.log('Firebase initialized successfully.');
