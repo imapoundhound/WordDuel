@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.wordduel.app-mergeDebugResources-53:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Gradle\\gradle-8.5\\bin\\caches\\8.13\\transforms\\ef0cda5942c1a18a456321ef5ce52d15\\transformed\\material-1.13.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "54",
+                        "endOffsets": "105"
+                    }
+                }
+            ]
+        }
+    ]
+}
